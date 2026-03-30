@@ -1,0 +1,56 @@
+{
+  "lastUpdate": "2026-03-30T18:09:08.219085",
+  "shops": [
+    {
+      "id": "1",
+      "name": "木屋烧烤",
+      "area": "南山区",
+      "subArea": "科技园",
+      "rating": "4.8",
+      "price": "人均 60 元",
+      "recommendations": [
+        "烤羊肉串",
+        "烤茄子",
+        "蒜蓉生蚝"
+      ],
+      "source": "小红书",
+      "link": "https://www.xiaohongshu.com/...",
+      "image": "",
+      "collectedAt": "2026-03-30T18:09:08.218856"
+    },
+    {
+      "id": "2",
+      "name": "点都德",
+      "area": "福田区",
+      "subArea": "CBD",
+      "rating": "4.6",
+      "price": "人均 80 元",
+      "recommendations": [
+        "虾饺",
+        "红米肠",
+        "流沙包"
+      ],
+      "source": "小红书",
+      "link": "https://www.xiaohongshu.com/...",
+      "image": "",
+      "collectedAt": "2026-03-30T18:09:08.218895"
+    },
+    {
+      "id": "3",
+      "name": "探鱼",
+      "area": "南山区",
+      "subArea": "海岸城",
+      "rating": "4.5",
+      "price": "人均 70 元",
+      "recommendations": [
+        "清江鱼",
+        "烤牛蛙",
+        "红糖糍粑"
+      ],
+      "source": "小红书",
+      "link": "https://www.xiaohongshu.com/...",
+      "image": "",
+      "collectedAt": "2026-03-30T18:09:08.218901"
+    }
+  ]
+}
