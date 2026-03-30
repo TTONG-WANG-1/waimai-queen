@@ -4,47 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>外卖女王 👑 深圳外卖推荐</title>
-    
-    <!-- Google Fonts: Fredoka (headings) + Nunito (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --primary: #2563EB;
             --primary-light: #3B82F6;
             --cta: #F97316;
             --cta-hover: #EA580C;
-            --background: #F8FAFC;
-            --surface: #FFFFFF;
-            --text: #1E293B;
-            --text-light: #64748B;
             --shadow-lg: 0 8px 32px rgba(37, 99, 235, 0.2);
             --radius-lg: 16px;
             --radius-xl: 24px;
             --radius-full: 9999px;
         }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             font-family: 'Nunito', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
             padding: 20px;
-            color: var(--text);
+            color: #1E293B;
             line-height: 1.6;
         }
-        
         .container { max-width: 900px; margin: 0 auto; }
-        
         .header {
             text-align: center;
             margin-bottom: 48px;
-            position: relative;
         }
-        
         .header h1 {
             font-family: 'Fredoka', sans-serif;
             font-size: clamp(2.5em, 6vw, 4em);
@@ -55,62 +42,35 @@
             animation: bounce 2s ease-in-out infinite;
             display: inline-block;
         }
-        
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-        
         .header p {
             font-size: 1.2em;
             color: rgba(255,255,255,0.95);
             font-weight: 500;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
-        
         .card {
-            background: var(--surface);
+            background: white;
             border-radius: var(--radius-xl);
             padding: 32px;
             margin-bottom: 24px;
             box-shadow: var(--shadow-lg);
             border: 3px solid rgba(255,255,255,0.3);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
         }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--primary), var(--cta));
-        }
-        
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 64px rgba(37, 99, 235, 0.3);
-        }
-        
         .card-title {
             font-family: 'Fredoka', sans-serif;
             font-size: 1.5em;
             font-weight: 600;
-            color: var(--text);
             margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
-        
         .area-selector, .sub-area-selector {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 16px;
         }
-        
         .area-btn, .sub-area-btn {
             padding: 10px 20px;
             border: 3px solid var(--primary-light);
@@ -123,43 +83,33 @@
             font-size: 0.95em;
             font-weight: 500;
         }
-        
         .area-btn:hover, .sub-area-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
         }
-        
         .area-btn.active, .sub-area-btn.active {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            border-color: var(--primary);
         }
-        
         .sub-area-btn {
             border-color: var(--cta);
             color: var(--cta);
             font-size: 0.85em;
             padding: 8px 16px;
         }
-        
         .sub-area-btn.active {
             background: linear-gradient(135deg, var(--cta), var(--cta-hover));
             border-color: var(--cta);
         }
-        
         .shops-title {
             font-family: 'Fredoka', sans-serif;
             font-size: 1.5em;
             font-weight: 600;
-            color: var(--text);
             margin-bottom: 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
         }
-        
         .refresh-btn {
             padding: 10px 24px;
             background: linear-gradient(135deg, var(--cta), var(--cta-hover));
@@ -171,14 +121,10 @@
             font-size: 0.95em;
             font-weight: 600;
             transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
         }
-        
         .refresh-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
         }
-        
         .shop-item {
             border: 3px solid #f0f0f0;
             border-radius: var(--radius-lg);
@@ -187,121 +133,78 @@
             transition: all 0.3s;
             background: white;
         }
-        
         .shop-item:hover {
             border-color: var(--primary-light);
             transform: translateX(8px);
             box-shadow: var(--shadow-lg);
         }
-        
         .shop-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
             margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 8px;
         }
-        
         .shop-name {
             font-family: 'Fredoka', sans-serif;
             font-size: 1.3em;
-            color: var(--text);
             font-weight: 600;
         }
-        
         .shop-rating {
-            display: flex;
-            align-items: center;
-            gap: 4px;
             padding: 6px 12px;
             background: linear-gradient(135deg, #FFD700, #FFA500);
             border-radius: var(--radius-full);
-            font-size: 0.9em;
             font-weight: 700;
             color: white;
-            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
         }
-        
         .shop-info {
             display: flex;
             gap: 16px;
             margin-bottom: 16px;
-            font-size: 0.95em;
-            color: var(--text-light);
             flex-wrap: wrap;
         }
-        
         .info-tag {
-            display: flex;
-            align-items: center;
-            gap: 4px;
             padding: 4px 12px;
             background: #f0f4ff;
             border-radius: var(--radius-full);
             font-weight: 500;
         }
-        
         .shop-recommend {
             background: linear-gradient(135deg, #fff5f0, #fff);
             padding: 16px;
             border-radius: 12px;
             border-left: 4px solid var(--cta);
-            font-size: 0.95em;
-            color: var(--text);
             margin-bottom: 16px;
         }
-        
         .shop-source {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
         }
-        
         .source-badge {
             padding: 6px 14px;
             background: linear-gradient(135deg, #ff2442, #ff0040);
             color: white;
             border-radius: var(--radius-full);
-            font-size: 0.85em;
             font-weight: 600;
         }
-        
         .shop-link {
             color: var(--primary);
             text-decoration: none;
-            font-size: 0.95em;
             font-weight: 600;
             padding: 8px 16px;
             border: 2px solid var(--primary);
             border-radius: var(--radius-full);
             transition: all 0.3s;
         }
-        
         .shop-link:hover {
             background: var(--primary);
             color: white;
         }
-        
         .loading, .empty-state {
             text-align: center;
             padding: 48px;
-            color: var(--text-light);
         }
-        
-        .loading {
-            color: var(--primary);
-            font-family: 'Fredoka', sans-serif;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
+        .loading { color: var(--primary); }
         .footer {
             text-align: center;
             color: white;
@@ -309,27 +212,11 @@
             padding: 24px;
             background: rgba(255,255,255,0.15);
             border-radius: var(--radius-xl);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
         }
-        
         @media (max-width: 600px) {
             body { padding: 12px; }
             .header h1 { font-size: 2em; }
             .card { padding: 20px; }
-            .area-btn, .sub-area-btn { font-size: 0.85em; padding: 8px 14px; }
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-        
-        *:focus-visible {
-            outline: 3px solid var(--cta);
-            outline-offset: 2px;
         }
     </style>
 </head>
@@ -361,7 +248,7 @@
             <p>更新时间：<span id="updateTime">-</span></p>
         </div>
     </div>
-    
+
     <script>
         const areas = {
             "南山区": ["科技园", "海岸城", "深圳湾", "前海", "西丽", "南油", "蛇口"],
@@ -375,11 +262,12 @@
         let currentArea = '南山区';
         let currentSubArea = '科技园';
         
+        // 初始化区域选择器
         function initAreaSelector() {
             const areaSelector = document.getElementById('areaSelector');
             Object.keys(areas).forEach(area => {
                 const btn = document.createElement('button');
-                btn.className = `area-btn ${area === currentArea ? 'active' : ''}`;
+                btn.className = 'area-btn' + (area === currentArea ? ' active' : '');
                 btn.textContent = area;
                 btn.onclick = () => selectArea(area);
                 areaSelector.appendChild(btn);
@@ -387,6 +275,7 @@
             updateSubAreas();
         }
         
+        // 选择主区域
         function selectArea(area) {
             currentArea = area;
             currentSubArea = areas[area][0];
@@ -397,18 +286,20 @@
             loadShops();
         }
         
+        // 更新子区域
         function updateSubAreas() {
             const subAreaSelector = document.getElementById('subAreaSelector');
             subAreaSelector.innerHTML = '';
             areas[currentArea].forEach(sub => {
                 const btn = document.createElement('button');
-                btn.className = `sub-area-btn ${sub === currentSubArea ? 'active' : ''}`;
+                btn.className = 'sub-area-btn' + (sub === currentSubArea ? ' active' : '');
                 btn.textContent = sub;
                 btn.onclick = () => selectSubArea(sub);
                 subAreaSelector.appendChild(btn);
             });
         }
         
+        // 选择子区域
         function selectSubArea(sub) {
             currentSubArea = sub;
             document.querySelectorAll('.sub-area-btn').forEach(btn => {
@@ -417,6 +308,7 @@
             loadShops();
         }
         
+        // 加载店铺数据
         async function loadShops() {
             const shopsList = document.getElementById('shopsList');
             shopsList.innerHTML = '<div class="loading">🍜 正在寻找美食...</div>';
@@ -424,6 +316,8 @@
             try {
                 const response = await fetch('data/shops.json');
                 const data = await response.json();
+                
+                // 过滤当前区域的店铺
                 const filteredShops = data.shops.filter(shop => 
                     shop.area === currentArea && shop.subArea === currentSubArea
                 );
@@ -438,14 +332,15 @@
                     return;
                 }
                 
+                // 渲染店铺列表
                 shopsList.innerHTML = filteredShops.map(shop => `
                     <div class="shop-item">
                         <div class="shop-header">
                             <div class="shop-name">${shop.name}</div>
-                            <div class="shop-rating">⭐ ${shop.rating || '暂无'}</div>
+                            <div class="shop-rating">⭐ ${shop.rating}</div>
                         </div>
                         <div class="shop-info">
-                            <span class="info-tag">💰 ${shop.price || '未知'}</span>
+                            <span class="info-tag">💰 ${shop.price}</span>
                             <span class="info-tag">📍 ${shop.area}·${shop.subArea}</span>
                         </div>
                         <div class="shop-recommend">
@@ -467,10 +362,11 @@
                         <p>请稍后再试</p>
                     </div>
                 `;
-                console.error('Error loading shops:', error);
+                console.error('Error:', error);
             }
         }
         
+        // 页面加载时初始化
         initAreaSelector();
         loadShops();
     </script>
