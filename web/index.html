@@ -4,247 +4,332 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>外卖女王 👑 深圳外卖推荐</title>
+    
+    <!-- Google Fonts: Fredoka (headings) + Nunito (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #2563EB;
+            --primary-light: #3B82F6;
+            --cta: #F97316;
+            --cta-hover: #EA580C;
+            --background: #F8FAFC;
+            --surface: #FFFFFF;
+            --text: #1E293B;
+            --text-light: #64748B;
+            --shadow-lg: 0 8px 32px rgba(37, 99, 235, 0.2);
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
         }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
             padding: 20px;
+            color: var(--text);
+            line-height: 1.6;
         }
         
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+        .container { max-width: 900px; margin: 0 auto; }
         
         .header {
             text-align: center;
-            color: white;
-            margin-bottom: 30px;
+            margin-bottom: 48px;
+            position: relative;
         }
         
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(2.5em, 6vw, 4em);
+            font-weight: 700;
+            color: white;
+            text-shadow: 4px 4px 0px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.3);
+            margin-bottom: 8px;
+            animation: bounce 2s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         .header p {
-            opacity: 0.9;
-            font-size: 1.1em;
-        }
-        
-        .location-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .location-title {
             font-size: 1.2em;
-            color: #333;
-            margin-bottom: 15px;
+            color: rgba(255,255,255,0.95);
+            font-weight: 500;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 3px solid rgba(255,255,255,0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--cta));
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 64px rgba(37, 99, 235, 0.3);
+        }
+        
+        .card-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         
-        .area-selector {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .area-btn {
-            padding: 8px 16px;
-            border: 2px solid #667eea;
-            border-radius: 20px;
-            background: white;
-            color: #667eea;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.95em;
-        }
-        
-        .area-btn:hover, .area-btn.active {
-            background: #667eea;
-            color: white;
-        }
-        
-        .sub-area-selector {
+        .area-selector, .sub-area-selector {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .area-btn, .sub-area-btn {
+            padding: 10px 20px;
+            border: 3px solid var(--primary-light);
+            border-radius: var(--radius-full);
+            background: white;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+        
+        .area-btn:hover, .sub-area-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+        }
+        
+        .area-btn.active, .sub-area-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-color: var(--primary);
         }
         
         .sub-area-btn {
-            padding: 6px 12px;
-            border: 1px solid #ddd;
-            border-radius: 15px;
-            background: #f8f9fa;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9em;
+            border-color: var(--cta);
+            color: var(--cta);
+            font-size: 0.85em;
+            padding: 8px 16px;
         }
         
-        .sub-area-btn:hover, .sub-area-btn.active {
-            background: #764ba2;
-            color: white;
-            border-color: #764ba2;
-        }
-        
-        .shops-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .sub-area-btn.active {
+            background: linear-gradient(135deg, var(--cta), var(--cta-hover));
+            border-color: var(--cta);
         }
         
         .shops-title {
-            font-size: 1.3em;
-            color: #333;
-            margin-bottom: 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         
         .refresh-btn {
-            padding: 8px 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--cta), var(--cta-hover));
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: var(--radius-full);
             cursor: pointer;
-            font-size: 0.9em;
-            transition: transform 0.3s;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
         }
         
         .refresh-btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
         }
         
         .shop-item {
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
+            border: 3px solid #f0f0f0;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 16px;
             transition: all 0.3s;
+            background: white;
         }
         
         .shop-item:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
+            border-color: var(--primary-light);
+            transform: translateX(8px);
+            box-shadow: var(--shadow-lg);
         }
         
         .shop-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         
         .shop-name {
-            font-size: 1.2em;
-            color: #333;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3em;
+            color: var(--text);
             font-weight: 600;
         }
         
         .shop-rating {
             display: flex;
             align-items: center;
-            gap: 5px;
-            padding: 4px 10px;
-            background: #fff3cd;
-            border-radius: 6px;
+            gap: 4px;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: var(--radius-full);
             font-size: 0.9em;
-            color: #856404;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
         }
         
         .shop-info {
             display: flex;
-            gap: 15px;
-            margin-bottom: 10px;
-            font-size: 0.9em;
-            color: #666;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 0.95em;
+            color: var(--text-light);
+            flex-wrap: wrap;
         }
         
         .info-tag {
             display: flex;
             align-items: center;
             gap: 4px;
+            padding: 4px 12px;
+            background: #f0f4ff;
+            border-radius: var(--radius-full);
+            font-weight: 500;
         }
         
         .shop-recommend {
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            color: #555;
-            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff5f0, #fff);
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid var(--cta);
+            font-size: 0.95em;
+            color: var(--text);
+            margin-bottom: 16px;
         }
         
         .shop-source {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         
         .source-badge {
-            padding: 4px 10px;
-            background: #ff2442;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #ff2442, #ff0040);
             color: white;
-            border-radius: 4px;
-            font-size: 0.8em;
+            border-radius: var(--radius-full);
+            font-size: 0.85em;
+            font-weight: 600;
         }
         
         .shop-link {
-            color: #667eea;
+            color: var(--primary);
             text-decoration: none;
-            font-size: 0.9em;
+            font-size: 0.95em;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-full);
+            transition: all 0.3s;
         }
         
         .shop-link:hover {
-            text-decoration: underline;
+            background: var(--primary);
+            color: white;
         }
         
-        .empty-state {
+        .loading, .empty-state {
             text-align: center;
-            padding: 40px;
-            color: #999;
+            padding: 48px;
+            color: var(--text-light);
         }
         
         .loading {
-            text-align: center;
-            padding: 30px;
-            color: #667eea;
+            color: var(--primary);
+            font-family: 'Fredoka', sans-serif;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         
         .footer {
             text-align: center;
             color: white;
-            margin-top: 30px;
-            opacity: 0.8;
-            font-size: 0.9em;
+            margin-top: 48px;
+            padding: 24px;
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
         }
         
         @media (max-width: 600px) {
-            .header h1 {
-                font-size: 1.8em;
+            body { padding: 12px; }
+            .header h1 { font-size: 2em; }
+            .card { padding: 20px; }
+            .area-btn, .sub-area-btn { font-size: 0.85em; padding: 8px 14px; }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
             }
-            
-            .area-btn, .sub-area-btn {
-                font-size: 0.85em;
-                padding: 6px 12px;
-            }
+        }
+        
+        *:focus-visible {
+            outline: 3px solid var(--cta);
+            outline-offset: 2px;
         }
     </style>
 </head>
@@ -255,25 +340,19 @@
             <p>深圳外卖推荐助手 · 每天更新</p>
         </div>
         
-        <div class="location-card">
-            <div class="location-title">
-                📍 选择您的位置
-            </div>
-            <div class="area-selector" id="areaSelector">
-                <!-- 区域按钮 -->
-            </div>
-            <div class="sub-area-selector" id="subAreaSelector">
-                <!-- 子区域按钮 -->
-            </div>
+        <div class="card">
+            <div class="card-title">📍 选择您的位置</div>
+            <div class="area-selector" id="areaSelector"></div>
+            <div class="sub-area-selector" id="subAreaSelector"></div>
         </div>
         
-        <div class="shops-card">
+        <div class="card">
             <div class="shops-title">
                 <span>🍱 今日推荐</span>
                 <button class="refresh-btn" onclick="loadShops()">🔄 刷新</button>
             </div>
             <div id="shopsList">
-                <div class="loading">加载中...</div>
+                <div class="loading">🍜 正在寻找美食...</div>
             </div>
         </div>
         
@@ -284,7 +363,6 @@
     </div>
     
     <script>
-        // 区域数据
         const areas = {
             "南山区": ["科技园", "海岸城", "深圳湾", "前海", "西丽", "南油", "蛇口"],
             "福田区": ["CBD", "车公庙", "华强北", "香蜜湖", "岗厦", "梅林"],
@@ -297,12 +375,8 @@
         let currentArea = '南山区';
         let currentSubArea = '科技园';
         
-        // 初始化区域选择器
         function initAreaSelector() {
             const areaSelector = document.getElementById('areaSelector');
-            const subAreaSelector = document.getElementById('subAreaSelector');
-            
-            // 主区域
             Object.keys(areas).forEach(area => {
                 const btn = document.createElement('button');
                 btn.className = `area-btn ${area === currentArea ? 'active' : ''}`;
@@ -310,19 +384,15 @@
                 btn.onclick = () => selectArea(area);
                 areaSelector.appendChild(btn);
             });
-            
-            // 子区域
             updateSubAreas();
         }
         
         function selectArea(area) {
             currentArea = area;
             currentSubArea = areas[area][0];
-            
             document.querySelectorAll('.area-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.textContent === area);
             });
-            
             updateSubAreas();
             loadShops();
         }
@@ -330,7 +400,6 @@
         function updateSubAreas() {
             const subAreaSelector = document.getElementById('subAreaSelector');
             subAreaSelector.innerHTML = '';
-            
             areas[currentArea].forEach(sub => {
                 const btn = document.createElement('button');
                 btn.className = `sub-area-btn ${sub === currentSubArea ? 'active' : ''}`;
@@ -342,15 +411,12 @@
         
         function selectSubArea(sub) {
             currentSubArea = sub;
-            
             document.querySelectorAll('.sub-area-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.textContent === sub);
             });
-            
             loadShops();
         }
         
-        // 加载店铺数据
         async function loadShops() {
             const shopsList = document.getElementById('shopsList');
             shopsList.innerHTML = '<div class="loading">🍜 正在寻找美食...</div>';
@@ -358,8 +424,6 @@
             try {
                 const response = await fetch('data/shops.json');
                 const data = await response.json();
-                
-                // 过滤当前区域的店铺
                 const filteredShops = data.shops.filter(shop => 
                     shop.area === currentArea && shop.subArea === currentSubArea
                 );
@@ -407,7 +471,6 @@
             }
         }
         
-        // 初始化
         initAreaSelector();
         loadShops();
     </script>
