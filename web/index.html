@@ -454,51 +454,94 @@
                     return;
                 }
                 
+                // 计算距离并筛选
                 let shops=shopData.shops.map(s=>({
                     ...s,
                     dist:calcDist(station.lat,station.lng,s.lat,s.lng)
-                })).filter(s=>s.dist<=currRange).sort((a,b)=>a.dist-b.dist);
+                }));
                 
-                if(shops.length===0){
+                // 优先筛选范围内的店铺
+                let inRange=shops.filter(s=>s.dist<=currRange);
+                let outRange=shops.filter(s=>s.dist>currRange);
+                
+                // 综合评分排序（评分*0.6 + 距离分*0.4）
+                function calcScore(shop){
+                    const ratingScore=parseFloat(shop.rating)*20; // 5 分制转 100 分
+                    const distScore=Math.max(0,100-shop.dist*20); // 距离越近分越高
+                    return ratingScore*0.6+distScore*0.4;
+                }
+                
+                inRange.sort((a,b)=>calcScore(b)-calcScore(a));
+                outRange.sort((a,b)=>calcScore(b)-calcScore(a));
+                
+                // 优先显示范围内的，不足则补充范围外的优质店铺
+                let display=[...inRange,...outRange].slice(0,15);
+                
+                if(display.length===0){
                     el.innerHTML='<div class="empty">😋 该区域暂无推荐，换个位置试试～</div>';
                     return;
                 }
                 
-                if(shownIds.length>=shops.length)shownIds=[];
-                const available=shops.filter(s=>!shownIds.includes(s.id));
-                const toShow=available.length>0?available:shops;
-                const display=toShow.slice(0,10);
-                
-                if(display.length===0){
-                    el.innerHTML='<div class="empty">😋 暂无更多推荐</div>';
-                    return;
+                // 智能换一批：优先展示未显示的
+                if(shownIds.length>=display.length){
+                    shownIds=[];
                 }
                 
-                shownIds.push(...display.map(s=>s.id));
+                const available=display.filter(s=>!shownIds.includes(s.id));
+                const toShow=available.length>=10?available:display;
+                const result=toShow.slice(0,12); // 每次显示 12 家
                 
-                el.innerHTML=display.map(s=>
-                    '<div class="shop-item">'+
-                        '<div class="shop-header">'+
-                            '<div class="shop-name">'+s.name+'</div>'+
-                            '<div class="shop-rating">⭐'+s.rating+'</div>'+
-                        '</div>'+
-                        '<div class="shop-info">'+
-                            '<span class="tag">💰'+s.price+'</span>'+
-                            '<span class="tag">📍'+s.area+'·'+s.subArea+'</span>'+
-                            '<span class="tag distance">📏'+s.dist.toFixed(1)+'km</span>'+
-                        '</div>'+
-                        '<div class="recommend">'+
-                            '<strong>🌟 推荐：</strong>'+s.recs.join('、')+
-                        '</div>'+
-                        '<div class="source">'+
-                            '<span class="badge'+(s.source==='大众点评'?' dianping':'')+'">'+s.source+'</span>'+
-                            '<a href="https://www.google.com/search?q='+encodeURIComponent(s.name+' 外卖')+'&btnI=1" target="_blank" class="shop-link">查看→</a>'+
-                        '</div>'+
-                    '</div>'
-                ).join('');
+                shownIds.push(...result.map(s=>s.id));
                 
+                // 分组显示：按距离分 3 组
+                const veryNear=result.filter(s=>s.dist<=1);
+                const near=result.filter(s=>s.dist>1&&s.dist<=3);
+                const far=result.filter(s=>s.dist>3);
+                
+                let html='';
+                
+                if(veryNear.length>0){
+                    html+='<div style="margin-bottom:16px"><div style="font-size:1.1em;font-weight:700;color:var(--primary-dark);margin-bottom:8px">🚶 步行可达（<1km）</div>';
+                    html+=veryNear.map(s=>renderShop(s)).join('');
+                    html+='</div>';
+                }
+                
+                if(near.length>0){
+                    html+='<div style="margin-bottom:16px"><div style="font-size:1.1em;font-weight:700;color:var(--primary-dark);margin-bottom:8px">🚴 骑行可达（1-3km）</div>';
+                    html+=near.map(s=>renderShop(s)).join('');
+                    html+='</div>';
+                }
+                
+                if(far.length>0){
+                    html+='<div style="margin-bottom:16px"><div style="font-size:1.1em;font-weight:700;color:var(--primary-dark);margin-bottom:8px">🚗 稍远但值得（>3km）</div>';
+                    html+=far.map(s=>renderShop(s)).join('');
+                    html+='</div>';
+                }
+                
+                el.innerHTML=html;
                 document.getElementById('updTime').textContent=new Date(shopData.lastUpdate).toLocaleString('zh-CN');
             },100);
+        }
+        
+        function renderShop(s){
+            return '<div class="shop-item">'+
+                '<div class="shop-header">'+
+                    '<div class="shop-name">'+s.name+'</div>'+
+                    '<div class="shop-rating">⭐'+s.rating+'</div>'+
+                '</div>'+
+                '<div class="shop-info">'+
+                    '<span class="tag">💰'+s.price+'</span>'+
+                    '<span class="tag">📍'+s.area+'·'+s.subArea+'</span>'+
+                    '<span class="tag distance">📏'+s.dist.toFixed(1)+'km</span>'+
+                '</div>'+
+                '<div class="recommend">'+
+                    '<strong>🌟 推荐：</strong>'+s.recs.join('、')+
+                '</div>'+
+                '<div class="source">'+
+                    '<span class="badge'+(s.source==='大众点评'?' dianping':'')+'">'+s.source+'</span>'+
+                    '<a href="https://www.google.com/search?q='+encodeURIComponent(s.name+' 外卖')+'&btnI=1" target="_blank" class="shop-link">查看→</a>'+
+                '</div>'+
+            '</div>';
         }
         
         init();
