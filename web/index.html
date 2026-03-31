@@ -105,7 +105,30 @@
             <div id="shops"></div>
         </div>
         
-        <div class="footer">
+        
+        <!-- 编辑模态框 -->
+        <div id="editModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;justify-content:center;align-items:center">
+            <div style="background:white;border-radius:16px;padding:24px;max-width:600px;width:90%;max-height:90vh;overflow-y:auto">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #FDE68A">
+                    <h2 style="color:#F59E0B;margin:0">✏️ 编辑店铺</h2>
+                    <button onclick="closeEditModal()" style="background:none;border:none;font-size:1.5em;cursor:pointer;color:#6B7280">&times;</button>
+                </div>
+                <form id="editShopForm" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                    <input type="hidden" id="editShopId">
+                    <div style="grid-column:span 2"><label style="font-weight:700;display:block;margin-bottom:6px">店铺名称 *</label><input type="text" id="editName" required style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px;font-size:1em"></div>
+                    <div><label style="font-weight:700;display:block;margin-bottom:6px">区域 *</label><select id="editArea" required style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px"><option value="南山">南山区</option><option value="福田">福田区</option><option value="宝安">宝安区</option><option value="罗湖">罗湖区</option><option value="龙华">龙华区</option><option value="龙岗">龙岗区</option></select></div>
+                    <div><label style="font-weight:700;display:block;margin-bottom:6px">位置</label><input type="text" id="editSubArea" style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px"></div>
+                    <div><label style="font-weight:700;display:block;margin-bottom:6px">价格</label><input type="text" id="editPrice" style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px"></div>
+                    <div><label style="font-weight:700;display:block;margin-bottom:6px">评分</label><select id="editRating" style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px"><option value="4.5">4.5⭐</option><option value="4.6">4.6⭐</option><option value="4.7">4.7⭐</option><option value="4.8">4.8⭐</option><option value="4.9">4.9⭐</option><option value="5.0">5.0⭐</option></select></div>
+                    <div style="grid-column:span 2"><label style="font-weight:700;display:block;margin-bottom:6px">推荐菜 *</label><textarea id="editRecs" required style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px;min-height:60px;font-size:1em;font-family:inherit"></textarea></div>
+                    <div><label style="font-weight:700;display:block;margin-bottom:6px">来源</label><select id="editSource" style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px"><option value="小红书">小红书</option><option value="大众点评">大众点评</option><option value="朋友推荐">朋友推荐</option><option value="自己吃过">自己吃过</option></select></div>
+                    <div><label style="font-weight:700;display:block;margin-bottom:6px">来源链接</label><input type="url" id="editLink" style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px"></div>
+                    <button type="submit" style="grid-column:span 2;padding:12px;background:linear-gradient(135deg,#FBBF24,#F59E0B);color:white;border:none;border-radius:12px;cursor:pointer;font-size:1em;font-weight:700">💾 保存修改</button>
+                </form>
+            </div>
+        </div>
+
+<div class="footer">
             <p>📊 数据来源：小红书 | 大众点评 | 用户贡献</p>
             <p>🕐 更新：<span id="updTime">-</span></p>
             <p style="margin-top:8px"><a href="edit.html" style="color:var(--primary-dark);text-decoration:none;font-weight:700">✏️ 自主编辑</a> | <a href="update.html" style="color:var(--primary-dark);text-decoration:none;font-weight:700">📝 更新日志</a> | <a href="https://github.com/TTONG-WANG-1/waimai-queen" target="_blank" style="color:var(--primary-dark);text-decoration:none;font-weight:700">GitHub</a></p>
@@ -266,10 +289,57 @@
             const xhs=s.source==='小红书'?`<span class="tag xhs">❤️ 小红书</span>`:'';
             const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).filter(t=>t!=='🆕 新店').map(t=>`<span class="tag">🏷️ ${t}</span>`).join(''):'';
             const dist=s.dist?`<span class="tag distance">📏 ${s.dist.toFixed(1)}km</span>`:'';
+            const userBadge=s.isUser?`<span class="tag" style="background:#10B981;color:white;border:none">🙋 我推荐的</span>`:'';
+            const editBtns=s.isUser?`<div style="display:flex;gap:8px;margin-top:10px"><button onclick="openEditModal('${s.id}')" style="flex:1;padding:8px;background:#FBBF24;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700">✏️ 编辑</button><button onclick="deleteShop('${s.id}')" style="flex:1;padding:8px;background:#EF4444;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700">🗑️ 删除</button></div>`:'';
             const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
             const linkText=s.source==='小红书'?'❤️ 小红书详情':s.source==='大众点评'?'💬 大众点评详情':'🔍 查看详情';
-            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${s.name}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
+            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${s.name}${userBadge}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div>${editBtns}</div>`;
         }
+        
+
+        // 编辑和删除功能
+        let editShopId=null;
+        function openEditModal(id){
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const shop=user.find(s=>s.id===id)||shopData.shops.find(s=>s.id===id);
+            if(!shop)return;
+            editShopId=id;
+            document.getElementById('editShopId').value=shop.id;
+            document.getElementById('editName').value=shop.name;
+            document.getElementById('editArea').value=shop.area;
+            document.getElementById('editSubArea').value=shop.subArea||'';
+            document.getElementById('editPrice').value=shop.price||'';
+            document.getElementById('editRating').value=shop.rating;
+            document.getElementById('editRecs').value=shop.recs.join(',');
+            document.getElementById('editSource').value=shop.source;
+            document.getElementById('editLink').value=shop.source_link||'';
+            document.getElementById('editModal').style.display='flex';
+        }
+        function closeEditModal(){document.getElementById('editModal').style.display='none';}
+        function deleteShop(id){
+            if(!confirm('确定要删除这家店铺吗？'))return;
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const filtered=user.filter(s=>s.id!==id);
+            localStorage.setItem('userShops',JSON.stringify(filtered));
+            location.reload();
+        }
+        document.getElementById('editShopForm').addEventListener('submit',e=>{
+            e.preventDefault();
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const shop=user.find(s=>s.id===editShopId);
+            if(!shop){alert('❌ 未找到店铺');return;}
+            shop.name=document.getElementById('editName').value;
+            shop.area=document.getElementById('editArea').value;
+            shop.subArea=document.getElementById('editSubArea').value;
+            shop.price=document.getElementById('editPrice').value;
+            shop.rating=document.getElementById('editRating').value;
+            shop.recs=document.getElementById('editRecs').value.split(/[,,]/);
+            shop.source=document.getElementById('editSource').value;
+            shop.source_link=document.getElementById('editLink').value;
+            localStorage.setItem('userShops',JSON.stringify(user));
+            closeEditModal();
+            location.reload();
+        });
         
         init();
     </script>
