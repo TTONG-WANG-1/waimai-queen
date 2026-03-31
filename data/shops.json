@@ -1,65 +1,485 @@
 {
-  "lastUpdate": "2026-03-30T18:30:00+08:00",
+  "lastUpdate": "2026-03-31T09:30:00+08:00",
   "shops": [
     {
       "id": "1",
       "name": "木屋烧烤",
-      "area": "南山区",
+      "lat": 22.55,
+      "lng": 113.98,
+      "area": "南山",
       "subArea": "科技园",
       "rating": "4.8",
-      "price": "人均 60 元",
-      "recommendations": ["烤羊肉串", "烤茄子", "蒜蓉生蚝"],
-      "source": "小红书",
-      "link": "https://www.xiaohongshu.com/",
-      "collectedAt": "2026-03-30T18:00:00"
+      "price": "60 元",
+      "cuisine": "烧烤",
+      "recs": [
+        "烤羊肉串",
+        "烤茄子"
+      ],
+      "source": "小红书"
     },
     {
       "id": "2",
-      "name": "点都德",
-      "area": "福田区",
-      "subArea": "CBD",
-      "rating": "4.6",
-      "price": "人均 80 元",
-      "recommendations": ["虾饺", "红米肠", "流沙包"],
-      "source": "小红书",
-      "link": "https://www.xiaohongshu.com/",
-      "collectedAt": "2026-03-30T18:00:00"
+      "name": "太二酸菜鱼",
+      "lat": 22.55,
+      "lng": 113.98,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.7",
+      "price": "75 元",
+      "cuisine": "川菜",
+      "recs": [
+        "酸菜鱼",
+        "红糖糍粑"
+      ],
+      "source": "小红书"
     },
     {
       "id": "3",
       "name": "探鱼",
-      "area": "南山区",
+      "lat": 22.54,
+      "lng": 114.0,
+      "area": "南山",
       "subArea": "海岸城",
       "rating": "4.5",
-      "price": "人均 70 元",
-      "recommendations": ["清江鱼", "烤牛蛙", "红糖糍粑"],
-      "source": "小红书",
-      "link": "https://www.xiaohongshu.com/",
-      "collectedAt": "2026-03-30T18:00:00"
+      "price": "70 元",
+      "cuisine": "烤鱼",
+      "recs": [
+        "清江鱼",
+        "烤牛蛙"
+      ],
+      "source": "小红书"
     },
     {
       "id": "4",
-      "name": "太二酸菜鱼",
-      "area": "南山区",
-      "subArea": "科技园",
-      "rating": "4.7",
-      "price": "人均 75 元",
-      "recommendations": ["酸菜鱼", "小吃拼盘", "五常米饭"],
-      "source": "小红书",
-      "link": "https://www.xiaohongshu.com/",
-      "collectedAt": "2026-03-30T18:00:00"
+      "name": "点都德",
+      "lat": 22.53,
+      "lng": 114.09,
+      "area": "福田",
+      "subArea": "CBD",
+      "rating": "4.6",
+      "price": "80 元",
+      "cuisine": "粤菜",
+      "recs": [
+        "虾饺",
+        "红米肠"
+      ],
+      "source": "小红书"
     },
     {
       "id": "5",
       "name": "陶陶居",
-      "area": "福田区",
+      "lat": 22.53,
+      "lng": 114.03,
+      "area": "福田",
       "subArea": "车公庙",
       "rating": "4.6",
-      "price": "人均 90 元",
-      "recommendations": ["酥皮水牛奶菠萝包", "大虾饺", "冰镇咕噜肉"],
-      "source": "小红书",
-      "link": "https://www.xiaohongshu.com/",
-      "collectedAt": "2026-03-30T18:00:00"
+      "price": "90 元",
+      "cuisine": "粤菜",
+      "recs": [
+        "菠萝包",
+        "大虾饺"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "6",
+      "name": "海底捞",
+      "lat": 22.55,
+      "lng": 113.99,
+      "area": "南山",
+      "subArea": "白石洲",
+      "rating": "4.7",
+      "price": "120 元",
+      "cuisine": "火锅",
+      "recs": [
+        "番茄锅",
+        "捞面"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "7",
+      "name": "西贝莜面村",
+      "lat": 22.54,
+      "lng": 114.01,
+      "area": "南山",
+      "subArea": "华侨城",
+      "rating": "4.5",
+      "price": "65 元",
+      "cuisine": "西北菜",
+      "recs": [
+        "莜面",
+        "羊肉串"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "8",
+      "name": "绿茶餐厅",
+      "lat": 22.53,
+      "lng": 114.02,
+      "area": "南山",
+      "subArea": "香蜜湖",
+      "rating": "4.4",
+      "price": "55 元",
+      "cuisine": "江浙菜",
+      "recs": [
+        "面包诱惑",
+        "烤鸡"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "9",
+      "name": "外婆家",
+      "lat": 22.53,
+      "lng": 114.08,
+      "area": "福田",
+      "subArea": "岗厦",
+      "rating": "4.4",
+      "price": "50 元",
+      "cuisine": "江浙菜",
+      "recs": [
+        "茶香鸡",
+        "麻婆豆腐"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "10",
+      "name": "九毛九",
+      "lat": 22.54,
+      "lng": 114.17,
+      "area": "福田",
+      "subArea": "华强北",
+      "rating": "4.3",
+      "price": "55 元",
+      "cuisine": "西北菜",
+      "recs": [
+        "酸菜鱼",
+        "莜面"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "11",
+      "name": "呷哺呷哺",
+      "lat": 22.55,
+      "lng": 113.88,
+      "area": "宝安",
+      "subArea": "西乡",
+      "rating": "4.2",
+      "price": "45 元",
+      "cuisine": "火锅",
+      "recs": [
+        "肥牛",
+        "蔬菜拼盘"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "12",
+      "name": "肯德基",
+      "lat": 22.56,
+      "lng": 113.89,
+      "area": "宝安",
+      "subArea": "坪洲",
+      "rating": "4.3",
+      "price": "35 元",
+      "cuisine": "快餐",
+      "recs": [
+        "香辣鸡腿堡",
+        "炸鸡"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "13",
+      "name": "麦当劳",
+      "lat": 22.55,
+      "lng": 113.91,
+      "area": "宝安",
+      "subArea": "宝安中心",
+      "rating": "4.3",
+      "price": "35 元",
+      "cuisine": "快餐",
+      "recs": [
+        "巨无霸",
+        "薯条"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "14",
+      "name": "喜茶",
+      "lat": 22.54,
+      "lng": 114.0,
+      "area": "南山",
+      "subArea": "世界之窗",
+      "rating": "4.6",
+      "price": "25 元",
+      "cuisine": "奶茶",
+      "recs": [
+        "多肉葡萄",
+        "芝士茶"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "15",
+      "name": "奈雪的茶",
+      "lat": 22.53,
+      "lng": 114.09,
+      "area": "福田",
+      "subArea": "会展中心",
+      "rating": "4.5",
+      "price": "28 元",
+      "cuisine": "奶茶",
+      "recs": [
+        "霸气橙子",
+        "软欧包"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "16",
+      "name": "老乡鸡",
+      "lat": 22.55,
+      "lng": 113.98,
+      "area": "南山",
+      "subArea": "高新园",
+      "rating": "4.4",
+      "price": "30 元",
+      "cuisine": "快餐",
+      "recs": [
+        "老母鸡汤",
+        "梅菜扣肉"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "17",
+      "name": "真功夫",
+      "lat": 22.54,
+      "lng": 113.97,
+      "area": "南山",
+      "subArea": "深大",
+      "rating": "4.2",
+      "price": "28 元",
+      "cuisine": "快餐",
+      "recs": [
+        "香菇滑鸡",
+        "蒸蛋"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "18",
+      "name": "永和大王",
+      "lat": 22.53,
+      "lng": 114.03,
+      "area": "南山",
+      "subArea": "车公庙",
+      "rating": "4.1",
+      "price": "25 元",
+      "cuisine": "快餐",
+      "recs": [
+        "豆浆",
+        "油条"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "19",
+      "name": "陈记顺和",
+      "lat": 22.55,
+      "lng": 113.99,
+      "area": "南山",
+      "subArea": "白石洲",
+      "rating": "4.5",
+      "price": "40 元",
+      "cuisine": "牛肉火锅",
+      "recs": [
+        "鲜牛肉",
+        "手打牛肉丸"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "20",
+      "name": "八合里",
+      "lat": 22.54,
+      "lng": 114.14,
+      "area": "福田",
+      "subArea": "老街",
+      "rating": "4.6",
+      "price": "85 元",
+      "cuisine": "牛肉火锅",
+      "recs": [
+        "吊龙",
+        "匙柄"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "21",
+      "name": "哥老官",
+      "lat": 22.55,
+      "lng": 113.98,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.5",
+      "price": "100 元",
+      "cuisine": "火锅",
+      "recs": [
+        "美蛙鱼头",
+        "红糖糍粑"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "22",
+      "name": "小龙坎",
+      "lat": 22.53,
+      "lng": 114.03,
+      "area": "南山",
+      "subArea": "车公庙",
+      "rating": "4.4",
+      "price": "90 元",
+      "cuisine": "火锅",
+      "recs": [
+        "毛肚",
+        "鸭肠"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "23",
+      "name": "大龙燚",
+      "lat": 22.54,
+      "lng": 114.0,
+      "area": "南山",
+      "subArea": "世界之窗",
+      "rating": "4.4",
+      "price": "95 元",
+      "cuisine": "火锅",
+      "recs": [
+        "黄喉",
+        "鹅肠"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "24",
+      "name": "蜀大侠",
+      "lat": 22.53,
+      "lng": 114.09,
+      "area": "福田",
+      "subArea": "CBD",
+      "rating": "4.3",
+      "price": "88 元",
+      "cuisine": "火锅",
+      "recs": [
+        "太极双滑",
+        "花千骨"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "25",
+      "name": "左庭右院",
+      "lat": 22.55,
+      "lng": 113.91,
+      "area": "宝安",
+      "subArea": "宝安中心",
+      "rating": "4.5",
+      "price": "95 元",
+      "cuisine": "牛肉火锅",
+      "recs": [
+        "鲜牛肉",
+        "牛骨汤"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "26",
+      "name": "蔡澜港式点心",
+      "lat": 22.54,
+      "lng": 114.0,
+      "area": "南山",
+      "subArea": "世界之窗",
+      "rating": "4.6",
+      "price": "70 元",
+      "cuisine": "粤菜",
+      "recs": [
+        "酥皮山楂叉烧包",
+        "赛螃蟹凤眼饺"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "27",
+      "name": "敏华冰厅",
+      "lat": 22.53,
+      "lng": 114.08,
+      "area": "福田",
+      "subArea": "岗厦",
+      "rating": "4.4",
+      "price": "55 元",
+      "cuisine": "港式",
+      "recs": [
+        "黯然销魂饭",
+        "酥皮菠萝油"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "28",
+      "name": "翠华餐厅",
+      "lat": 22.54,
+      "lng": 114.17,
+      "area": "福田",
+      "subArea": "华强北",
+      "rating": "4.3",
+      "price": "60 元",
+      "cuisine": "港式",
+      "recs": [
+        "咖喱牛腩",
+        "奶油猪"
+      ],
+      "source": "大众点评"
+    },
+    {
+      "id": "29",
+      "name": "一兰拉面",
+      "lat": 22.55,
+      "lng": 113.99,
+      "area": "南山",
+      "subArea": "白石洲",
+      "rating": "4.5",
+      "price": "50 元",
+      "cuisine": "日料",
+      "recs": [
+        "原味拉面",
+        "替玉"
+      ],
+      "source": "小红书"
+    },
+    {
+      "id": "30",
+      "name": "一风堂",
+      "lat": 22.54,
+      "lng": 114.01,
+      "area": "南山",
+      "subArea": "华侨城",
+      "rating": "4.4",
+      "price": "55 元",
+      "cuisine": "日料",
+      "recs": [
+        "白丸元味",
+        "赤丸新味"
+      ],
+      "source": "小红书"
     }
   ]
 }
