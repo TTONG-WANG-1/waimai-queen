@@ -284,7 +284,6 @@
         function renderShop(s){
             const isNew=s.tags&&s.tags.includes('🆕 新店')?`<span class="tag" style="background:#ff2442;color:white;border:none;animation:pulse 2s infinite;font-size:0.75em;padding:2px 6px">🆕 NEW</span>`:'';
             const dt=s.delivery?`<span class="tag" style="background:#dcfce7;color:#16a34a;font-size:0.75em;padding:2px 6px">🛵 ${s.delivery}</span>`:'';
-            const xhs=s.source==='小红书'?`<span class="tag xhs" style="font-size:0.75em;padding:2px 6px">❤️ 小红书</span>`:'';
             const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).filter(t=>t!=='🆕 新店').map(t=>`<span class="tag" style="font-size:0.75em;padding:2px 6px">🏷️ ${t}</span>`).join(''):'';
             const dist=s.dist?`<span class="tag distance" style="font-size:0.75em;padding:2px 6px">📏 ${s.dist.toFixed(1)}km</span>`:'';
             const userBadge=s.isUser?`<span class="tag" style="background:#10B981;color:white;border:none;font-size:0.75em;padding:2px 6px">🙋 我推荐的</span>`:'';
@@ -296,7 +295,7 @@
             // 图片区域：预留 4 个位置，有图片显示图片，无图片显示推荐文字
             const hasImage=s.image?true:false;
             const imageGrid=hasImage?`<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px"><img src="${s.image}" alt="${s.name}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showImage('${s.id}')"><div style="background:#f3f4f6;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:0.85em">更多图片</div><div style="background:#f3f4f6;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:0.85em">+</div><div style="background:#f3f4f6;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:0.85em">+</div></div>`:`<div class="recommend" style="margin-top:8px;padding:12px;background:#f9fafb;border-radius:8px"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div>`;
-            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header" style="display:flex;align-items:center;gap:6px"><div class="shop-name" style="flex:1">${checkbox}${s.name}${userBadge}</div><div class="shop-actions" style="display:flex;align-items:center">${addImageBtn}</div></div><div class="shop-info" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div>${imageGrid}<div class="source" style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid #f0f0f0"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><button onclick="openDetail('${s.id}')" style="padding:6px 16px;background:#FBBF24;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.9em">📖 详情</button></div></div>`;
+            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header" style="display:flex;align-items:center;gap:6px"><div class="shop-name" style="flex:1">${checkbox}${s.name}${userBadge}</div><div class="shop-actions" style="display:flex;align-items:center">${addImageBtn}</div></div><div class="shop-info" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${isNew}${tg}</div>${imageGrid}<div class="source" style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid #f0f0f0"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><button onclick="openDetail('${s.id}')" style="padding:6px 16px;background:#FBBF24;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.9em">📖 详情</button></div></div>`;
         }
         
         // 编辑和删除功能
@@ -310,14 +309,111 @@
             }
         }
         
-        // 添加图片功能
+        // 添加图片功能（首页直接上传）
+        let currentImageShopId=null;
         function addImage(id){
+            currentImageShopId=id;
             const user=JSON.parse(localStorage.getItem('userShops')||'[]');
             const shop=user.find(s=>s.id===id)||shopData.shops.find(s=>s.id===id);
             if(!shop){alert('❌ 未找到店铺');return;}
-            if(confirm(`📷 为"${shop.name}"添加图片\n\n点击确定跳转到编辑页面上传图片`)){
-                localStorage.setItem('editingShopId',id);
-                window.location.href='edit.html';
+            
+            // 创建隐藏的文件选择器
+            const input=document.createElement('input');
+            input.type='file';
+            input.accept='image/*';
+            input.onchange=async(e)=>{
+                const file=e.target.files[0];
+                if(!file)return;
+                
+                // 显示上传状态
+                const statusMsg=`⏳ 正在上传 "${shop.name}" 的图片...`;
+                console.log(statusMsg);
+                
+                // 压缩并上传
+                try{
+                    const compressed=await compressImage(file);
+                    const blob=await fetch(compressed).then(r=>r.blob());
+                    const imageUrl=await uploadToSmMs(new File([blob],'image.jpg',{type:'image/jpeg'}));
+                    
+                    if(imageUrl){
+                        // 保存图片 URL
+                        if(shop.isUser){
+                            // 用户店铺：更新 localStorage
+                            const userShops=JSON.parse(localStorage.getItem('userShops')||'[]');
+                            const idx=userShops.findIndex(s=>s.id===id);
+                            if(idx!==-1){
+                                userShops[idx].image=imageUrl;
+                                localStorage.setItem('userShops',JSON.stringify(userShops));
+                            }
+                        }else{
+                            // 官方店铺：创建用户覆盖版本
+                            const userShops=JSON.parse(localStorage.getItem('userShops')||'[]');
+                            const updatedShop={...shop,image:imageUrl,isUser:true};
+                            userShops.unshift(updatedShop);
+                            localStorage.setItem('userShops',JSON.stringify(userShops));
+                            
+                            // 保存到隐藏列表（避免重复显示）
+                            const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
+                            if(!hidden.includes(id)){
+                                hidden.push(id);
+                                localStorage.setItem('hiddenShops',JSON.stringify(hidden));
+                            }
+                        }
+                        
+                        alert(`✅ 图片上传成功！\n\n"${shop.name}" 已添加图片`);
+                        loadShops(); // 重新加载店铺列表
+                    }
+                }catch(err){
+                    console.error('图片上传失败:',err);
+                    alert('❌ 图片上传失败：'+err.message);
+                }
+            };
+            input.click();
+        }
+        
+        // 图片压缩函数
+        function compressImage(file,maxSize=200000){
+            return new Promise((resolve,reject)=>{
+                const reader=new FileReader();
+                reader.onload=e=>{
+                    const img=new Image();
+                    img.onload=()=>{
+                        const canvas=document.createElement('canvas');
+                        let w=img.width,h=img.height;
+                        const max=800;
+                        if(w>max||h>max){
+                            if(w>h){h=h*(max/w);w=max;}else{w=w*(max/h);h=max;}
+                        }
+                        canvas.width=w;
+                        canvas.height=h;
+                        canvas.getContext('2d').drawImage(img,0,0,w,h);
+                        let q=0.9,r=canvas.toDataURL('image/jpeg',q);
+                        while(r.length>maxSize&&q>0.5){q-=0.1;r=canvas.toDataURL('image/jpeg',q);}
+                        resolve(r);
+                    };
+                    img.onerror=reject;
+                    img.src=e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        // 上传到 sm.ms 图床
+        async function uploadToSmMs(file){
+            const fd=new FormData();
+            fd.append('smfile',file);
+            try{
+                const res=await fetch('https://sm.ms/api/v2/upload',{
+                    method:'POST',
+                    body:fd,
+                    headers:{'User-Agent':'WaimaiQueen/1.0'}
+                });
+                const data=await res.json();
+                if(data.success)return data.data.url;
+                throw new Error(data.message||'上传失败');
+            }catch(e){
+                console.error('上传失败:',e);
+                throw e;
             }
         }
         
