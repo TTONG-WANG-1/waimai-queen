@@ -282,22 +282,22 @@
         }
         
         function renderShop(s){
-            const isNew=s.tags&&s.tags.includes('🆕 新店')?`<span class="tag" style="background:#ff2442;color:white;border:none;animation:pulse 2s infinite">🆕 NEW</span>`:'';
-            const dt=s.delivery?`<span class="tag" style="background:#dcfce7;color:#16a34a">🛵 ${s.delivery}</span>`:'';
-            const xhs=s.source==='小红书'?`<span class="tag xhs">❤️ 小红书</span>`:'';
-            const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).filter(t=>t!=='🆕 新店').map(t=>`<span class="tag">🏷️ ${t}</span>`).join(''):'';
-            const dist=s.dist?`<span class="tag distance">📏 ${s.dist.toFixed(1)}km</span>`:'';
-            const userBadge=s.isUser?`<span class="tag" style="background:#10B981;color:white;border:none">🙋 我推荐的</span>`:'';
+            const isNew=s.tags&&s.tags.includes('🆕 新店')?`<span class="tag" style="background:#ff2442;color:white;border:none;animation:pulse 2s infinite;font-size:0.75em;padding:2px 6px">🆕 NEW</span>`:'';
+            const dt=s.delivery?`<span class="tag" style="background:#dcfce7;color:#16a34a;font-size:0.75em;padding:2px 6px">🛵 ${s.delivery}</span>`:'';
+            const xhs=s.source==='小红书'?`<span class="tag xhs" style="font-size:0.75em;padding:2px 6px">❤️ 小红书</span>`:'';
+            const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).filter(t=>t!=='🆕 新店').map(t=>`<span class="tag" style="font-size:0.75em;padding:2px 6px">🏷️ ${t}</span>`).join(''):'';
+            const dist=s.dist?`<span class="tag distance" style="font-size:0.75em;padding:2px 6px">📏 ${s.dist.toFixed(1)}km</span>`:'';
+            const userBadge=s.isUser?`<span class="tag" style="background:#10B981;color:white;border:none;font-size:0.75em;padding:2px 6px">🙋 我推荐的</span>`:'';
             // 图片预览图标（右侧尾端）
             const hasImage=s.image?true:false;
-            const imageIcon=hasImage?`<button onclick="showImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.3em;margin-left:8px" title="查看图片">🖼️</button>`:'';
+            const imageIcon=hasImage?`<button onclick="showImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.2em;margin-left:6px" title="查看图片">🖼️</button>`:'';
             // 编辑按钮放在评分左边
-            const editBtn=`<button onclick="openEdit('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.2em;margin-right:6px" title="编辑">✏️</button>`;
+            const editBtn=`<button onclick="openEdit('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.1em;margin-right:6px" title="编辑">✏️</button>`;
             // 批量删除勾选框
-            const checkbox=`<input type="checkbox" class="batch-select" data-id="${s.id}" style="width:18px;height:18px;cursor:pointer;margin-right:8px" title="选择删除">`;
+            const checkbox=`<input type="checkbox" class="batch-select" data-id="${s.id}" style="width:16px;height:16px;cursor:pointer;margin-right:6px" title="选择删除">`;
             const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
             const linkText=s.source==='小红书'?'❤️ 小红书详情':s.source==='大众点评'?'💬 大众点评详情':'🔍 查看详情';
-            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${checkbox}${s.name}${userBadge}</div><div class="shop-rating">${editBtn}⭐${s.rating}${imageIcon}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
+            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${checkbox}${s.name}${userBadge}</div><div class="shop-rating">${editBtn}⭐${s.rating}${imageIcon}</div></div><div class="shop-info"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
         }
         
         // 编辑和删除功能
