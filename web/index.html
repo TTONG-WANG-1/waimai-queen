@@ -64,7 +64,7 @@
         
         async function init(){
             try{
-                const[mRes,sRes]=await Promise.all([fetch('data/metro.json'),fetch('data/shops.json')]);
+                const[mRes,sRes]=await Promise.all([fetch('./data/metro.json'),fetch('./data/shops.json')]);
                 metroData=await mRes.json();shopData=await sRes.json();
                 renderLines();
                 renderStations();
