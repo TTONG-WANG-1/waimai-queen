@@ -466,11 +466,14 @@
                 
                 // 外卖友好度评分（优先推荐可外卖的宝藏店）
                 function calcScore(shop){
-                    const ratingScore=parseFloat(shop.rating)*20; // 5 分制转 100 分（60%）
-                    const distScore=Math.max(0,100-shop.dist*20); // 距离分（25%）
-                    const deliveryScore=shop.delivery?30:0; // 外卖支持加分（15%）
-                    const priceScore=shop.price&&parseInt(shop.price)<=40?10:0; // 平价加分
-                    return ratingScore*0.6+distScore*0.25+deliveryScore*0.15+priceScore;
+                    // 外卖友好度评分 v2 - 优先本地宝藏店
+                    const ratingScore=parseFloat(shop.rating)*20; // 5 分制转 100 分
+                    const distScore=Math.max(0,100-shop.dist*20); // 距离分
+                    const deliveryScore=shop.delivery?20:0; // 外卖支持
+                    const priceScore=shop.price&&parseInt(shop.price)<=30?15:0; // 平价加分
+                    const localBonus=!shop.is_brand?20:0; // 本地店额外加分
+                    const tagBonus=shop.tags?10:0; // 特色标签加分
+                    return ratingScore*0.5+distScore*0.2+deliveryScore*0.1+priceScore+localBonus+tagBonus;
                 }
                 
                 inRange.sort((a,b)=>calcScore(b)-calcScore(a));
@@ -527,6 +530,7 @@
         
         function renderShop(s){
             const deliveryTag=s.delivery?`<span class="tag" style="background:#dcfce7;color:#16a34a;border-color:#86efac">🛵 ${s.delivery}</span>`:'';
+            const tagsHtml=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).map(t=>`<span class="tag" style="background:#fef3c7;color:#92400E;border-color:#fde68a">🏷️ ${t}</span>`).join(''):'';
             return '<div class="shop-item">'+
                 '<div class="shop-header">'+
                     '<div class="shop-name">'+s.name+'</div>'+
@@ -537,6 +541,7 @@
                     '<span class="tag">📍'+s.area+'·'+s.subArea+'</span>'+
                     '<span class="tag distance">📏'+s.dist.toFixed(1)+'km</span>'+
                     deliveryTag+
+                    tagsHtml+
                 '</div>'+
                 '<div class="recommend">'+
                     '<strong>🌟 推荐：</strong>'+s.recs.join('、')+
