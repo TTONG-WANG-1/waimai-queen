@@ -273,7 +273,10 @@
                 
                 document.getElementById('shopsCount').textContent=`🍱 推荐店铺 (${shops.length}家)`;
                 
-                el.innerHTML=shops.map(s=>renderShop(s)).join('');
+                // 添加批量操作工具栏
+                const batchToolbar=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:12px;background:#FEF3C7;border-radius:12px;border:2px solid #FBBF24"><div style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="selectAll" onclick="toggleSelectAll()" style="width:18px;height:18px;cursor:pointer"><label for="selectAll" style="cursor:pointer;font-weight:700;color:#92400E">全选</label></div><div style="display:flex;gap:8px;align-items:center"><span id="selectedCount" style="color:#92400E;font-weight:700">已选 0 家</span><button onclick="batchDelete()" style="padding:8px 16px;background:#EF4444;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700" ${shops.length===0?'disabled':''}>🗑️ 批量删除</button></div></div>`;
+                
+                el.innerHTML=batchToolbar+shops.map(s=>renderShop(s)).join('');
                 document.getElementById('updTime').textContent=new Date(shopData.lastUpdate).toLocaleString('zh-CN');
             },100);
         }
@@ -285,10 +288,13 @@
             const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).filter(t=>t!=='🆕 新店').map(t=>`<span class="tag">🏷️ ${t}</span>`).join(''):'';
             const dist=s.dist?`<span class="tag distance">📏 ${s.dist.toFixed(1)}km</span>`:'';
             const userBadge=s.isUser?`<span class="tag" style="background:#10B981;color:white;border:none">🙋 我推荐的</span>`:'';
-            const editBtns=`<div style="display:flex;gap:8px;margin-top:10px"><button onclick="openEdit('${s.id}')" style="flex:1;padding:8px;background:#FBBF24;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700">✏️ 编辑</button><button onclick="deleteShop('${s.id}')" style="flex:1;padding:8px;background:#EF4444;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700">🗑️ 删除</button></div>`;
+            // 编辑按钮放在评分左边
+            const editBtn=`<button onclick="openEdit('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.2em;margin-right:6px" title="编辑">✏️</button>`;
+            // 批量删除勾选框
+            const checkbox=`<input type="checkbox" class="batch-select" data-id="${s.id}" style="width:18px;height:18px;cursor:pointer;margin-right:8px" title="选择删除">`;
             const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
             const linkText=s.source==='小红书'?'❤️ 小红书详情':s.source==='大众点评'?'💬 大众点评详情':'🔍 查看详情';
-            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${s.name}${userBadge}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div>${editBtns}</div>`;
+            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${checkbox}${s.name}${userBadge}</div><div class="shop-rating">${editBtn}⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
         }
         
         // 编辑和删除功能
@@ -301,17 +307,49 @@
                 window.location.href='edit.html';
             }
         }
-        function deleteShop(id){
-            if(!confirm('🗑️ 确定要删除这家店铺吗？'))return;
+        
+        // 批量删除功能
+        function toggleSelectAll(){
+            const selectAll=document.getElementById('selectAll');
+            const checkboxes=document.querySelectorAll('.batch-select');
+            checkboxes.forEach(cb=>cb.checked=selectAll.checked);
+            updateSelectedCount();
+        }
+        
+        function updateSelectedCount(){
+            const checked=document.querySelectorAll('.batch-select:checked').length;
+            document.getElementById('selectedCount').textContent=`已选 ${checked} 家`;
+        }
+        
+        function batchDelete(){
+            const checked=document.querySelectorAll('.batch-select:checked');
+            if(checked.length===0){alert('⚠️ 请先选择要删除的店铺');return;}
+            const ids=[...checked].map(cb=>cb.dataset.id);
+            if(!confirm(`🗑️ 确定要删除这 ${ids.length} 家店铺吗？\n\n此操作不可恢复！`))return;
+            
+            // 删除用户店铺
             const user=JSON.parse(localStorage.getItem('userShops')||'[]');
-            const filtered=user.filter(s=>s.id!==id);
+            const filtered=user.filter(s=>!ids.includes(s.id));
             localStorage.setItem('userShops',JSON.stringify(filtered));
+            
             // 隐藏官方店铺
             const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
-            if(!hidden.includes(id))hidden.push(id);
+            ids.forEach(id=>{
+                if(!hidden.includes(id))hidden.push(id);
+            });
             localStorage.setItem('hiddenShops',JSON.stringify(hidden));
+            
             location.reload();
         }
+        
+        // 监听勾选框变化
+        document.addEventListener('DOMContentLoaded',()=>{
+            document.addEventListener('change',e=>{
+                if(e.target.classList.contains('batch-select')){
+                    updateSelectedCount();
+                }
+            });
+        });
         
         init();
     </script>
