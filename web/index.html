@@ -15,13 +15,13 @@
         .step{margin-bottom:16px}
         .step-title{font-weight:600;color:#667eea;margin-bottom:8px}
         .selector{display:flex;flex-wrap:wrap;gap:8px}
-        .btn{padding:8px 16px;border:2px solid #667eea;border-radius:20px;background:white;color:#667eea;cursor:pointer;transition:all 0.3s}
-        .btn:hover{transform:scale(1.05)}
+        .btn{padding:8px 16px;border:2px solid #667eea;border-radius:20px;background:white;color:#667eea;cursor:pointer;transition:all 0.3s;font-size:0.9em}
+        .btn:hover{transform:scale(1.05);box-shadow:0 2px 8px rgba(102,126,234,0.3)}
         .btn.active{background:#667eea;color:white}
         .btn-line{border-color:#f97316;color:#f97316}
         .btn-line.active{background:#f97316;color:white}
         .range-selector{display:flex;gap:8px}
-        .range-btn{padding:6px 14px;border:2px solid #667eea;border-radius:16px;background:white;color:#667eea;cursor:pointer}
+        .range-btn{padding:6px 14px;border:2px solid #667eea;border-radius:16px;background:white;color:#667eea;cursor:pointer;font-size:0.9em}
         .range-btn.active{background:#667eea;color:white}
         .location-info{padding:12px;background:linear-gradient(135deg,#f0f4ff,#e0e7ff);border-radius:12px;margin-top:12px;border:2px solid #667eea}
         .location-info strong{color:#f97316}
@@ -40,7 +40,7 @@
         .badge.dianping{background:linear-gradient(135deg,#ff6600,#ff8800)}
         .loading,.empty{text-align:center;padding:40px;color:#666}
         .footer{text-align:center;color:white;margin-top:20px;padding:16px;background:rgba(255,255,255,0.15);border-radius:12px}
-        @media(max-width:600px){.header h1{font-size:1.8em}.btn{padding:6px 12px}}
+        @media(max-width:600px){.header h1{font-size:1.8em}.btn{padding:6px 10px;font-size:0.85em}}
     </style>
 </head>
 <body>
@@ -61,48 +61,146 @@
     </div>
     <script>
         let metroData={},shopData={},currLine='1 号线',currStation='高新园',currRange=3,shownIds=[];
+        
         async function init(){
             try{
                 const[mRes,sRes]=await Promise.all([fetch('data/metro.json'),fetch('data/shops.json')]);
                 metroData=await mRes.json();shopData=await sRes.json();
-                const ls=document.getElementById('lineSel');
-                Object.keys(metroData).forEach((line,i)=>{
-                    const b=document.createElement('button');
-                    b.className='btn btn-line'+(i===0?' active':'');b.textContent=line;
-                    b.onclick=()=>{currLine=line;currStation=metroData[line][0].name;document.querySelectorAll('#lineSel .btn').forEach(x=>x.classList.toggle('active',x.textContent===line));updStations();updLoc();loadShops();};
-                    ls.appendChild(b);
-                });
-                updStations();loadShops();
-            }catch(e){document.getElementById('shops').innerHTML='<div class="empty">⚠️ 数据加载失败，请刷新页面</div>'}
+                renderLines();
+                renderStations();
+                loadShops();
+            }catch(e){
+                console.error('加载失败:',e);
+                document.getElementById('shops').innerHTML='<div class="empty">⚠️ 数据加载失败，请刷新页面</div>';
+            }
         }
-        function updStations(){
-            const ss=document.getElementById('stationSel');ss.innerHTML='';
-            metroData[currLine].forEach((s,i)=>{
+        
+        function renderLines(){
+            const ls=document.getElementById('lineSel');
+            ls.innerHTML='';
+            const lines=Object.keys(metroData);
+            lines.forEach((line,i)=>{
                 const b=document.createElement('button');
-                b.className='btn'+(i===0?' active':'');b.textContent=s.name;
-                b.onclick=()=>{currStation=s.name;document.querySelectorAll('#stationSel .btn').forEach(x=>x.classList.toggle('active',x.textContent===s.name));updLoc();loadShops();};
+                b.className='btn btn-line'+(i===0?' active':'');
+                b.textContent=line;
+                b.onclick=()=>selectLine(line,i);
+                ls.appendChild(b);
+            });
+        }
+        
+        function selectLine(line,idx){
+            currLine=line;
+            currStation=metroData[line][0].name;
+            const btns=document.querySelectorAll('#lineSel .btn');
+            btns.forEach((b,i)=>b.classList.toggle('active',i===idx));
+            renderStations();
+            updLoc();
+            loadShops();
+        }
+        
+        function renderStations(){
+            const ss=document.getElementById('stationSel');
+            ss.innerHTML='';
+            const stations=metroData[currLine];
+            stations.forEach((s,i)=>{
+                const b=document.createElement('button');
+                b.className='btn'+(i===0?' active':'');
+                b.textContent=s.name;
+                b.onclick=()=>selectStation(s.name,i);
                 ss.appendChild(b);
             });
         }
-        function setRange(r){currRange=r;document.querySelectorAll('.range-btn').forEach(b=>b.classList.toggle('active',b.textContent.includes(r+'公里')));document.getElementById('currRange').textContent=r+'公里';loadShops();}
-        function updLoc(){document.getElementById('currLoc').textContent=currStation;}
-        function calcDist(lat1,lng1,lat2,lng2){const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180,a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+        
+        function selectStation(name,idx){
+            currStation=name;
+            const btns=document.querySelectorAll('#stationSel .btn');
+            btns.forEach((b,i)=>b.classList.toggle('active',i===idx));
+            updLoc();
+            loadShops();
+        }
+        
+        function setRange(r){
+            currRange=r;
+            const btns=document.querySelectorAll('.range-btn');
+            btns.forEach((b,i)=>{
+                const val=[2,3,5][i];
+                b.classList.toggle('active',val===r);
+            });
+            document.getElementById('currRange').textContent=r+'公里';
+            shownIds=[];
+            loadShops();
+        }
+        
+        function updLoc(){
+            document.getElementById('currLoc').textContent=currStation;
+        }
+        
+        function calcDist(lat1,lng1,lat2,lng2){
+            const R=6371;
+            const dLat=(lat2-lat1)*Math.PI/180;
+            const dLng=(lng2-lng1)*Math.PI/180;
+            const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
+            return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+        }
+        
         function loadShops(){
-            const el=document.getElementById('shops');el.innerHTML='<div class="loading">🍜 正在寻找美食...</div>';
+            const el=document.getElementById('shops');
+            el.innerHTML='<div class="loading">🍜 正在寻找美食...</div>';
+            
             setTimeout(()=>{
                 const station=metroData[currLine].find(s=>s.name===currStation);
-                if(!station){el.innerHTML='<div class="empty">⚠️ 站点数据缺失</div>';return;}
-                let shops=shopData.shops.map(s=>({...s,dist:calcDist(station.lat,station.lng,s.lat,s.lng)})).filter(s=>s.dist<=currRange).sort((a,b)=>a.dist-b.dist);
-                if(shops.length===0){el.innerHTML='<div class="empty">😋 该区域暂无推荐，换个位置试试～</div>';return;}
+                if(!station){
+                    el.innerHTML='<div class="empty">⚠️ 站点数据缺失</div>';
+                    return;
+                }
+                
+                let shops=shopData.shops.map(s=>({
+                    ...s,
+                    dist:calcDist(station.lat,station.lng,s.lat,s.lng)
+                })).filter(s=>s.dist<=currRange).sort((a,b)=>a.dist-b.dist);
+                
+                if(shops.length===0){
+                    el.innerHTML='<div class="empty">😋 该区域暂无推荐，换个位置试试～</div>';
+                    return;
+                }
+                
                 if(shownIds.length>=shops.length)shownIds=[];
                 const available=shops.filter(s=>!shownIds.includes(s.id));
-                const toShow=available.slice(0,10);
-                if(toShow.length===0){shownIds=[];loadShops();return;}
-                shownIds.push(...toShow.map(s=>s.id));
-                el.innerHTML=toShow.map(s=>'<div class="shop-item"><div class="shop-header"><div class="shop-name">'+s.name+'</div><div class="shop-rating">⭐'+s.rating+'</div></div><div class="shop-info"><span class="tag">💰'+s.price+'</span><span class="tag">📍'+s.area+'·'+s.subArea+'</span><span class="tag distance">📏'+s.dist.toFixed(1)+'km</span></div><div class="recommend"><strong>🌟 推荐：</strong>'+s.recs.join('、')+'</div><div class="source"><span class="badge'+(s.source==='大众点评'?' dianping':'')+'">'+s.source+'</span><a href="https://www.google.com/search?q='+encodeURIComponent(s.name+' 外卖')+'&btnI=1" target="_blank" style="color:#667eea;text-decoration:none;font-weight:600;padding:4px 10px;background:#f0f4ff;border-radius:10px">查看→</a></div></div>').join('');
+                const toShow=available.length>0?available:shops;
+                const display=toShow.slice(0,10);
+                
+                if(display.length===0){
+                    el.innerHTML='<div class="empty">😋 暂无更多推荐</div>';
+                    return;
+                }
+                
+                shownIds.push(...display.map(s=>s.id));
+                
+                el.innerHTML=display.map(s=>
+                    '<div class="shop-item">'+
+                        '<div class="shop-header">'+
+                            '<div class="shop-name">'+s.name+'</div>'+
+                            '<div class="shop-rating">⭐'+s.rating+'</div>'+
+                        '</div>'+
+                        '<div class="shop-info">'+
+                            '<span class="tag">💰'+s.price+'</span>'+
+                            '<span class="tag">📍'+s.area+'·'+s.subArea+'</span>'+
+                            '<span class="tag distance">📏'+s.dist.toFixed(1)+'km</span>'+
+                        '</div>'+
+                        '<div class="recommend">'+
+                            '<strong>🌟 推荐：</strong>'+s.recs.join('、')+
+                        '</div>'+
+                        '<div class="source">'+
+                            '<span class="badge'+(s.source==='大众点评'?' dianping':'')+'">'+s.source+'</span>'+
+                            '<a href="https://www.google.com/search?q='+encodeURIComponent(s.name+' 外卖')+'&btnI=1" target="_blank" style="color:#667eea;text-decoration:none;font-weight:600;padding:4px 10px;background:#f0f4ff;border-radius:10px">查看→</a>'+
+                        '</div>'+
+                    '</div>'
+                ).join('');
+                
                 document.getElementById('updTime').textContent=new Date(shopData.lastUpdate).toLocaleString('zh-CN');
-            },200);
+            },100);
         }
+        
         init();
     </script>
 </body>
