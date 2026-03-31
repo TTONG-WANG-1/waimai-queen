@@ -1,6 +1,56 @@
 {
-  "lastUpdate": "2026-03-31T13:55:00+08:00",
+  "lastUpdate": "2026-03-31T14:54:31+08:00",
   "shops": [
+    {
+      "id": "NEW_103",
+      "name": "JPG canteen(深圳科兴店)",
+      "lat": 22.5445,
+      "lng": 113.9465,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.6",
+      "price": "45 元",
+      "cuisine": "轻食",
+      "recs": [
+        "健康餐",
+        "鸡胸肉沙拉",
+        "牛肉能量碗"
+      ],
+      "source": "用户推荐",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "🆕 新店",
+        "健康餐",
+        "科技园"
+      ],
+      "added_date": "2026-03-31",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=JPG%20canteen%20深圳"
+    },
+    {
+      "id": "NEW_104",
+      "name": "蔬轻蔬重",
+      "lat": 22.5435,
+      "lng": 113.9455,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.5",
+      "price": "38 元",
+      "cuisine": "轻食",
+      "recs": [
+        "轻食沙拉",
+        "果蔬汁",
+        "健康碗"
+      ],
+      "source": "用户推荐",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "🆕 新店",
+        "健康餐",
+        "果蔬汁"
+      ],
+      "added_date": "2026-03-31",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=蔬轻蔬重%20深圳"
+    },
     {
       "id": "1",
       "name": "木屋烧烤",
@@ -2051,6 +2101,17 @@
       ],
       "source_link": "https://www.xiaohongshu.com/explore/696d014d000000000e03fff9",
       "xhs_post": "696d014d000000000e03fff9"
+    }
+  ],
+  "update_log": [
+    {
+      "date": "2026-03-31",
+      "action": "新增",
+      "count": 2,
+      "shops": [
+        "JPG canteen(深圳科兴店)",
+        "蔬轻蔬重"
+      ]
     }
   ]
 }

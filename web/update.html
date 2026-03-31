@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更新日志 - 外卖女王</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(180deg,#FFFBEB,#FEF9E7);min-height:100vh;padding:20px;color:#1F2937}
+        .container{max-width:800px;margin:0 auto}
+        .header{text-align:center;margin-bottom:24px}
+        .header h1{font-size:2em;color:#F59E0B;margin-bottom:8px}
+        .card{background:white;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 4px 12px rgba(251,191,36,0.15);border:2px solid #FDE68A}
+        .update-item{border-left:4px solid #F97316;padding-left:16px;margin-bottom:20px}
+        .update-date{font-weight:700;color:#F59E0B;margin-bottom:8px}
+        .update-list{list-style:none}
+        .update-list li{padding:4px 0;color:#6B7280}
+        .update-list li::before{content:'✅ ';margin-right:8px}
+        table{width:100%;border-collapse:collapse;margin-top:12px}
+        th,td{padding:8px;text-align:left;border-bottom:1px solid #FDE68A}
+        th{background:#FEF3C7;color:#92400E;font-weight:700}
+        .back-btn{display:inline-block;padding:10px 20px;background:linear-gradient(135deg,#FBBF24,#F59E0B);color:white;text-decoration:none;border-radius:12px;font-weight:700;margin-bottom:16px}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 更新日志</h1>
+            <a href="index.html" class="back-btn">← 返回首页</a>
+        </div>
+        <div class="card">
+            <h2 style="color:#F59E0B;margin-bottom:16px">🆕 最近更新</h2>
+            <div class="update-item">
+                <div class="update-date">2026-03-31 14:53</div>
+                <ul class="update-list">
+                    <li>新增：JPG canteen(深圳科兴店) - 健康餐</li>
+                    <li>新增：蔬轻蔬重 - 轻食沙拉</li>
+                    <li>总计：97 家店铺</li>
+                </ul>
+            </div>
+            <div class="update-item">
+                <div class="update-date">2026-03-31 14:37</div>
+                <ul class="update-list">
+                    <li>配置 18 家快乐朵鹅推荐店铺的具体小红书链接</li>
+                    <li>按钮文案：点外卖 → 查看详情</li>
+                </ul>
+            </div>
+            <div class="update-item">
+                <div class="update-date">2026-03-31 14:17</div>
+                <ul class="update-list">
+                    <li>按区推荐模式上线</li>
+                    <li>移除地铁站定位，改为区域选择</li>
+                    <li>一整页下滑展示所有店铺</li>
+                </ul>
+            </div>
+            <div class="update-item">
+                <div class="update-date">2026-03-31 13:55</div>
+                <ul class="update-list">
+                    <li>新增 14 家小红书"快乐朵鹅"推荐店铺</li>
+                    <li>清理 42 家虚假店铺（非真实店名）</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="color:#F59E0B;margin-bottom:16px">📊 历史更新</h2>
+            <table>
+                <tr><th>日期</th><th>新增</th><th>清理</th><th>总计</th><th>重要更新</th></tr>
+                <tr><td>2026-03-31</td><td>48 家</td><td>42 家</td><td>97 家</td><td>按区推荐模式</td></tr>
+                <tr><td>2026-03-30</td><td>30 家</td><td>-</td><td>30 家</td><td>初始版本</td></tr>
+            </table>
+        </div>
+        <div class="card">
+            <h2 style="color:#F59E0B;margin-bottom:16px">📮 提交新店铺</h2>
+            <p style="color:#6B7280;margin-bottom:12px">通过飞书发送以下信息：</p>
+            <div style="background:#FEF3C7;padding:12px;border-radius:8px;font-family:monospace;font-size:0.9em">
+                店铺名：XXX<br>
+                推荐菜：XXX、XXX<br>
+                区域：南山区/福田区/宝安区<br>
+                具体位置：XXX 地铁站/XXX 大厦<br>
+                价格：XX 元<br>
+                来源：小红书/大众点评/朋友推荐<br>
+                链接：（如有）
+            </div>
+        </div>
+    </div>
+</body>
+</html>

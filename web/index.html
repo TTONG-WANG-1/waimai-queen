@@ -51,6 +51,7 @@
         .loading,.empty{text-align:center;padding:50px 20px;color:var(--text-light)}
         .footer{text-align:center;color:var(--text-light);margin-top:20px;padding:16px;background:linear-gradient(135deg,var(--bg-card),var(--bg));border-radius:var(--radius)}
         
+        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.8;transform:scale(1.05)}}
         @media(max-width:600px){.header h1{font-size:2em}.district-selector{grid-template-columns:repeat(2,1fr)}.shop-name{font-size:1.1em}}
     </style>
 </head>
@@ -84,6 +85,7 @@
         <div class="footer">
             <p>📊 数据来源：小红书 | 大众点评</p>
             <p>🕐 更新：<span id="updTime">-</span></p>
+            <p style="margin-top:8px"><a href="update.html" style="color:var(--primary-dark);text-decoration:none;font-weight:700">📝 更新日志</a> | <a href="https://github.com/TTONG-WANG-1/waimai-queen" target="_blank" style="color:var(--primary-dark);text-decoration:none;font-weight:700">GitHub</a></p>
         </div>
     </div>
     
@@ -169,13 +171,14 @@
         }
         
         function renderShop(s){
+            const isNew=s.tags&&s.tags.includes('🆕 新店')?`<span class="tag" style="background:#ff2442;color:white;border:none;animation:pulse 2s infinite">🆕 NEW</span>`:'';
             const dt=s.delivery?`<span class="tag" style="background:#dcfce7;color:#16a34a">🛵 ${s.delivery}</span>`:'';
             const xhs=s.source==='小红书'?`<span class="tag xhs">❤️ 小红书</span>`:'';
-            const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).map(t=>`<span class="tag">🏷️ ${t}</span>`).join(''):'';
+            const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).filter(t=>t!=='🆕 新店').map(t=>`<span class="tag">🏷️ ${t}</span>`).join(''):'';
             const dist=s.dist?`<span class="tag distance">📏 ${s.dist.toFixed(1)}km</span>`:'';
             const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
             const linkText=s.source==='小红书'?'❤️ 小红书详情':s.source==='大众点评'?'💬 大众点评详情':'🔍 查看详情';
-            return `<div class="shop-item"><div class="shop-header"><div class="shop-name">${s.name}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
+            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${s.name}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
         }
         
         init();
