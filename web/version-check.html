@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>版本检查 - 外卖女王</title>
+    <style>
+        body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;background:#FFFBEB}
+        .card{background:white;border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:0 4px 12px rgba(251,191,36,0.15)}
+        h1{color:#F59E0B}
+        .ok{color:#10B981;font-weight:bold}
+        .error{color:#EF4444;font-weight:bold}
+        .warn{color:#F59E0B;font-weight:bold}
+        code{background:#f3f4f6;padding:2px 6px;border-radius:4px}
+        .btn{display:inline-block;padding:10px 20px;background:#FBBF24;color:white;text-decoration:none;border-radius:8px;font-weight:bold;margin:5px}
+    </style>
+</head>
+<body>
+    <h1>🔍 外卖女王 - 版本检查</h1>
+    
+    <div class="card">
+        <h2>📦 当前版本</h2>
+        <p><strong>页面标题：</strong><span id="pageTitle">检查中...</span></p>
+        <p><strong>加载时间：</strong><span id="loadTime">-</span></p>
+        <p><strong>缓存 ID：</strong><span id="cacheId">-</span></p>
+    </div>
+    
+    <div class="card">
+        <h2>✅ 功能检查</h2>
+        <div id="checks">检查中...</div>
+    </div>
+    
+    <div class="card">
+        <h2>🔧 解决方案</h2>
+        <p>如果显示版本过旧，请尝试：</p>
+        <ol>
+            <li><strong>强制刷新</strong>：<code>Ctrl+Shift+R</code> (Windows) 或 <code>Cmd+Shift+R</code> (Mac)</li>
+            <li><strong>清除缓存</strong>：浏览器设置 → 清除浏览数据</li>
+            <li><strong>无痕模式</strong>：打开无痕窗口访问</li>
+            <li><strong>等待更新</strong>：GitHub Pages 可能需要 1-2 分钟</li>
+        </ol>
+    </div>
+    
+    <div class="card">
+        <h2>🔗 快速链接</h2>
+        <a href="index.html" class="btn">🏠 打开首页</a>
+        <a href="edit.html" class="btn">✏️ 编辑页面</a>
+        <a href="https://github.com/TTONG-WANG-1/waimai-queen/commits/main" target="_blank" class="btn">📊 GitHub 提交记录</a>
+    </div>
+    
+    <script>
+        document.getElementById('loadTime').textContent = new Date().toLocaleString('zh-CN');
+        document.getElementById('cacheId').textContent = Date.now();
+        
+        // 检查功能
+        const checks = [
+            {name: 'deleteShop 函数', test: 'typeof deleteShop === "function"'},
+            {name: 'openEditModal 函数', test: 'typeof openEditModal === "function"'},
+            {name: 'closeEditModal 函数', test: 'typeof closeEditModal === "function"'},
+            {name: '快速添加功能', test: 'typeof toggleQuickAdd === "function"'},
+            {name: '编辑模态框', test: 'document.getElementById("editModal") !== null'},
+            {name: '快速添加面板', test: 'document.getElementById("quickAddCard") !== null'},
+        ];
+        
+        let html = '';
+        checks.forEach(c => {
+            try {
+                const result = eval(c.test);
+                const status = result ? '<span class="ok">✅ 存在</span>' : '<span class="error">❌ 缺失</span>';
+                html += `<p><strong>${c.name}:</strong> ${status}</p>`;
+            } catch(e) {
+                html += `<p><strong>${c.name}:</strong> <span class="error">❌ 错误</span> (${e.message})</p>`;
+            }
+        });
+        document.getElementById('checks').innerHTML = html;
+        
+        // 获取页面标题
+        document.getElementById('pageTitle').textContent = document.title;
+        
+        // 自动跳转到首页（3 秒后）
+        setTimeout(() => {
+            console.log('跳转到首页...');
+        }, 3000);
+    </script>
+</body>
+</html>
