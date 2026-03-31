@@ -173,7 +173,9 @@
             const xhs=s.source==='小红书'?`<span class="tag xhs">❤️ 小红书</span>`:'';
             const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).map(t=>`<span class="tag">🏷️ ${t}</span>`).join(''):'';
             const dist=s.dist?`<span class="tag distance">📏 ${s.dist.toFixed(1)}km</span>`:'';
-            return `<div class="shop-item"><div class="shop-header"><div class="shop-name">${s.name}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="https://www.google.com/search?q=${encodeURIComponent(s.name+' 外卖')}&btnI=1" target="_blank" class="shop-link">点外卖→</a></div></div>`;
+            const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
+            const linkText=s.source==='小红书'?'❤️ 小红书详情':s.source==='大众点评'?'💬 大众点评详情':'🔍 查看详情';
+            return `<div class="shop-item"><div class="shop-header"><div class="shop-name">${s.name}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
         }
         
         init();

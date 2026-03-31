@@ -17,7 +17,8 @@
       ],
       "source": "小红书",
       "address": "南山区科技园科发路5-1号一层",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "2",
@@ -35,7 +36,8 @@
       ],
       "source": "小红书",
       "address": "南新路3030号南山欢乐颂购物中心第四层L413号商铺",
-      "is_brand": true
+      "is_brand": true,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=太二酸菜鱼"
     },
     {
       "id": "3",
@@ -53,7 +55,8 @@
       ],
       "source": "小红书",
       "address": "海岸城西座二楼217号",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "4",
@@ -71,7 +74,8 @@
       ],
       "source": "小红书",
       "address": "深南中路1095号iN城市广场2楼点都德",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=点都德"
     },
     {
       "id": "5",
@@ -89,7 +93,8 @@
       ],
       "source": "小红书",
       "address": "深南大道7888号东海朗廷酒店2层",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=陶陶居"
     },
     {
       "id": "6",
@@ -107,7 +112,8 @@
       ],
       "source": "大众点评",
       "address": "沙河街道白石洲东社区白石路168号南山京基百纳广场L3-01商铺",
-      "is_brand": true
+      "is_brand": true,
+      "source_link": "https://www.dianping.com/shop/search?keyword=海底捞"
     },
     {
       "id": "14",
@@ -125,7 +131,8 @@
       ],
       "source": "小红书",
       "address": "沙河街道华夏街社区深南大道9028号益田假日广场外独栋",
-      "is_brand": true
+      "is_brand": true,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=喜茶"
     },
     {
       "id": "19",
@@ -143,7 +150,8 @@
       ],
       "source": "小红书",
       "address": "坂田街道河背村侨联西十卷三号1楼",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=陈记顺和"
     },
     {
       "id": "20",
@@ -161,7 +169,8 @@
       ],
       "source": "小红书",
       "address": "富强社区华强北街道振中路86号爱华科研楼6栋1层1号、2号",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "21",
@@ -179,7 +188,8 @@
       ],
       "source": "小红书",
       "address": "桃园路1号西海明珠大厦F座二楼",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=哥老官"
     },
     {
       "id": "22",
@@ -197,7 +207,8 @@
       ],
       "source": "大众点评",
       "address": "泰然六路34号(深圳金融电子结算中心对面)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.dianping.com/shop/search?keyword=小龙坎"
     },
     {
       "id": "23",
@@ -215,7 +226,8 @@
       ],
       "source": "大众点评",
       "address": "学府路113-21号(南山地铁站G口步行360米)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.dianping.com/shop/search?keyword=大龙燚"
     },
     {
       "id": "24",
@@ -233,7 +245,8 @@
       ],
       "source": "小红书",
       "address": "橄榄鹏苑B栋南门旁(岗厦北地铁站18号口步行350米)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=蜀大侠"
     },
     {
       "id": "25",
@@ -251,7 +264,8 @@
       ],
       "source": "小红书",
       "address": "宝安中心医院富恒社区健康服务中心西北门旁",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=左庭右院"
     },
     {
       "id": "26",
@@ -269,7 +283,8 @@
       ],
       "source": "小红书",
       "address": "粤海街道大冲社区科润路16号华润城华润置地大厦NLG07",
-      "is_brand": true
+      "is_brand": true,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=蔡澜港式点心"
     },
     {
       "id": "31",
@@ -286,7 +301,8 @@
       ],
       "source": "小红书",
       "address": "高新南十道深圳市软件产业基地2A207(citigo酒店2楼)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/explore/69b2cc9a00000000090232ef"
     },
     {
       "id": "32",
@@ -303,7 +319,8 @@
       ],
       "source": "小红书",
       "address": "国兴大厦东门旁",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/explore/69b2cc9a00000000090232ef"
     },
     {
       "id": "33",
@@ -321,7 +338,8 @@
       ],
       "source": "小红书",
       "address": "文华路与科伟路交叉口东南40米",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/explore/69b2cc9a00000000090232ef"
     },
     {
       "id": "34",
@@ -339,7 +357,8 @@
       ],
       "source": "小红书",
       "address": "南头街道前海花园1栋桃园路242号",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/explore/69b2cc9a00000000090232ef"
     },
     {
       "id": "35",
@@ -357,7 +376,8 @@
       ],
       "source": "小红书",
       "address": "常兴路152号(南头古城地铁站E4口步行420米)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=陈记海蛎饼"
     },
     {
       "id": "36",
@@ -375,7 +395,8 @@
       ],
       "source": "小红书",
       "address": "南头街道艺园路名家富居商业综合楼2楼",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=粤菜馆"
     },
     {
       "id": "43",
@@ -393,7 +414,8 @@
       ],
       "source": "小红书",
       "address": "白石洲石洲中路西一坊30号",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=饺子馆"
     },
     {
       "id": "44",
@@ -411,7 +433,8 @@
       ],
       "source": "小红书",
       "address": "南头街道玉泉路111号(中山公园地铁站A口步行80米)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=炸鸡汉堡"
     },
     {
       "id": "45",
@@ -430,7 +453,8 @@
       ],
       "source": "小红书",
       "address": "粤海街道深南大道华润置地大厦D座L3层NL301商铺",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "46",
@@ -448,7 +472,8 @@
       ],
       "source": "小红书",
       "address": "科技园社区科苑路15号科兴科学园B栋G-19",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "47",
@@ -466,7 +491,8 @@
       ],
       "source": "小红书",
       "address": "粤海街道海珠社区文心五路33号海岸城广场负一楼063-10",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=大榕树"
     },
     {
       "id": "48",
@@ -484,7 +510,8 @@
       ],
       "source": "小红书",
       "address": "金地威新中心C座L1",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "49",
@@ -502,7 +529,8 @@
       ],
       "source": "小红书",
       "address": "粤海街道科苑北路与科发路交汇处中中电长城大厦乐洲L3-02号商铺",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=农耕记"
     },
     {
       "id": "50",
@@ -521,7 +549,8 @@
       ],
       "source": "大众点评",
       "address": "沙头街道下沙社区滨河路9289号下沙村京基滨河时代广场L401",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "51",
@@ -539,7 +568,8 @@
       ],
       "source": "小红书",
       "address": "香林路东海花园二期福禄居西区4号1层G13AG15",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=陈鹏鹏潮汕菜"
     },
     {
       "id": "52",
@@ -557,7 +587,8 @@
       ],
       "source": "小红书",
       "address": "橄榄鹏苑B栋南门旁(岗厦北地铁站18号口步行350米)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=莆田餐厅"
     },
     {
       "id": "53",
@@ -575,7 +606,8 @@
       ],
       "source": "小红书",
       "address": "白石路东8号OPLAZA欢乐海岸购物中心",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=1949全鸭季"
     },
     {
       "id": "54",
@@ -593,7 +625,8 @@
       ],
       "source": "小红书",
       "address": "橄榄鹏苑B栋南门旁(岗厦北地铁站18号口步行350米)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=大蔬无界"
     },
     {
       "id": "55",
@@ -612,7 +645,8 @@
       ],
       "source": "大众点评",
       "address": "中洲控股中心A座一楼美食花园A11",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "56",
@@ -630,7 +664,8 @@
       ],
       "source": "小红书",
       "address": "翠苑小区北门旁(东角头地铁站D口步行260米)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=翠园"
     },
     {
       "id": "57",
@@ -648,7 +683,8 @@
       ],
       "source": "小红书",
       "address": "海德三道深圳湾万象城A区4层L418号店铺",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=炳胜品味"
     },
     {
       "id": "58",
@@ -666,7 +702,8 @@
       ],
       "source": "小红书",
       "address": "粤海街道海珠社区文心五路33号海岸城广场516",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=客语"
     },
     {
       "id": "59",
@@ -684,7 +721,8 @@
       ],
       "source": "小红书",
       "address": "文心五路33号海岸城购物中心2层第245号",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=桂语江南"
     },
     {
       "id": "60",
@@ -702,7 +740,8 @@
       ],
       "source": "小红书",
       "address": "自由路2号(翻身地铁站C口步行460米)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "61",
@@ -721,7 +760,8 @@
       ],
       "source": "小红书",
       "address": "华创达中心商务大厦东南门旁",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "62",
@@ -739,7 +779,8 @@
       ],
       "source": "小红书",
       "address": "南园街道华发南路2号上步中学5-7号铺",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=陶德砂锅"
     },
     {
       "id": "63",
@@ -757,7 +798,8 @@
       ],
       "source": "小红书",
       "address": "宝安中心医院富恒社区健康服务中心西北门旁",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=玛珍塔"
     },
     {
       "id": "64",
@@ -775,7 +817,8 @@
       ],
       "source": "小红书",
       "address": "宝安中心(地铁站)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=一绪に"
     },
     {
       "id": "65",
@@ -793,7 +836,8 @@
       ],
       "source": "小红书",
       "address": "南山区粤海街道科技园社区深南路科技工业园50号小区澳特创新中心L1-19号铺",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=姚姚酸菜鱼"
     },
     {
       "id": "66",
@@ -812,7 +856,8 @@
       ],
       "source": "大众点评",
       "address": "学府路234号新德家园一楼c5-1",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.dianping.com/shop/search?keyword=井格重庆火锅"
     },
     {
       "id": "67",
@@ -830,7 +875,8 @@
       ],
       "source": "小红书",
       "address": "学府路234号新德家园一楼c5-1",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=怂重庆火锅厂"
     },
     {
       "id": "68",
@@ -848,7 +894,8 @@
       ],
       "source": "小红书",
       "address": "粤海街道海珠社区后海滨路3019凯宾斯基酒店裙楼2层珮姐老火锅",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=珮姐老火锅"
     },
     {
       "id": "70",
@@ -866,7 +913,8 @@
       ],
       "source": "小红书",
       "address": "红岭中路1003号荔枝公园东侧门南60米",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=胜记"
     },
     {
       "id": "71",
@@ -884,7 +932,8 @@
       ],
       "source": "大众点评",
       "address": "南园街道南园路159号(华强南地铁站B口步行490米)",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.dianping.com/shop/search?keyword=金稻园砂锅粥"
     },
     {
       "id": "72",
@@ -902,7 +951,8 @@
       ],
       "source": "小红书",
       "address": "海上世界船前广场2栋3楼潮德阿水牛肉火锅",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=潮德阿水"
     },
     {
       "id": "75",
@@ -919,7 +969,8 @@
         "炒河粉"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=粤海门小吃"
     },
     {
       "id": "77",
@@ -936,7 +987,8 @@
         "烧鸭饭"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=大冲天地美食"
     },
     {
       "id": "79",
@@ -953,7 +1005,8 @@
         "卤肉饭"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=高新园地铁站美食"
     },
     {
       "id": "81",
@@ -970,7 +1023,8 @@
         "沙拉"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=保利剧院美食"
     },
     {
       "id": "82",
@@ -987,7 +1041,8 @@
         "甜品"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=深圳湾万象城美食"
     },
     {
       "id": "83",
@@ -1004,7 +1059,8 @@
         "特色菜"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=南头古城美食"
     },
     {
       "id": "86",
@@ -1021,7 +1077,8 @@
         "特色菜"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=购物公园美食"
     },
     {
       "id": "87",
@@ -1038,7 +1095,8 @@
         "简餐"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=会展中心美食"
     },
     {
       "id": "88",
@@ -1055,7 +1113,8 @@
         "烧腊饭"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=岗厦北美食"
     },
     {
       "id": "90",
@@ -1072,7 +1131,8 @@
         "特色菜"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=茂业天地美食"
     },
     {
       "id": "93",
@@ -1089,7 +1149,8 @@
         "特色菜"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=宝安中心美食"
     },
     {
       "id": "94",
@@ -1106,7 +1167,8 @@
         "特色菜"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=壹方城美食"
     },
     {
       "id": "95",
@@ -1123,7 +1185,8 @@
         "牛杂汤"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=潮汕汤粉王"
     },
     {
       "id": "96",
@@ -1140,7 +1203,8 @@
         "小面"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=重庆小面"
     },
     {
       "id": "98",
@@ -1157,7 +1221,8 @@
         "锅包肉"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=东北饺子"
     },
     {
       "id": "99",
@@ -1174,7 +1239,8 @@
         "鸡蛋肠粉"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=广东肠粉"
     },
     {
       "id": "100",
@@ -1191,7 +1257,8 @@
         "酸辣粉"
       ],
       "source": "小红书",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=湖南米粉"
     },
     {
       "id": "101",
@@ -1209,7 +1276,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=湘间田舍"
     },
     {
       "id": "103",
@@ -1227,7 +1295,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "is_brand": true
+      "is_brand": true,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=喜家德水饺"
     },
     {
       "id": "109",
@@ -1245,7 +1314,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "is_brand": true
+      "is_brand": true,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=太二酸菜鱼"
     },
     {
       "id": "110",
@@ -1263,7 +1333,8 @@
       ],
       "source": "小红书",
       "delivery": "美团",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=怂重庆火锅"
     },
     {
       "id": "111",
@@ -1281,7 +1352,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=九田家黑牛烤肉"
     },
     {
       "id": "112",
@@ -1299,7 +1371,8 @@
       ],
       "source": "小红书",
       "delivery": "美团",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=陈记顺和牛肉火锅"
     },
     {
       "id": "113",
@@ -1317,7 +1390,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "114",
@@ -1335,7 +1409,8 @@
       ],
       "source": "小红书",
       "delivery": "美团",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=炉鱼"
     },
     {
       "id": "116",
@@ -1353,7 +1428,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "117",
@@ -1371,7 +1447,8 @@
       ],
       "source": "小红书",
       "delivery": "美团",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=冰煮羊"
     },
     {
       "id": "118",
@@ -1389,7 +1466,8 @@
       ],
       "source": "小红书",
       "delivery": "美团",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "119",
@@ -1407,7 +1485,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "120",
@@ -1425,7 +1504,8 @@
       ],
       "source": "小红书",
       "delivery": "美团",
-      "is_brand": false
+      "is_brand": false,
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "131",
@@ -1446,7 +1526,8 @@
       "tags": [
         "本地老店",
         "分量足"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=湖南土菜馆"
     },
     {
       "id": "132",
@@ -1467,7 +1548,8 @@
       "tags": [
         "正宗川菜",
         "下饭"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=重庆人家"
     },
     {
       "id": "133",
@@ -1485,7 +1567,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "tags": "现切牛肉"
+      "tags": "现切牛肉",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=潮汕牛肉粿条"
     },
     {
       "id": "135",
@@ -1506,7 +1589,8 @@
       "tags": [
         "清真",
         "现拉"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=兰州拉面 (清真)"
     },
     {
       "id": "137",
@@ -1524,7 +1608,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "tags": "早餐"
+      "tags": "早餐",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=江西瓦罐汤"
     },
     {
       "id": "138",
@@ -1542,7 +1627,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "tags": "柳州正宗"
+      "tags": "柳州正宗",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=广西螺蛳粉 (正宗)"
     },
     {
       "id": "139",
@@ -1560,7 +1646,8 @@
       ],
       "source": "小红书",
       "delivery": "美团",
-      "tags": "学生推荐"
+      "tags": "学生推荐",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=深大后山烤肉"
     },
     {
       "id": "140",
@@ -1578,7 +1665,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "tags": "古城里"
+      "tags": "古城里",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=南头古城私房菜"
     },
     {
       "id": "141",
@@ -1596,7 +1684,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "tags": "分量大"
+      "tags": "分量大",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=东北家常菜"
     },
     {
       "id": "142",
@@ -1614,7 +1703,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "tags": "郴州正宗"
+      "tags": "郴州正宗",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=湖南米粉 (郴州)"
     },
     {
       "id": "143",
@@ -1632,7 +1722,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "tags": "一人食"
+      "tags": "一人食",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=四川冒菜"
     },
     {
       "id": "144",
@@ -1650,7 +1741,8 @@
       ],
       "source": "小红书",
       "delivery": "美团",
-      "tags": "夜宵"
+      "tags": "夜宵",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=潮汕砂锅粥 (夜宵)"
     },
     {
       "id": "145",
@@ -1668,7 +1760,8 @@
       ],
       "source": "小红书",
       "delivery": "美团/饿了么",
-      "tags": "客家正宗"
+      "tags": "客家正宗",
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=客家酿豆腐"
     },
     {
       "id": "201",
@@ -1690,7 +1783,8 @@
       "tags": [
         "本地老店",
         "夜宵"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "202",
@@ -1710,7 +1804,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "高分宝藏"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "203",
@@ -1730,7 +1825,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "湘菜正宗"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "204",
@@ -1752,7 +1848,8 @@
       "tags": [
         "高分宝藏",
         "深圳连锁"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "205",
@@ -1772,7 +1869,8 @@
       "delivery": "美团",
       "tags": [
         "深圳连锁"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "206",
@@ -1794,7 +1892,8 @@
       "tags": [
         "潮汕正宗",
         "深圳连锁"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "207",
@@ -1815,7 +1914,8 @@
       "delivery": "美团",
       "tags": [
         "潮汕正宗"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=陈记顺和牛肉火锅 (车公庙店)"
     },
     {
       "id": "208",
@@ -1837,7 +1937,8 @@
       "tags": [
         "广式早茶",
         "本地老店"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "209",
@@ -1858,7 +1959,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "本地老店"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "210",
@@ -1880,7 +1982,8 @@
       "tags": [
         "高端粤菜",
         "高分宝藏"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/user/profile/5b94e0dc9831b80001e7eb49"
     },
     {
       "id": "211",
@@ -1901,7 +2004,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "湘菜正宗"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=农耕记湖南土菜 (科兴店)"
     },
     {
       "id": "212",
@@ -1922,7 +2026,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "西北菜"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=西贝莜面村 (万象天地店)"
     },
     {
       "id": "213",
@@ -1943,7 +2048,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "江浙菜"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=绿茶餐厅 (海岸城店)"
     },
     {
       "id": "214",
@@ -1964,7 +2070,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "江浙菜"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=外婆家 (福田 COCO Park 店)"
     },
     {
       "id": "215",
@@ -1986,7 +2093,8 @@
       "tags": [
         "高端粤菜",
         "高分宝藏"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=翠园 (万象城店)"
     },
     {
       "id": "216",
@@ -2008,7 +2116,8 @@
       "tags": [
         "闽菜",
         "高分宝藏"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=莆田餐厅 (福田店)"
     },
     {
       "id": "217",
@@ -2030,7 +2139,8 @@
       "tags": [
         "京菜",
         "高分宝藏"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=1949 全鸭季 (福田店)"
     },
     {
       "id": "218",
@@ -2051,7 +2161,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "客家菜"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=客语客家菜 (海岸城店)"
     },
     {
       "id": "219",
@@ -2073,7 +2184,8 @@
       "tags": [
         "江浙菜",
         "高分宝藏"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=桂语江南 (南山店)"
     },
     {
       "id": "220",
@@ -2094,7 +2206,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "川菜"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=陶德砂锅 (宝安中心店)"
     },
     {
       "id": "221",
@@ -2115,7 +2228,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "川菜"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=姚姚酸菜鱼 (南山店)"
     },
     {
       "id": "222",
@@ -2136,7 +2250,8 @@
       "delivery": "美团",
       "tags": [
         "重庆火锅"
-      ]
+      ],
+      "source_link": "https://www.dianping.com/shop/search?keyword=井格重庆火锅 (前海店)"
     },
     {
       "id": "223",
@@ -2158,7 +2273,8 @@
       "tags": [
         "网红火锅",
         "高分宝藏"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=怂重庆火锅厂 (南山店)"
     },
     {
       "id": "224",
@@ -2179,7 +2295,8 @@
       "delivery": "美团",
       "tags": [
         "重庆火锅"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=珮姐老火锅 (南山店)"
     },
     {
       "id": "225",
@@ -2200,7 +2317,8 @@
       "delivery": "美团",
       "tags": [
         "重庆火锅"
-      ]
+      ],
+      "source_link": "https://www.dianping.com/shop/search?keyword=周师兄重庆火锅 (南山店)"
     },
     {
       "id": "226",
@@ -2222,7 +2340,8 @@
       "tags": [
         "潮汕菜",
         "夜宵"
-      ]
+      ],
+      "source_link": "https://www.dianping.com/shop/search?keyword=金稻园砂锅粥 (华强北店)"
     },
     {
       "id": "227",
@@ -2243,7 +2362,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "潮汕菜"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=潮德阿水 (华强北店)"
     },
     {
       "id": "228",
@@ -2264,7 +2384,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "披萨"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=乐凯撒比萨 (华强北店)"
     },
     {
       "id": "229",
@@ -2285,7 +2406,8 @@
       "delivery": "美团",
       "tags": [
         "日料"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=一绪に寿喜烧 (宝安中心店)"
     },
     {
       "id": "230",
@@ -2307,7 +2429,8 @@
       "tags": [
         "东南亚菜",
         "高分宝藏"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/search_result?keyword=玛珍塔泰式料理 (宝安店)"
     },
     {
       "id": "305",
@@ -2327,7 +2450,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "快乐朵鹅推荐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/697f36d2000000002800881c"
     },
     {
       "id": "306",
@@ -2347,7 +2471,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "快乐朵鹅推荐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/697f36d2000000002800881c"
     },
     {
       "id": "307",
@@ -2368,7 +2493,8 @@
       "tags": [
         "快乐朵鹅推荐",
         "健康餐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/697f36d2000000002800881c"
     },
     {
       "id": "308",
@@ -2389,7 +2515,8 @@
       "tags": [
         "快乐朵鹅推荐",
         "健康餐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/6986df7e000000000e00dcfe"
     },
     {
       "id": "309",
@@ -2410,7 +2537,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "快乐朵鹅推荐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/6986df7e000000000e00dcfe"
     },
     {
       "id": "310",
@@ -2430,7 +2558,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "快乐朵鹅推荐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/6986df7e000000000e00dcfe"
     },
     {
       "id": "311",
@@ -2450,7 +2579,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "快乐朵鹅推荐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/6986df7e000000000e00dcfe"
     },
     {
       "id": "312",
@@ -2471,7 +2601,8 @@
       "tags": [
         "快乐朵鹅推荐",
         "健康餐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/69721cab000000001a01ec90"
     },
     {
       "id": "313",
@@ -2493,7 +2624,8 @@
         "快乐朵鹅推荐",
         "健康餐",
         "高分宝藏"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/69721cab000000001a01ec90"
     },
     {
       "id": "314",
@@ -2514,7 +2646,8 @@
       "tags": [
         "快乐朵鹅推荐",
         "健康餐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/69721cab000000001a01ec90"
     },
     {
       "id": "315",
@@ -2535,7 +2668,8 @@
       "tags": [
         "快乐朵鹅推荐",
         "健康餐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/69721cab000000001a01ec90"
     },
     {
       "id": "316",
@@ -2555,7 +2689,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "快乐朵鹅推荐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/696d014d000000000e03fff9"
     },
     {
       "id": "317",
@@ -2575,7 +2710,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "快乐朵鹅推荐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/696d014d000000000e03fff9"
     },
     {
       "id": "318",
@@ -2595,7 +2731,8 @@
       "delivery": "美团/饿了么",
       "tags": [
         "快乐朵鹅推荐"
-      ]
+      ],
+      "source_link": "https://www.xiaohongshu.com/explore/696d014d000000000e03fff9"
     }
   ]
 }
