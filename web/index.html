@@ -155,11 +155,24 @@
             el.innerHTML='<div class="loading">🍜 正在加载...</div>';
             setTimeout(()=>{
                 let shops=shopData.shops.filter(s=>s.area===currDistrict);
+                
+                // 新店铺优先显示（有🆕标签的在最前）
+                const newShops=shops.filter(s=>s.tags&&s.tags.includes('🆕 新店'));
+                const oldShops=shops.filter(s=>!s.tags||!s.tags.includes('🆕 新店'));
+                
+                // 老店铺按距离或评分排序
                 if(userLat&&userLng){
-                    shops=shops.map(s=>({...s,dist:calcDist(userLat,userLng,s.lat,s.lng)})).sort((a,b)=>a.dist-b.dist);
+                    oldShops.sort((a,b)=>{
+                        const da=a.lat?calcDist(userLat,userLng,a.lat,a.lng):999;
+                        const db=b.lat?calcDist(userLat,userLng,b.lat,b.lng):999;
+                        return da-db;
+                    });
                 }else{
-                    shops=shops.sort((a,b)=>parseFloat(b.rating)-parseFloat(a.rating));
+                    oldShops.sort((a,b)=>parseFloat(b.rating)-parseFloat(a.rating));
                 }
+                
+                // 新店铺在前，老店铺在后
+                shops=[...newShops,...oldShops];
                 
                 if(shops.length===0){el.innerHTML='<div class="empty">😋 该区域暂无推荐</div>';return;}
                 
