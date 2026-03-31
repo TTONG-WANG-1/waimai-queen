@@ -10,144 +10,172 @@
         :root{--primary:#FBBF24;--primary-dark:#F59E0B;--primary-light:#FCD34D;--secondary:#FEF3C7;--accent:#F97316;--bg:#FFFBEB;--bg-card:#FFFFFF;--text:#1F2937;--text-light:#6B7280;--border:#FDE68A;--shadow:0 4px 12px rgba(251,191,36,0.15);--radius:16px;--radius-lg:20px}
         body{font-family:'Nunito Sans',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(180deg,var(--bg) 0%,#FEF9E7 100%);min-height:100vh;padding:20px;color:var(--text)}
         .container{max-width:1000px;margin:0 auto}
-        .header{text-align:center;margin-bottom:32px;padding:24px}
-        .header h1{font-family:'Varela Round',sans-serif;font-size:3em;background:linear-gradient(135deg,var(--primary-dark),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-        .header p{font-size:1.1em;color:var(--text-light);font-weight:600}
-        .card{background:var(--bg-card);border-radius:var(--radius-lg);padding:24px;margin-bottom:20px;box-shadow:var(--shadow);border:2px solid var(--border)}
-        .card-title{font-size:1.4em;font-weight:800;margin-bottom:20px;color:var(--primary-dark)}
-        .location-main{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
-        .location-btn{padding:12px 24px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;border:none;border-radius:var(--radius);cursor:pointer;font-size:1em;font-weight:700;transition:all 0.3s}
-        .location-btn:hover{transform:translateY(-2px)}
-        .location-btn:disabled{opacity:0.6;cursor:not-allowed}
-        .location-status{flex:1;padding:12px 16px;background:linear-gradient(135deg,var(--secondary),#FEF9C3);border-radius:var(--radius);border:2px solid var(--primary-light);font-size:0.95em}
-        .location-status strong{color:var(--accent);font-weight:800}
-        .location-toggle{padding:8px 16px;background:white;border:2px solid var(--primary);border-radius:var(--radius);color:var(--primary-dark);cursor:pointer;font-size:0.9em;font-weight:600}
-        .location-alternative{display:none;margin-top:16px;padding-top:16px;border-top:2px dashed var(--border)}
-        .location-alternative.show{display:block}
-        .step{margin-bottom:16px}
-        .step-title{font-weight:700;color:var(--text);margin-bottom:12px}
-        .selector{display:flex;flex-wrap:wrap;gap:10px}
-        .btn{padding:10px 20px;border:2px solid var(--primary);border-radius:25px;background:white;color:var(--primary-dark);cursor:pointer;transition:all 0.2s;font-size:0.95em;font-weight:600}
-        .btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(251,191,36,0.3)}
-        .btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white}
-        .btn-line{border-color:var(--accent);color:var(--accent)}
-        .btn-line.active{background:linear-gradient(135deg,var(--accent),var(--accent-hover));color:white}
-        .range-selector{display:flex;gap:10px}
-        .range-btn{padding:8px 18px;border:2px solid var(--primary);border-radius:20px;background:white;color:var(--primary-dark);cursor:pointer;font-size:0.9em;font-weight:600}
-        .range-btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white}
-        .shops-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px}
-        .shop-item{border:2px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;transition:all 0.3s;background:linear-gradient(135deg,#FFFEFB,#FFFBF0)}
-        .shop-item:hover{border-color:var(--primary-dark);transform:translateX(8px) translateY(-2px);box-shadow:0 8px 24px rgba(251,191,36,0.25)}
-        .shop-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:12px;flex-wrap:wrap;gap:8px}
-        .shop-name{font-size:1.3em;font-weight:800;color:var(--text)}
-        .shop-rating{padding:6px 14px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:14px;font-weight:800;color:white}
-        .shop-info{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-        .tag{padding:6px 14px;background:var(--secondary);border-radius:14px;font-size:0.9em;color:var(--primary-dark);font-weight:600;border:1px solid var(--primary-light)}
+        .header{text-align:center;margin-bottom:24px;padding:20px}
+        .header h1{font-family:'Varela Round',sans-serif;font-size:2.5em;background:linear-gradient(135deg,var(--primary-dark),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+        .header p{font-size:1em;color:var(--text-light);font-weight:600}
+        .card{background:var(--bg-card);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;box-shadow:var(--shadow);border:2px solid var(--border)}
+        .card-title{font-size:1.3em;font-weight:800;margin-bottom:16px;color:var(--primary-dark)}
+        
+        /* 区域选择 */
+        .district-selector{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+        .district-btn{padding:14px 20px;background:white;border:2px solid var(--primary);border-radius:var(--radius);color:var(--primary-dark);cursor:pointer;font-size:1em;font-weight:700;transition:all 0.2s}
+        .district-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(251,191,36,0.3)}
+        .district-btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;border-color:var(--primary-dark)}
+        
+        /* 定位信息 */
+        .location-bar{display:flex;gap:12px;align-items:center;margin-bottom:16px;padding:12px;background:linear-gradient(135deg,var(--secondary),#FEF9C3);border-radius:var(--radius);border:2px solid var(--primary-light)}
+        .location-btn{padding:10px 18px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;border:none;border-radius:12px;cursor:pointer;font-size:0.9em;font-weight:700;white-space:nowrap}
+        .location-text{flex:1;font-size:0.95em;color:#92400E}
+        .location-text strong{color:var(--accent);font-weight:800}
+        
+        /* 店铺列表 */
+        .shops-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px dashed var(--border)}
+        .shops-count{font-size:1.1em;font-weight:700;color:var(--primary-dark)}
+        .shop-item{border:2px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:all 0.3s;background:linear-gradient(135deg,#FFFEFB,#FFFBF0)}
+        .shop-item:hover{border-color:var(--primary-dark);transform:translateX(4px);box-shadow:0 6px 16px rgba(251,191,36,0.25)}
+        .shop-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+        .shop-name{font-size:1.25em;font-weight:800;color:var(--text)}
+        .shop-rating{padding:5px 12px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:12px;font-weight:800;color:white;font-size:0.9em}
+        .shop-info{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+        .tag{padding:5px 12px;background:var(--secondary);border-radius:12px;font-size:0.85em;color:var(--primary-dark);font-weight:600;border:1px solid var(--primary-light)}
         .tag.distance{background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E}
-        .recommend{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);padding:14px;border-radius:12px;border-left:4px solid var(--accent);margin-bottom:12px}
+        .tag.xhs{background:linear-gradient(135deg,#ff2442,#ff6b6b);color:white;border:none}
+        .recommend{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);padding:10px;border-radius:10px;border-left:3px solid var(--accent);margin-bottom:10px;font-size:0.95em}
         .recommend strong{color:var(--accent);font-weight:800}
         .source{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-        .badge{padding:6px 14px;background:linear-gradient(135deg,#F97316,#FB923C);color:white;border-radius:14px;font-size:0.85em;font-weight:700}
+        .badge{padding:5px 12px;background:linear-gradient(135deg,#F97316,#FB923C);color:white;border-radius:12px;font-size:0.8em;font-weight:700}
         .badge.dianping{background:linear-gradient(135deg,#FF6B35,#F97316)}
-        .shop-link{color:var(--primary-dark);text-decoration:none;font-weight:700;padding:8px 16px;background:var(--secondary);border-radius:12px;transition:all 0.2s}
+        .shop-link{color:var(--primary-dark);text-decoration:none;font-weight:700;padding:6px 14px;background:var(--secondary);border-radius:10px;transition:all 0.2s;border:2px solid var(--primary-light);font-size:0.9em}
         .shop-link:hover{background:var(--primary);color:white}
-        .loading,.empty{text-align:center;padding:60px 20px;color:var(--text-light)}
-        .footer{text-align:center;color:var(--text-light);margin-top:24px;padding:20px;background:linear-gradient(135deg,var(--bg-card),var(--bg));border-radius:var(--radius)}
-        @media(max-width:600px){.header h1{font-size:2em}.btn{padding:8px 14px}}
+        
+        .loading,.empty{text-align:center;padding:50px 20px;color:var(--text-light)}
+        .footer{text-align:center;color:var(--text-light);margin-top:20px;padding:16px;background:linear-gradient(135deg,var(--bg-card),var(--bg));border-radius:var(--radius)}
+        
+        @media(max-width:600px){.header h1{font-size:2em}.district-selector{grid-template-columns:repeat(2,1fr)}.shop-name{font-size:1.1em}}
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header"><h1>👑 外卖女王</h1><p>深圳外卖推荐助手 · 可堂食可外卖的宝藏店</p></div>
+        <div class="header">
+            <h1>👑 外卖女王</h1>
+            <p>深圳外卖推荐助手 · 按区推荐</p>
+        </div>
+        
         <div class="card">
-            <div class="card-title">📍 精准定位</div>
-            <div class="location-main">
-                <button class="location-btn" onclick="getLocation()" id="locateBtn">📍 获取我的位置</button>
-                <div class="location-status" id="locationStatus">
-                    📍 当前位置：<strong id="currLoc">点击按钮获取位置</strong>
-                    <div style="margin-top:6px;font-size:0.9em;color:#92400E">🔍 搜索范围：<strong id="currRange">3 公里</strong></div>
+            <div class="card-title">📍 选择区域</div>
+            <div class="district-selector" id="districtSel"></div>
+            <div class="location-bar">
+                <button class="location-btn" onclick="getLocation()" id="locateBtn">📍 定位</button>
+                <div class="location-text">
+                    📍 当前位置：<strong id="currLoc">点击定位</strong>
+                    <span style="margin-left:12px;color:#666">已选择：<strong id="currDistrict" style="color:var(--accent)">-</strong>区</span>
                 </div>
-                <button class="location-toggle" onclick="toggleAlternative()">🚇 地铁站定位</button>
-            </div>
-            <div class="location-alternative" id="locationAlt">
-                <div class="step"><div class="step-title">1️⃣ 选地铁线路</div><div class="selector" id="lineSel"></div></div>
-                <div class="step"><div class="step-title">2️⃣ 选地铁站</div><div class="selector" id="stationSel"></div></div>
-                <div class="step"><div class="step-title">3️⃣ 搜索范围</div><div class="range-selector"><button class="range-btn" onclick="setRange(2)">2 公里</button><button class="range-btn active" onclick="setRange(3)">3 公里</button><button class="range-btn" onclick="setRange(5)">5 公里</button></div></div>
             </div>
         </div>
+        
         <div class="card">
-            <div class="shops-header"><span style="font-size:1.4em;font-weight:800;color:var(--primary-dark)">🍱 推荐店铺</span><button class="btn btn-line active" onclick="loadShops()">🔄 换一批</button></div>
+            <div class="shops-header">
+                <span class="shops-count" id="shopsCount">🍱 推荐店铺</span>
+                <span style="font-size:0.9em;color:var(--text-light)">📊 全部展示</span>
+            </div>
             <div id="shops"></div>
         </div>
-        <div class="footer"><p>📊 数据来源：小红书 | 大众点评</p><p>🕐 更新：<span id="updTime">-</span></p></div>
+        
+        <div class="footer">
+            <p>📊 数据来源：小红书 | 大众点评</p>
+            <p>🕐 更新：<span id="updTime">-</span></p>
+        </div>
     </div>
+    
     <script>
-        let metroData={},shopData={},currRange=3,shownIds=[],currLine='1 号线',currStation='';
-        let userLat=null,userLng=null,useGps=false;
+        let shopData={},currDistrict='南山',userLat=null,userLng=null;
+        
         async function init(){
             try{
-                const[mRes,sRes]=await Promise.all([fetch('./data/metro.json'),fetch('./data/shops.json')]);
-                metroData=await mRes.json();shopData=await sRes.json();
-                initMetro();
+                const sRes=await fetch('./data/shops.json');
+                shopData=await sRes.json();
+                initDistricts();
+                selectDistrict('南山');
                 getLocation();
             }catch(e){document.getElementById('shops').innerHTML='<div class="empty">⚠️ 数据加载失败</div>'}
         }
-        function initMetro(){
-            const ls=document.getElementById('lineSel');ls.innerHTML='';
-            Object.keys(metroData).forEach((line,i)=>{
+        
+        function initDistricts(){
+            const districts=['南山','福田','宝安','罗湖','龙华','龙岗'];
+            const ds=document.getElementById('districtSel');
+            ds.innerHTML='';
+            districts.forEach(d=>{
+                const count=shopData.shops.filter(s=>s.area===d).length;
                 const b=document.createElement('button');
-                b.className='btn btn-line'+(i===0?' active':'');b.textContent=line;
-                b.onclick=()=>{currLine=line;currStation=metroData[line][0].name;document.querySelectorAll('#lineSel .btn').forEach((x,j)=>x.classList.toggle('active',j===i));renderStations();updateLocation(currStation);useGps=false;loadShops();};
-                ls.appendChild(b);
-            });
-            currLine=Object.keys(metroData)[0];currStation=metroData[currLine][0].name;renderStations();
-        }
-        function renderStations(){
-            const ss=document.getElementById('stationSel');ss.innerHTML='';
-            metroData[currLine].forEach((s,i)=>{
-                const b=document.createElement('button');
-                b.className='btn'+(i===0?' active':'');b.textContent=s.name;
-                b.onclick=()=>{currStation=s.name;document.querySelectorAll('#stationSel .btn').forEach((x,j)=>x.classList.toggle('active',j===i));updateLocation(s.name);useGps=false;loadShops();};
-                ss.appendChild(b);
+                b.className='district-btn';b.textContent=`${d} (${count})`;
+                b.onclick=()=>selectDistrict(d);
+                ds.appendChild(b);
             });
         }
-        function toggleAlternative(){document.getElementById('locationAlt').classList.toggle('show')}
+        
+        function selectDistrict(district){
+            currDistrict=district;
+            document.getElementById('currDistrict').textContent=district;
+            document.querySelectorAll('.district-btn').forEach(b=>{
+                b.classList.toggle('active',b.textContent.startsWith(district));
+            });
+            loadShops();
+        }
+        
         function getLocation(){
             const btn=document.getElementById('locateBtn'),status=document.getElementById('currLoc');
-            btn.disabled=true;status.textContent='📡 正在定位...';
+            btn.disabled=true;status.textContent='📡 定位中...';
             if(navigator.geolocation){
                 navigator.geolocation.getCurrentPosition(pos=>{
-                    userLat=pos.coords.latitude;userLng=pos.coords.longitude;useGps=true;
-                    status.textContent=`📍 我的位置 (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
-                    btn.textContent='🔄 重新定位';btn.disabled=false;loadShops();
-                },err=>{
-                    status.textContent='❌ 定位失败，请使用地铁站定位';btn.textContent='📍 重试';btn.disabled=false;
-                    document.getElementById('locationAlt').classList.add('show');
-                },{enableHighAccuracy:true,timeout:10000});
-            }else{status.textContent='❌ 不支持定位';btn.disabled=false;document.getElementById('locationAlt').classList.add('show')}
+                    userLat=pos.coords.latitude;userLng=pos.coords.longitude;
+                    const area=getAreaFromCoords(userLat,userLng);
+                    status.textContent=`📍 ${area}`;
+                    if(area)selectDistrict(area.split('·')[0]);
+                    btn.textContent='🔄 重定';btn.disabled=false;
+                },()=>{status.textContent='❌ 定位失败';btn.textContent='📍 重试';btn.disabled=false},{enableHighAccuracy:true,timeout:8000});
+            }else{status.textContent='❌ 不支持';btn.disabled=false}
         }
-        function updateLocation(loc){document.getElementById('currLoc').textContent=loc}
-        function setRange(r){currRange=r;document.querySelectorAll('.range-btn').forEach((b,i)=>b.classList.toggle('active',[2,3,5][i]===r));document.getElementById('currRange').textContent=r+'公里';shownIds=[];loadShops()}
+        
+        function getAreaFromCoords(lat,lng){
+            if(!lat||!lng)return null;
+            if(lng<113.95&&lat>22.55)return'宝安';
+            if(lng>=113.95&&lng<114.05&&lat>=22.52)return'南山';
+            if(lng>=114.05&&lng<114.15&&lat>=22.52)return'福田';
+            if(lng>=114.15)return'罗湖';
+            if(lat<22.52)return'宝安';
+            return'南山';
+        }
+        
         function calcDist(lat1,lng1,lat2,lng2){const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180,a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))}
-        function calcScore(s){const r=parseFloat(s.rating)*20,d=Math.max(0,100-s.dist*20),dl=s.delivery?20:0,p=s.price&&parseInt(s.price)<=30?15:0,lb=!s.is_brand?20:0,tb=s.tags?10:0;return r*0.5+d*0.2+dl*0.1+p+lb+tb}
+        
         function loadShops(){
-            const el=document.getElementById('shops');el.innerHTML='<div class="loading">🍜 正在寻找美食...</div>';
+            const el=document.getElementById('shops');
+            el.innerHTML='<div class="loading">🍜 正在加载...</div>';
             setTimeout(()=>{
-                const center=useGps&&userLat&&userLng?{lat:userLat,lng:userLng}:metroData[currLine]?.find(s=>s.name===currStation);
-                if(!center){el.innerHTML='<div class="empty">⚠️ 请先选择位置</div>';return}
-                let shops=shopData.shops.map(s=>({...s,dist:calcDist(center.lat,center.lng,s.lat,s.lng)})).filter(s=>s.dist<=currRange).sort((a,b)=>calcScore(b)-calcScore(a));
-                if(shops.length===0){el.innerHTML='<div class="empty">😋 该区域暂无推荐，换个位置试试～</div>';return}
-                if(shownIds.length>=shops.length)shownIds=[];
-                const avail=shops.filter(s=>!shownIds.includes(s.id)),disp=(avail.length>=10?avail:shops).slice(0,12);
-                if(disp.length===0){el.innerHTML='<div class="empty">😋 暂无更多推荐</div>';return}
-                shownIds.push(...disp.map(s=>s.id));
-                const top=disp.filter(s=>parseFloat(s.rating)>=4.6),near=disp.filter(s=>parseFloat(s.rating)<4.6&&s.dist<=2),other=disp.filter(s=>parseFloat(s.rating)<4.6&&s.dist>2);
-                let html='';
-                if(top.length>0){html+='<div style="margin-bottom:16px"><div style="font-size:1.1em;font-weight:700;color:var(--primary-dark);margin-bottom:8px">🏆 高分宝藏店（4.6⭐+）</div>'+top.map(s=>renderShop(s)).join('')+'</div>'}
-                if(near.length>0){html+='<div style="margin-bottom:16px"><div style="font-size:1.1em;font-weight:700;color:var(--primary-dark);margin-bottom:8px">⚡ 附近快送（<2km）</div>'+near.map(s=>renderShop(s)).join('')+'</div>'}
-                if(other.length>0){html+='<div style="margin-bottom:16px"><div style="font-size:1.1em;font-weight:700;color:var(--primary-dark);margin-bottom:8px">🍜 更多选择</div>'+other.map(s=>renderShop(s)).join('')+'</div>'}
-                el.innerHTML=html;document.getElementById('updTime').textContent=new Date(shopData.lastUpdate).toLocaleString('zh-CN')},100)}
-        function renderShop(s){const dt=s.delivery?`<span class="tag" style="background:#dcfce7;color:#16a34a">🛵 ${s.delivery}</span>`:'';const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).map(t=>`<span class="tag" style="background:#fef3c7;color:#92400E">🏷️ ${t}</span>`).join(''):'';return`<div class="shop-item"><div class="shop-header"><div class="shop-name">${s.name}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰${s.price}</span><span class="tag">📍${s.area}·${s.subArea}</span><span class="tag distance">📏${s.dist.toFixed(1)}km</span>${dt}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="https://www.google.com/search?q=${encodeURIComponent(s.name+' 外卖')}&btnI=1" target="_blank" class="shop-link">点外卖→</a></div></div>`}
+                let shops=shopData.shops.filter(s=>s.area===currDistrict);
+                if(userLat&&userLng){
+                    shops=shops.map(s=>({...s,dist:calcDist(userLat,userLng,s.lat,s.lng)})).sort((a,b)=>a.dist-b.dist);
+                }else{
+                    shops=shops.sort((a,b)=>parseFloat(b.rating)-parseFloat(a.rating));
+                }
+                
+                if(shops.length===0){el.innerHTML='<div class="empty">😋 该区域暂无推荐</div>';return;}
+                
+                document.getElementById('shopsCount').textContent=`🍱 推荐店铺 (${shops.length}家)`;
+                
+                el.innerHTML=shops.map(s=>renderShop(s)).join('');
+                document.getElementById('updTime').textContent=new Date(shopData.lastUpdate).toLocaleString('zh-CN');
+            },100);
+        }
+        
+        function renderShop(s){
+            const dt=s.delivery?`<span class="tag" style="background:#dcfce7;color:#16a34a">🛵 ${s.delivery}</span>`:'';
+            const xhs=s.source==='小红书'?`<span class="tag xhs">❤️ 小红书</span>`:'';
+            const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).map(t=>`<span class="tag">🏷️ ${t}</span>`).join(''):'';
+            const dist=s.dist?`<span class="tag distance">📏 ${s.dist.toFixed(1)}km</span>`:'';
+            return `<div class="shop-item"><div class="shop-header"><div class="shop-name">${s.name}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="https://www.google.com/search?q=${encodeURIComponent(s.name+' 外卖')}&btnI=1" target="_blank" class="shop-link">点外卖→</a></div></div>`;
+        }
+        
         init();
     </script>
 </body>
