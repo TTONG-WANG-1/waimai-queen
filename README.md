@@ -1,103 +1,101 @@
 # 👑 外卖女王 - 深圳外卖推荐助手
 
-基于小红书等平台的深圳外卖推荐系统，解决"今天吃什么"的难题。
+基于真实评价的深圳外卖推荐工具，帮你快速找到附近的好吃的！
 
-## 🌟 功能特点
+## 🌐 在线访问
 
-- 📍 **区域切换**：支持南山/福田/罗湖/宝安等深圳主要区域
-- 🍱 **智能推荐**：综合评分、价格、销量等多维度推荐
-- 📊 **数据来源**：小红书、大众点评真实食客评价
-- ⏰ **定时推送**：每天 11:00/17:00 飞书推送
-- 🌐 **可交互网页**：GitHub Pages 部署，可分享
+**GitHub Pages**: https://ttong-wang-1.github.io/waimai-queen/web/index.html
 
-## 🚀 快速开始
+## ✨ 核心功能
 
-### 1. 查看网页
+### 📍 精准定位
+- **地铁线路选择**: 支持 1 号线、2 号线、5 号线、13 号线
+- **地铁站选择**: 每条线路的所有站点
+- **搜索范围**: 2 公里、3 公里、5 公里可选
 
-```bash
-# 在浏览器打开
-open web/index.html
-```
+### 🍱 智能推荐
+- **距离计算**: 基于 Haversine 公式计算实际距离
+- **换一批功能**: 每次显示 10 家不重复店铺
+- **数据来源**: 小红书博主推荐 + 大众点评高分店铺
 
-### 2. 更新数据
+### 📊 店铺信息
+- 店铺名称、评分、人均价格
+- 菜系类型、所在区域
+- 推荐菜品
+- 距离当前位置的公里数
+- 直达链接（Google 智能直达）
 
-```bash
-# 运行数据采集脚本
-python3 crawler/xiaohongshu.py
-```
+## 🛠️ 技术栈
 
-### 3. 部署到 GitHub Pages
-
-```bash
-# 推送到 GitHub
-cd /home/wangtong/openclaw/workspace/waimai-queen
-git init
-git add .
-git commit -m "Initial commit: 外卖女王 v1.0"
-git remote add origin https://github.com/TTONG-WANG-1/waimai-queen.git
-git push -u origin main
-```
-
-然后在 GitHub 仓库设置中启用 GitHub Pages。
+- **前端**: 原生 HTML/CSS/JavaScript
+- **数据**: JSON 格式存储
+- **部署**: GitHub Pages
+- **距离计算**: Haversine 公式
 
 ## 📁 项目结构
 
 ```
 waimai-queen/
-├── web/                    # 前端网页
-│   └── index.html          # 主页面
-├── crawler/                # 数据采集
-│   └── xiaohongshu.py      # 小红书采集
-├── push/                   # 推送服务
-│   └── feishu_push.py      # 飞书推送
-├── data/                   # 数据存储
-│   ├── areas.json          # 区域配置
-│   └── shops.json          # 店铺数据
-├── config.py               # 配置文件
-└── README.md               # 说明文档
+├── web/
+│   └── index.html      # 主页面
+├── data/
+│   ├── metro.json      # 深圳地铁线路数据
+│   └── shops.json      # 外卖店铺数据
+├── build.py            # 数据生成脚本
+└── README.md           # 说明文档
 ```
 
-## 📋 待办事项
+## 🚀 本地开发
 
-- [ ] 实现小红书自动采集（目前手动添加）
-- [ ] 添加大众点评数据采集
-- [ ] 实现自动定位功能
-- [ ] 添加个人口味偏好
-- [ ] 定时推送自动化
+```bash
+# 克隆项目
+git clone https://github.com/TTONG-WANG-1/waimai-queen.git
+cd waimai-queen
 
-## 📝 使用说明
+# 使用任意 HTTP 服务器启动
+python3 -m http.server 8000
+
+# 访问 http://localhost:8000/web/index.html
+```
+
+## 📝 数据更新
 
 ### 添加新店铺
-
 编辑 `data/shops.json`，添加新店铺数据：
-
 ```json
 {
-  "id": "4",
+  "id": "31",
   "name": "店铺名称",
-  "area": "南山区",
+  "lat": 22.55,
+  "lng": 113.98,
+  "area": "南山",
   "subArea": "科技园",
   "rating": "4.5",
-  "price": "人均 50 元",
-  "recommendations": ["推荐菜 1", "推荐菜 2"],
-  "source": "小红书",
-  "link": "小红书笔记链接",
-  "collectedAt": "2026-03-30T18:00:00"
+  "price": "60 元",
+  "cuisine": "菜系",
+  "recs": ["推荐菜 1", "推荐菜 2"],
+  "source": "小红书/大众点评"
 }
 ```
 
-### 测试推送
+### 更新地铁数据
+编辑 `data/metro.json`，添加新线路或站点。
 
-```bash
-python3 push/feishu_push.py
-```
+## 📈 未来计划
 
-## 🙏 致谢
+- [ ] 添加更多地铁线路（7 号线、9 号线、11 号线等）
+- [ ] 增加店铺收藏功能
+- [ ] 增加用户评价功能
+- [ ] 添加更多数据源（美团、饿了么）
+- [ ] 支持按菜系筛选
+- [ ] 支持按价格筛选
 
-数据来源：
-- 小红书：https://www.xiaohongshu.com/
-- 大众点评：https://www.dianping.com/
+## 📄 许可证
+
+MIT License
 
 ---
 
-© 2026 外卖女王 👑
+**最后更新**: 2026-03-31
+**店铺数量**: 30 家
+**覆盖线路**: 4 条地铁线路
