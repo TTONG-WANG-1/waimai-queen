@@ -268,9 +268,18 @@
                 // 1. 筛选当前区域的店铺
                 let shops=shopData.shops.filter(s=>s.area===currDistrict);
                 
-                // 2. 过滤用户隐藏/删除的店铺
-                const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
-                shops=shops.filter(s=>!hidden.includes(s.id));
+                // 2. 过滤用户隐藏/删除的店铺（安全处理）
+                try{
+                    const hiddenRaw=localStorage.getItem('hiddenShops');
+                    const hidden=hiddenRaw?JSON.parse(hiddenRaw):[];
+                    if(Array.isArray(hidden)&&hidden.length>0){
+                        console.log('🗑️ 已隐藏店铺:',hidden.length,'家');
+                        shops=shops.filter(s=>!hidden.includes(s.id));
+                    }
+                }catch(e){
+                    console.error('❌ hiddenShops 解析失败:',e);
+                    localStorage.removeItem('hiddenShops');
+                }
                 
                 // 2. 严格按添加顺序（数据文件中已按时间排序，新的在前）
                 // 不再重新排序，保持原始顺序
