@@ -1,6 +1,144 @@
 {
-  "lastUpdate": "2026-03-31T15:07:00+08:00",
+  "lastUpdate": "2026-03-31T16:55:50.047997+08:00",
   "shops": [
+    {
+      "name": "老江家东北菜",
+      "lat": 22.5475,
+      "lng": 113.9435,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.6",
+      "price": "42 元",
+      "cuisine": "东北菜",
+      "recs": [
+        "锅包肉",
+        "地三鲜",
+        "东北乱炖"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "科技园美食",
+        "🆕 新店"
+      ],
+      "source_link": "https://www.google.com/search?q=老江家东北菜 深圳",
+      "id": "NEW_6"
+    },
+    {
+      "name": "广西卷筒粉",
+      "lat": 22.5465,
+      "lng": 113.9445,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.5",
+      "price": "18 元",
+      "cuisine": "广西菜",
+      "recs": [
+        "卷筒粉",
+        "老友粉",
+        "螺蛳粉"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "科技园美食",
+        "🆕 新店"
+      ],
+      "source_link": "https://www.google.com/search?q=广西卷筒粉 深圳",
+      "id": "NEW_5"
+    },
+    {
+      "name": "丝丝有味鸭血粉丝汤",
+      "lat": 22.5455,
+      "lng": 113.9455,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.4",
+      "price": "25 元",
+      "cuisine": "南京菜",
+      "recs": [
+        "鸭血粉丝汤",
+        "鸭油烧饼",
+        "盐水鸭"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "科技园美食",
+        "🆕 新店"
+      ],
+      "source_link": "https://www.google.com/search?q=丝丝有味鸭血粉丝汤 深圳",
+      "id": "NEW_4"
+    },
+    {
+      "name": "胡麻牛脸颊肉拌饭",
+      "lat": 22.5445,
+      "lng": 113.9465,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.5",
+      "price": "38 元",
+      "cuisine": "韩料",
+      "recs": [
+        "牛脸颊肉拌饭",
+        "泡菜汤",
+        "韩式小菜"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "科技园美食",
+        "🆕 新店"
+      ],
+      "source_link": "https://www.google.com/search?q=胡麻牛脸颊肉拌饭 深圳",
+      "id": "NEW_3"
+    },
+    {
+      "name": "蔬轻蔬重",
+      "lat": 22.5435,
+      "lng": 113.9475,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.4",
+      "price": "32 元",
+      "cuisine": "轻食",
+      "recs": [
+        "沙拉碗",
+        "健康餐",
+        "果汁"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "科技园美食",
+        "🆕 新店"
+      ],
+      "source_link": "https://www.google.com/search?q=蔬轻蔬重 深圳",
+      "id": "NEW_2"
+    },
+    {
+      "name": "JPG canteen(深圳科兴店)",
+      "lat": 22.5425,
+      "lng": 113.9485,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.3",
+      "price": "35 元",
+      "cuisine": "西餐",
+      "recs": [
+        "意面",
+        "沙拉",
+        "咖啡"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "科技园美食",
+        "🆕 新店"
+      ],
+      "source_link": "https://www.google.com/search?q=JPG+canteen+深圳科兴店",
+      "id": "NEW_1"
+    },
     {
       "id": "Q002",
       "name": "汤鹤情王记合罗面",
@@ -2104,6 +2242,19 @@
     }
   ],
   "update_log": [
+    {
+      "date": "2026-03-31",
+      "action": "新增",
+      "count": 6,
+      "shops": [
+        "JPG canteen(深圳科兴店)",
+        "蔬轻蔬重",
+        "胡麻牛脸颊肉拌饭",
+        "丝丝有味鸭血粉丝汤",
+        "广西卷筒粉",
+        "老江家东北菜"
+      ]
+    },
     {
       "date": "2026-03-31",
       "action": "新增",
