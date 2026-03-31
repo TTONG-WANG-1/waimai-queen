@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清除数据 - 外卖女王</title>
+    <style>
+        body{font-family:Arial,sans-serif;max-width:600px;margin:40px auto;padding:20px;background:#FFFBEB}
+        .card{background:white;border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:0 4px 12px rgba(251,191,36,0.15)}
+        h1{color:#F59E0B}
+        .btn{display:inline-block;padding:12px 24px;background:linear-gradient(135deg,#FBBF24,#F59E0B);color:white;text-decoration:none;border-radius:12px;font-weight:bold;margin:8px;cursor:pointer;border:none;font-size:1em}
+        .btn-danger{background:linear-gradient(135deg,#EF4444,#DC2626)}
+        .btn-success{background:linear-gradient(135deg,#10B981,#059669)}
+        code{background:#f3f4f6;padding:4px 8px;border-radius:4px;display:block;margin:8px 0}
+        .status{padding:12px;border-radius:8px;margin:8px 0}
+        .ok{background:#dcfce7;color:#16a34a}
+        .error{background:#fee2e2;color:#dc2626}
+    </style>
+</head>
+<body>
+    <h1>🔧 数据清除工具</h1>
+    
+    <div class="card">
+        <h2>📊 当前数据状态</h2>
+        <div id="status">检查中...</div>
+    </div>
+    
+    <div class="card">
+        <h2>⚠️ 问题诊断</h2>
+        <p>如果店铺全部消失，可能是以下原因：</p>
+        <ul>
+            <li><code>hiddenShops</code> 数据异常</li>
+            <li><code>userShops</code> 数据格式错误</li>
+            <li>浏览器缓存问题</li>
+        </ul>
+    </div>
+    
+    <div class="card">
+        <h2>🔧 解决方案</h2>
+        <button class="btn" onclick="clearHidden()">1️⃣ 清除隐藏店铺数据</button>
+        <button class="btn btn-danger" onclick="clearAll()">2️⃣ 清除所有用户数据</button>
+        <button class="btn btn-success" onclick="location.href='index.html'">3️⃣ 返回首页</button>
+    </div>
+    
+    <div class="card">
+        <h2>📝 操作说明</h2>
+        <ol>
+            <li>先尝试 <strong>清除隐藏店铺数据</strong></li>
+            <li>如果不行，再 <strong>清除所有用户数据</strong></li>
+            <li>最后 <strong>返回首页</strong> 查看效果</li>
+            <li>如果还有问题，按 <strong>Ctrl+Shift+R</strong> 强制刷新</li>
+        </ol>
+    </div>
+    
+    <script>
+        function checkStatus(){
+            let html='';
+            try{
+                const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
+                const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+                html+=`<div class="status ok">✅ hiddenShops: ${hidden.length} 家</div>`;
+                html+=`<div class="status ok">✅ userShops: ${user.length} 家</div>`;
+            }catch(e){
+                html+=`<div class="status error">❌ 数据格式错误：${e.message}</div>`;
+            }
+            document.getElementById('status').innerHTML=html;
+        }
+        
+        function clearHidden(){
+            if(confirm('确定要清除隐藏店铺数据吗？\n\n这将恢复所有被删除的官方店铺。')){
+                localStorage.removeItem('hiddenShops');
+                alert('✅ 已清除隐藏店铺数据！\n\n请点击"返回首页"查看效果。');
+                checkStatus();
+            }
+        }
+        
+        function clearAll(){
+            if(confirm('⚠️ 警告：确定要清除所有用户数据吗？\n\n这将删除：\n- 所有隐藏的店铺\n- 所有你添加的店铺\n- 所有编辑记录\n\n此操作不可恢复！')){
+                localStorage.removeItem('hiddenShops');
+                localStorage.removeItem('userShops');
+                alert('✅ 已清除所有数据！\n\n请点击"返回首页"查看效果。');
+                checkStatus();
+            }
+        }
+        
+        checkStatus();
+    </script>
+</body>
+</html>
