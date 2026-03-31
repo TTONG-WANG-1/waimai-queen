@@ -96,6 +96,43 @@ MIT License
 
 ---
 
+## 🗺️ 高德地图 API 集成（可选）
+
+使用高德地图 API 自动获取店铺精准位置：
+
+```bash
+# 1. 安装依赖
+pip install -r requirements.txt
+
+# 2. 配置 API Key
+cp .env.example .env
+# 编辑 .env 填入你的 AMAP_KEY
+
+# 3. 批量更新店铺位置
+python3 gaode_api.py
+```
+
+**申请 API Key**: https://lbs.amap.com/
+**详细文档**: [GAODE_API_GUIDE.md](GAODE_API_GUIDE.md)
+
+## 📈 未来计划
+
+- [x] 高德地图 API 集成
+- [ ] 添加更多地铁线路（7 号线、9 号线、11 号线等）
+- [ ] 增加店铺收藏功能
+- [ ] 增加用户评价功能
+- [ ] 添加更多数据源（美团、饿了么）
+- [ ] 支持按菜系筛选
+- [ ] 支持按价格筛选
+- [ ] 实时定位功能
+
+## 📄 许可证
+
+MIT License
+
+---
+
 **最后更新**: 2026-03-31
-**店铺数量**: 30 家
+**店铺数量**: 44 家
 **覆盖线路**: 4 条地铁线路
+**API 集成**: 高德地图（待配置）
