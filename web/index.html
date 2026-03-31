@@ -154,25 +154,17 @@
             const el=document.getElementById('shops');
             el.innerHTML='<div class="loading">🍜 正在加载...</div>';
             setTimeout(()=>{
+                // 1. 筛选当前区域的店铺
                 let shops=shopData.shops.filter(s=>s.area===currDistrict);
                 
-                // 新店铺优先显示（有🆕标签的在最前）
-                const newShops=shops.filter(s=>s.tags&&s.tags.includes('🆕 新店'));
-                const oldShops=shops.filter(s=>!s.tags||!s.tags.includes('🆕 新店'));
-                
-                // 老店铺按距离或评分排序
+                // 2. 严格按添加顺序（数据文件中已按时间排序，新的在前）
+                // 不再重新排序，保持原始顺序
                 if(userLat&&userLng){
-                    oldShops.sort((a,b)=>{
-                        const da=a.lat?calcDist(userLat,userLng,a.lat,a.lng):999;
-                        const db=b.lat?calcDist(userLat,userLng,b.lat,b.lng):999;
-                        return da-db;
+                    // 只计算距离，不排序
+                    shops=shops.map(s=>{
+                        return {...s,dist:s.lat?calcDist(userLat,userLng,s.lat,s.lng):null};
                     });
-                }else{
-                    oldShops.sort((a,b)=>parseFloat(b.rating)-parseFloat(a.rating));
                 }
-                
-                // 新店铺在前，老店铺在后
-                shops=[...newShops,...oldShops];
                 
                 if(shops.length===0){el.innerHTML='<div class="empty">😋 该区域暂无推荐</div>';return;}
                 
