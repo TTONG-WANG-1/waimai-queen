@@ -288,16 +288,17 @@
             const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).filter(t=>t!=='🆕 新店').map(t=>`<span class="tag" style="font-size:0.75em;padding:2px 6px">🏷️ ${t}</span>`).join(''):'';
             const dist=s.dist?`<span class="tag distance" style="font-size:0.75em;padding:2px 6px">📏 ${s.dist.toFixed(1)}km</span>`:'';
             const userBadge=s.isUser?`<span class="tag" style="background:#10B981;color:white;border:none;font-size:0.75em;padding:2px 6px">🙋 我推荐的</span>`:'';
-            // 图片预览图标（右侧尾端）
-            const hasImage=s.image?true:false;
-            const imageIcon=hasImage?`<button onclick="showImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.2em;margin-left:6px" title="查看图片">🖼️</button>`:'';
-            // 编辑按钮放在评分左边
-            const editBtn=`<button onclick="openEdit('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.1em;margin-right:6px" title="编辑">✏️</button>`;
             // 批量删除勾选框
             const checkbox=`<input type="checkbox" class="batch-select" data-id="${s.id}" style="width:16px;height:16px;cursor:pointer;margin-right:6px" title="选择删除">`;
+            // 右上角添加图片按钮
+            const addImageBtn=`<button onclick="addImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.3em;margin-left:auto" title="添加图片">➕</button>`;
+            // 图片预览图标（有图片时显示）
+            const hasImage=s.image?true:false;
+            const imageIcon=hasImage?`<button onclick="showImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.2em;margin-left:6px" title="查看图片">🖼️</button>`:'';
             const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
-            const linkText=s.source==='小红书'?'❤️ 小红书详情':s.source==='大众点评'?'💬 大众点评详情':'🔍 查看详情';
-            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${checkbox}${s.name}${userBadge}</div><div class="shop-rating">${editBtn}⭐${s.rating}${imageIcon}</div></div><div class="shop-info"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
+            // 推荐区域：有图片显示图片，无图片显示文字
+            const recommendContent=hasImage?`<img src="${s.image}" alt="${s.name}" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-top:8px" onclick="showImage('${s.id}')">`:`<div class="recommend" style="margin-top:8px"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div>`;
+            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header" style="display:flex;align-items:center;gap:6px"><div class="shop-name" style="flex:1">${checkbox}${s.name}${userBadge}</div><div class="shop-actions" style="display:flex;align-items:center">${addImageBtn}${imageIcon}</div></div><div class="shop-info" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div>${recommendContent}<div class="source" style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid #f0f0f0"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><button onclick="openDetail('${s.id}')" style="padding:6px 16px;background:#FBBF24;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.9em">📖 详情</button></div></div>`;
         }
         
         // 编辑和删除功能
@@ -309,6 +310,42 @@
                 localStorage.setItem('editingShopId',id);
                 window.location.href='edit.html';
             }
+        }
+        
+        // 添加图片功能
+        function addImage(id){
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const shop=user.find(s=>s.id===id)||shopData.shops.find(s=>s.id===id);
+            if(!shop){alert('❌ 未找到店铺');return;}
+            if(confirm(`📷 为"${shop.name}"添加图片\n\n点击确定跳转到编辑页面上传图片`)){
+                localStorage.setItem('editingShopId',id);
+                window.location.href='edit.html';
+            }
+        }
+        
+        // 查看详情功能
+        function openDetail(id){
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const shop=user.find(s=>s.id===id)||shopData.shops.find(s=>s.id===id);
+            if(!shop){alert('❌ 未找到店铺');return;}
+            if(confirm(`📖 查看"${shop.name}"详情\n\n点击确定跳转到编辑页面`)){
+                localStorage.setItem('editingShopId',id);
+                window.location.href='edit.html';
+            }
+        }
+        
+        // 图片预览功能
+        function showImage(id){
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const shop=user.find(s=>s.id===id)||shopData.shops.find(s=>s.id===id);
+            if(!shop||!shop.image){alert('❌ 暂无图片');return;}
+            
+            const modal=document.createElement('div');
+            modal.id='imageModal';
+            modal.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;justify-content:center;align-items:center;cursor:zoom-out';
+            modal.onclick=()=>modal.remove();
+            modal.innerHTML=`<div style="max-width:90%;max-height:90%;position:relative"><img src="${shop.image}" style="max-width:100%;max-height:90vh;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.5)" onclick="event.stopPropagation()"><button onclick="this.parentElement.parentElement.remove()" style="position:absolute;top:-40px;right:0;background:white;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1.5em;color:#333">✕</button><p style="text-align:center;color:white;margin-top:16px;font-size:1.1em">${shop.name} 📸</p></div>`;
+            document.body.appendChild(modal);
         }
         
         // 批量删除功能
