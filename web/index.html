@@ -39,7 +39,7 @@
         .shop-info{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
         .tag{padding:5px 12px;background:var(--secondary);border-radius:12px;font-size:0.85em;color:var(--primary-dark);font-weight:600;border:1px solid var(--primary-light)}
         .tag.distance{background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E}
-        .tag.xhs{background:linear-gradient(135deg,#ff2442,#ff6b6b);color:white;border:none}
+        .tag.xhs{background:linear-gradient(135deg,#ff2442,#ff6b6b);color:white;border:none}.tag.active{background:#FBBF24;color:white}
         .recommend{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);padding:10px;border-radius:10px;border-left:3px solid var(--accent);margin-bottom:10px;font-size:0.95em}
         .recommend strong{color:var(--accent);font-weight:800}
         .source{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
@@ -60,9 +60,32 @@
         <div class="header">
             <h1>👑 外卖女王</h1>
             <p>深圳外卖推荐助手 · 按区推荐</p>
+            <button onclick="toggleQuickAdd()" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,#FBBF24,#F59E0B);color:white;border:none;border-radius:12px;cursor:pointer;font-size:0.95em;font-weight:700;box-shadow:0 4px 12px rgba(251,191,36,0.3);transition:all 0.2s">➕ 快速添加店铺</button>
         </div>
         
-        <div class="card">
+        
+        <!-- 快速添加面板 -->
+        <div class="card" id="quickAddCard" style="display:none;">
+            <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+                <span>➕ 快速添加店铺</span>
+                <button onclick="toggleQuickAdd()" style="background:none;border:none;font-size:1.5em;cursor:pointer;color:#6B7280">&times;</button>
+            </div>
+            <form id="quickAddForm" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <div style="grid-column:span 2"><input type="text" id="qaName" required placeholder="店铺名称 *" style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px;font-size:1em"></div>
+                <select id="qaArea" required style="padding:10px;border:2px solid #FDE68A;border-radius:10px"><option value="">区域 *</option><option value="南山">南山区</option><option value="福田">福田区</option><option value="宝安">宝安区</option></select>
+                <input type="text" id="qaSubArea" placeholder="位置 (如：科技园)" style="padding:10px;border:2px solid #FDE68A;border-radius:10px">
+                <input type="text" id="qaPrice" placeholder="价格 (如：45 元)" style="padding:10px;border:2px solid #FDE68A;border-radius:10px">
+                <select id="qaRating" style="padding:10px;border:2px solid #FDE68A;border-radius:10px"><option value="4.5">4.5⭐</option><option value="4.6">4.6⭐</option><option value="4.7">4.7⭐</option><option value="4.8">4.8⭐</option><option value="4.9">4.9⭐</option><option value="5.0">5.0⭐</option></select>
+                <div style="grid-column:span 2"><textarea id="qaRecs" required placeholder="推荐菜 * (用顿号分隔)" style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px;min-height:60px;font-size:1em;font-family:inherit"></textarea></div>
+                <select id="qaSource" style="padding:10px;border:2px solid #FDE68A;border-radius:10px"><option value="小红书">小红书</option><option value="大众点评">大众点评</option><option value="朋友推荐">朋友推荐</option><option value="自己吃过">自己吃过</option></select>
+                <input type="url" id="qaLink" placeholder="来源链接 (可选)" style="padding:10px;border:2px solid #FDE68A;border-radius:10px">
+                <div style="grid-column:span 2;display:flex;gap:8px;flex-wrap:wrap" id="qaTags"><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">快乐朵鹅推荐</span><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">高分宝藏</span><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">科技园美食</span><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">海岸城美食</span><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">车公庙美食</span><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">平价食堂</span><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">适合聚餐</span><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">一人食</span><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">可堂食可外卖</span><span class="tag" style="cursor:pointer" onclick="toggleQaTag(this)">新店开业</span></div>
+                <div style="grid-column:span 2"><input type="text" id="qaTagInput" placeholder="输入标签后按回车 (如：科技园美食)" style="width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px;font-size:1em"></div>
+                <button type="submit" class="location-btn" style="grid-column:span 2;border:none;cursor:pointer">➕ 立即添加</button>
+            </form>
+        </div>
+
+<div class="card">
             <div class="card-title">📍 选择区域</div>
             <div class="district-selector" id="districtSel"></div>
             <div class="location-bar">
@@ -90,7 +113,69 @@
     </div>
     
     <script>
-        let shopData={},currDistrict='南山',userLat=null,userLng=null;
+
+        // 快速添加功能
+        let qaTags=[];
+        function toggleQuickAdd(){
+            const card=document.getElementById('quickAddCard');
+            card.style.display=card.style.display==='none'?'block':'none';
+            if(card.style.display==='block'){
+                document.getElementById('qaName').focus();
+            }
+        }
+        function toggleQaTag(el){
+            el.classList.toggle('active');
+            const tag=el.textContent;
+            if(el.classList.contains('active')){
+                if(!qaTags.includes(tag))qaTags.push(tag);
+            }else{
+                const i=qaTags.indexOf(tag);
+                if(i>-1)qaTags.splice(i,1);
+            }
+        }
+        document.getElementById('qaTagInput').addEventListener('keydown',e=>{
+            if(e.key==='Enter'&&e.target.value.trim()){
+                e.preventDefault();
+                const tag=e.target.value.trim();
+                if(!qaTags.includes(tag)){
+                    qaTags.push(tag);
+                    const span=document.createElement('span');
+                    span.className='tag active';
+                    span.style.background='#FBBF24';
+                    span.style.color='white';
+                    span.textContent=tag;
+                    span.onclick=function(){this.remove();const i=qaTags.indexOf(tag);if(i>-1)qaTags.splice(i,1);};
+                    document.getElementById('qaTags').appendChild(span);
+                }
+                e.target.value='';
+            }
+        });
+        document.getElementById('quickAddForm').addEventListener('submit',e=>{
+            e.preventDefault();
+            const shop={
+                id:'user_'+Date.now(),
+                name:document.getElementById('qaName').value,
+                area:document.getElementById('qaArea').value,
+                subArea:document.getElementById('qaSubArea').value,
+                price:document.getElementById('qaPrice').value||'价格未知',
+                rating:document.getElementById('qaRating').value,
+                recs:document.getElementById('qaRecs').value.split(/[,,]/),
+                tags:qaTags.length?qaTags:['用户推荐','待验证'],
+                source:document.getElementById('qaSource').value,
+                source_link:document.getElementById('qaLink').value,
+                isUser:true,
+                isPending:true,
+                addedDate:new Date().toISOString().split('T')[0]
+            };
+            // 保存到 localStorage
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            user.unshift(shop);
+            localStorage.setItem('userShops',JSON.stringify(user));
+            // 重新加载
+            location.reload();
+        });
+
+                let shopData={},currDistrict='南山',userLat=null,userLng=null;
         
         async function init(){
             try{
