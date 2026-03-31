@@ -268,6 +268,10 @@
                 // 1. 筛选当前区域的店铺
                 let shops=shopData.shops.filter(s=>s.area===currDistrict);
                 
+                // 2. 过滤用户隐藏/删除的店铺
+                const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
+                shops=shops.filter(s=>!hidden.includes(s.id));
+                
                 // 2. 严格按添加顺序（数据文件中已按时间排序，新的在前）
                 // 不再重新排序，保持原始顺序
                 if(userLat&&userLng){
@@ -293,7 +297,7 @@
             const tg=s.tags?(Array.isArray(s.tags)?s.tags:s.tags.split(',')).filter(t=>t!=='🆕 新店').map(t=>`<span class="tag">🏷️ ${t}</span>`).join(''):'';
             const dist=s.dist?`<span class="tag distance">📏 ${s.dist.toFixed(1)}km</span>`:'';
             const userBadge=s.isUser?`<span class="tag" style="background:#10B981;color:white;border:none">🙋 我推荐的</span>`:'';
-            const editBtns=s.isUser?`<div style="display:flex;gap:8px;margin-top:10px"><button onclick="openEditModal('${s.id}')" style="flex:1;padding:8px;background:#FBBF24;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700">✏️ 编辑</button><button onclick="deleteShop('${s.id}')" style="flex:1;padding:8px;background:#EF4444;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700">🗑️ 删除</button></div>`:'';
+            const editBtns=`<div style="display:flex;gap:8px;margin-top:10px"><button onclick="openEditModal('${s.id}')" style="flex:1;padding:8px;background:#FBBF24;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700">✏️ 编辑</button><button onclick="deleteShop('${s.id}')" style="flex:1;padding:8px;background:#EF4444;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700">🗑️ 删除</button></div>`;
             const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
             const linkText=s.source==='小红书'?'❤️ 小红书详情':s.source==='大众点评'?'💬 大众点评详情':'🔍 查看详情';
             return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${s.name}${userBadge}</div><div class="shop-rating">⭐${s.rating}</div></div><div class="shop-info"><span class="tag">💰 ${s.price}</span><span class="tag">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div><div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div>${editBtns}</div>`;
@@ -320,10 +324,16 @@
         }
         function closeEditModal(){document.getElementById('editModal').style.display='none';}
         function deleteShop(id){
-            if(!confirm('确定要删除这家店铺吗？'))return;
+            if(!confirm('确定要删除这家店铺吗？
+
+注意：只能删除用户添加的店铺，官方店铺将恢复显示。'))return;
             const user=JSON.parse(localStorage.getItem('userShops')||'[]');
             const filtered=user.filter(s=>s.id!==id);
             localStorage.setItem('userShops',JSON.stringify(filtered));
+            // 同时保存到隐藏列表（用于隐藏官方店铺）
+            const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
+            if(!hidden.includes(id))hidden.push(id);
+            localStorage.setItem('hiddenShops',JSON.stringify(hidden));
             location.reload();
         }
         document.getElementById('editShopForm').addEventListener('submit',e=>{
