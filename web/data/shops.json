@@ -1,55 +1,188 @@
 {
-  "lastUpdate": "2026-03-31T14:54:31+08:00",
+  "lastUpdate": "2026-03-31T15:07:00+08:00",
   "shops": [
     {
-      "id": "NEW_103",
-      "name": "JPG canteen(深圳科兴店)",
-      "lat": 22.5445,
-      "lng": 113.9465,
-      "area": "南山",
-      "subArea": "科技园",
-      "rating": "4.6",
-      "price": "45 元",
-      "cuisine": "轻食",
-      "recs": [
-        "健康餐",
-        "鸡胸肉沙拉",
-        "牛肉能量碗"
-      ],
-      "source": "用户推荐",
-      "delivery": "美团/饿了么",
-      "tags": [
-        "🆕 新店",
-        "健康餐",
-        "科技园"
-      ],
-      "added_date": "2026-03-31",
-      "source_link": "https://www.xiaohongshu.com/search_result?keyword=JPG%20canteen%20深圳"
-    },
-    {
-      "id": "NEW_104",
-      "name": "蔬轻蔬重",
+      "id": "Q002",
+      "name": "汤鹤情王记合罗面",
       "lat": 22.5435,
-      "lng": 113.9455,
+      "lng": 113.9445,
       "area": "南山",
       "subArea": "科技园",
       "rating": "4.5",
-      "price": "38 元",
-      "cuisine": "轻食",
+      "price": "28 元",
+      "cuisine": "河南菜",
       "recs": [
-        "轻食沙拉",
-        "果蔬汁",
-        "健康碗"
+        "合罗面",
+        "酥肉",
+        "卤肉"
       ],
-      "source": "用户推荐",
+      "source": "小红书",
       "delivery": "美团/饿了么",
       "tags": [
-        "🆕 新店",
-        "健康餐",
-        "果蔬汁"
+        "快乐朵鹅推荐"
+      ]
+    },
+    {
+      "id": "Q003",
+      "name": "粤强记潮汕猪杂粿条",
+      "lat": 22.5445,
+      "lng": 113.9455,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.6",
+      "price": "32 元",
+      "cuisine": "潮汕菜",
+      "recs": [
+        "猪杂粿条",
+        "普宁豆腐"
       ],
-      "added_date": "2026-03-31",
-      "source_link": "https://www.xiaohongshu.com/search_result?keyword=蔬轻蔬重%20深圳"
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "快乐朵鹅推荐",
+        "潮汕正宗"
+      ]
+    },
+    {
+      "id": "Q004",
+      "name": "川夫椒麻鸡",
+      "lat": 22.5425,
+      "lng": 113.9465,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.5",
+      "price": "35 元",
+      "cuisine": "川菜",
+      "recs": [
+        "椒麻鸡",
+        "红油抄手"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "快乐朵鹅推荐"
+      ]
+    },
+    {
+      "id": "Q005",
+      "name": "李记潮阳牛肉",
+      "lat": 22.5435,
+      "lng": 113.9475,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.7",
+      "price": "45 元",
+      "cuisine": "潮汕菜",
+      "recs": [
+        "牛肉粿条",
+        "手打牛肉丸"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "快乐朵鹅推荐",
+        "潮汕正宗"
+      ]
+    },
+    {
+      "id": "Q006",
+      "name": "重庆破店小面",
+      "lat": 22.5445,
+      "lng": 113.9485,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.4",
+      "price": "22 元",
+      "cuisine": "川菜",
+      "recs": [
+        "豌杂面",
+        "酸辣粉"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "快乐朵鹅推荐"
+      ]
+    },
+    {
+      "id": "Q007",
+      "name": "广东肠粉王",
+      "lat": 22.5425,
+      "lng": 113.9435,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.3",
+      "price": "18 元",
+      "cuisine": "粤菜",
+      "recs": [
+        "牛肉肠粉",
+        "鸡蛋肠粉"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "快乐朵鹅推荐"
+      ]
+    },
+    {
+      "id": "Q008",
+      "name": "湖南常德津市牛肉粉",
+      "lat": 22.5435,
+      "lng": 113.9445,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.5",
+      "price": "25 元",
+      "cuisine": "湘菜",
+      "recs": [
+        "牛肉粉",
+        "牛腩粉"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "快乐朵鹅推荐"
+      ]
+    },
+    {
+      "id": "Q009",
+      "name": "东北大饭包",
+      "lat": 22.5445,
+      "lng": 113.9455,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.4",
+      "price": "26 元",
+      "cuisine": "东北菜",
+      "recs": [
+        "大饭包",
+        "锅包肉"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "快乐朵鹅推荐"
+      ]
+    },
+    {
+      "id": "Q010",
+      "name": "江西小炒肉",
+      "lat": 22.5425,
+      "lng": 113.9465,
+      "area": "南山",
+      "subArea": "科技园",
+      "rating": "4.5",
+      "price": "30 元",
+      "cuisine": "赣菜",
+      "recs": [
+        "小炒肉",
+        "拌粉"
+      ],
+      "source": "小红书",
+      "delivery": "美团/饿了么",
+      "tags": [
+        "快乐朵鹅推荐"
+      ]
     },
     {
       "id": "1",
@@ -1968,139 +2101,6 @@
         "高分宝藏"
       ],
       "source_link": "https://www.xiaohongshu.com/search_result?keyword=玛珍塔泰式料理 (宝安店) 深圳"
-    },
-    {
-      "id": "305",
-      "name": "广西卷筒粉",
-      "lat": 22.5425,
-      "lng": 113.9445,
-      "area": "南山",
-      "subArea": "科技园",
-      "rating": "4.5",
-      "price": "20 元",
-      "cuisine": "广西菜",
-      "recs": [
-        "卷筒粉",
-        "老友粉"
-      ],
-      "source": "小红书",
-      "delivery": "美团/饿了么",
-      "tags": [
-        "快乐朵鹅推荐"
-      ],
-      "source_link": "https://www.xiaohongshu.com/explore/697f36d2000000002800881c",
-      "xhs_post": "697f36d2000000002800881c"
-    },
-    {
-      "id": "306",
-      "name": "头鼎饭",
-      "lat": 22.5435,
-      "lng": 113.9455,
-      "area": "南山",
-      "subArea": "科技园",
-      "rating": "4.4",
-      "price": "28 元",
-      "cuisine": "粤菜",
-      "recs": [
-        "煲仔饭",
-        "腊味饭"
-      ],
-      "source": "小红书",
-      "delivery": "美团/饿了么",
-      "tags": [
-        "快乐朵鹅推荐"
-      ],
-      "source_link": "https://www.xiaohongshu.com/explore/697f36d2000000002800881c",
-      "xhs_post": "697f36d2000000002800881c"
-    },
-    {
-      "id": "309",
-      "name": "老江家东北菜",
-      "lat": 22.5435,
-      "lng": 113.9555,
-      "area": "南山",
-      "subArea": "科技园",
-      "rating": "4.5",
-      "price": "38 元",
-      "cuisine": "东北菜",
-      "recs": [
-        "锅包肉",
-        "地三鲜",
-        "猪肉炖粉条"
-      ],
-      "source": "小红书",
-      "delivery": "美团/饿了么",
-      "tags": [
-        "快乐朵鹅推荐"
-      ],
-      "source_link": "https://www.xiaohongshu.com/explore/6986df7e000000000e00dcfe",
-      "xhs_post": "6986df7e000000000e00dcfe"
-    },
-    {
-      "id": "316",
-      "name": "阿叔牛杂",
-      "lat": 22.5425,
-      "lng": 113.9425,
-      "area": "南山",
-      "subArea": "科技园",
-      "rating": "4.6",
-      "price": "28 元",
-      "cuisine": "粤菜",
-      "recs": [
-        "牛杂",
-        "萝卜牛杂"
-      ],
-      "source": "小红书",
-      "delivery": "美团/饿了么",
-      "tags": [
-        "快乐朵鹅推荐"
-      ],
-      "source_link": "https://www.xiaohongshu.com/explore/696d014d000000000e03fff9",
-      "xhs_post": "696d014d000000000e03fff9"
-    },
-    {
-      "id": "317",
-      "name": "四川特色粉面馆",
-      "lat": 22.5445,
-      "lng": 113.9465,
-      "area": "南山",
-      "subArea": "科技园",
-      "rating": "4.4",
-      "price": "25 元",
-      "cuisine": "川菜",
-      "recs": [
-        "担担面",
-        "红油抄手"
-      ],
-      "source": "小红书",
-      "delivery": "美团/饿了么",
-      "tags": [
-        "快乐朵鹅推荐"
-      ],
-      "source_link": "https://www.xiaohongshu.com/explore/696d014d000000000e03fff9",
-      "xhs_post": "696d014d000000000e03fff9"
-    },
-    {
-      "id": "318",
-      "name": "炉火时代",
-      "lat": 22.5455,
-      "lng": 113.9475,
-      "area": "南山",
-      "subArea": "科技园",
-      "rating": "4.5",
-      "price": "48 元",
-      "cuisine": "融合菜",
-      "recs": [
-        "创意料理",
-        "特色菜"
-      ],
-      "source": "小红书",
-      "delivery": "美团/饿了么",
-      "tags": [
-        "快乐朵鹅推荐"
-      ],
-      "source_link": "https://www.xiaohongshu.com/explore/696d014d000000000e03fff9",
-      "xhs_post": "696d014d000000000e03fff9"
     }
   ],
   "update_log": [
