@@ -4,61 +4,361 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>外卖女王</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Varela+Round&display=swap" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2,#f093fb);min-height:100vh;padding:20px}
+        
+        :root{
+            --primary:#FBBF24;
+            --primary-dark:#F59E0B;
+            --primary-light:#FCD34D;
+            --secondary:#FEF3C7;
+            --accent:#F97316;
+            --accent-hover:#EA580C;
+            --bg:#FFFBEB;
+            --bg-card:#FFFFFF;
+            --text:#1F2937;
+            --text-light:#6B7280;
+            --border:#FDE68A;
+            --shadow:0 4px 12px rgba(251,191,36,0.15);
+            --shadow-hover:0 8px 24px rgba(251,191,36,0.25);
+            --radius:16px;
+            --radius-sm:12px;
+            --radius-lg:20px;
+        }
+        
+        body{
+            font-family:'Nunito Sans',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+            background:linear-gradient(180deg,var(--bg) 0%,#FEF9E7 100%);
+            min-height:100vh;
+            padding:20px;
+            color:var(--text);
+        }
+        
         .container{max-width:1000px;margin:0 auto}
-        .header{text-align:center;color:white;margin-bottom:30px}
-        .header h1{font-size:2.5em;margin-bottom:10px}
-        .card{background:white;border-radius:16px;padding:20px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,0.2)}
-        .card-title{font-size:1.3em;font-weight:600;margin-bottom:16px;color:#1a1a2e}
-        .step{margin-bottom:16px}
-        .step-title{font-weight:600;color:#667eea;margin-bottom:8px}
-        .selector{display:flex;flex-wrap:wrap;gap:8px}
-        .btn{padding:8px 16px;border:2px solid #667eea;border-radius:20px;background:white;color:#667eea;cursor:pointer;transition:all 0.3s;font-size:0.9em}
-        .btn:hover{transform:scale(1.05);box-shadow:0 2px 8px rgba(102,126,234,0.3)}
-        .btn.active{background:#667eea;color:white}
-        .btn-line{border-color:#f97316;color:#f97316}
-        .btn-line.active{background:#f97316;color:white}
-        .range-selector{display:flex;gap:8px}
-        .range-btn{padding:6px 14px;border:2px solid #667eea;border-radius:16px;background:white;color:#667eea;cursor:pointer;font-size:0.9em}
-        .range-btn.active{background:#667eea;color:white}
-        .location-info{padding:12px;background:linear-gradient(135deg,#f0f4ff,#e0e7ff);border-radius:12px;margin-top:12px;border:2px solid #667eea}
-        .location-info strong{color:#f97316}
-        .shops-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
-        .shop-item{border:2px solid #f0f0f0;border-radius:12px;padding:16px;margin-bottom:12px;transition:all 0.3s;background:#fafaff}
-        .shop-item:hover{border-color:#667eea;transform:translateX(8px);box-shadow:0 4px 16px rgba(102,126,234,0.2)}
-        .shop-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:8px;flex-wrap:wrap;gap:8px}
-        .shop-name{font-size:1.2em;font-weight:600;color:#1a1a2e}
-        .shop-rating{padding:4px 12px;background:linear-gradient(135deg,#FFD700,#FFA500);border-radius:12px;font-weight:700;color:white}
-        .shop-info{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-        .tag{padding:4px 10px;background:#f0f4ff;border-radius:12px;font-size:0.9em;color:#667eea}
-        .tag.distance{background:#fef3c7;color:#d97706}
-        .recommend{background:linear-gradient(135deg,#fff5f0,#fff);padding:10px;border-radius:8px;border-left:3px solid #f97316;margin-bottom:8px}
-        .source{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-        .badge{padding:4px 10px;background:linear-gradient(135deg,#ff2442,#ff6b6b);color:white;border-radius:12px;font-size:0.85em}
-        .badge.dianping{background:linear-gradient(135deg,#ff6600,#ff8800)}
-        .loading,.empty{text-align:center;padding:40px;color:#666}
-        .footer{text-align:center;color:white;margin-top:20px;padding:16px;background:rgba(255,255,255,0.15);border-radius:12px}
-        @media(max-width:600px){.header h1{font-size:1.8em}.btn{padding:6px 10px;font-size:0.85em}}
+        
+        .header{
+            text-align:center;
+            margin-bottom:32px;
+            padding:24px;
+        }
+        
+        .header h1{
+            font-family:'Varela Round',sans-serif;
+            font-size:3em;
+            background:linear-gradient(135deg,var(--primary-dark),var(--accent));
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+            margin-bottom:8px;
+            filter:drop-shadow(2px 2px 4px rgba(251,191,36,0.3));
+        }
+        
+        .header p{
+            font-size:1.1em;
+            color:var(--text-light);
+            font-weight:600;
+        }
+        
+        .card{
+            background:var(--bg-card);
+            border-radius:var(--radius-lg);
+            padding:24px;
+            margin-bottom:20px;
+            box-shadow:var(--shadow);
+            border:2px solid var(--border);
+        }
+        
+        .card-title{
+            font-size:1.4em;
+            font-weight:800;
+            margin-bottom:20px;
+            color:var(--primary-dark);
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+        
+        .step{margin-bottom:20px}
+        
+        .step-title{
+            font-weight:700;
+            color:var(--text);
+            margin-bottom:12px;
+            font-size:1.05em;
+        }
+        
+        .selector{display:flex;flex-wrap:wrap;gap:10px}
+        
+        .btn{
+            padding:10px 20px;
+            border:2px solid var(--primary);
+            border-radius:25px;
+            background:white;
+            color:var(--primary-dark);
+            cursor:pointer;
+            transition:all 0.2s ease;
+            font-size:0.95em;
+            font-weight:600;
+        }
+        
+        .btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 4px 12px rgba(251,191,36,0.3);
+        }
+        
+        .btn.active{
+            background:linear-gradient(135deg,var(--primary),var(--primary-light));
+            color:white;
+            border-color:var(--primary-dark);
+            box-shadow:0 4px 12px rgba(251,191,36,0.4);
+        }
+        
+        .btn-line{
+            border-color:var(--accent);
+            color:var(--accent);
+        }
+        
+        .btn-line.active{
+            background:linear-gradient(135deg,var(--accent),var(--accent-hover));
+            color:white;
+            border-color:var(--accent);
+        }
+        
+        .range-selector{display:flex;gap:10px}
+        
+        .range-btn{
+            padding:8px 18px;
+            border:2px solid var(--primary);
+            border-radius:20px;
+            background:white;
+            color:var(--primary-dark);
+            cursor:pointer;
+            font-size:0.9em;
+            font-weight:600;
+            transition:all 0.2s ease;
+        }
+        
+        .range-btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 4px 12px rgba(251,191,36,0.3);
+        }
+        
+        .range-btn.active{
+            background:linear-gradient(135deg,var(--primary),var(--primary-light));
+            color:white;
+            border-color:var(--primary-dark);
+        }
+        
+        .location-info{
+            padding:16px;
+            background:linear-gradient(135deg,var(--secondary),#FEF9C3);
+            border-radius:var(--radius);
+            margin-top:16px;
+            border:2px dashed var(--primary);
+        }
+        
+        .location-info strong{
+            color:var(--accent);
+            font-weight:800;
+        }
+        
+        .shops-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:20px;
+            flex-wrap:wrap;
+            gap:12px;
+        }
+        
+        .shop-item{
+            border:2px solid var(--border);
+            border-radius:var(--radius);
+            padding:20px;
+            margin-bottom:16px;
+            transition:all 0.3s ease;
+            background:linear-gradient(135deg,#FFFEFB,#FFFBF0);
+            cursor:pointer;
+        }
+        
+        .shop-item:hover{
+            border-color:var(--primary-dark);
+            transform:translateX(8px) translateY(-2px);
+            box-shadow:var(--shadow-hover);
+        }
+        
+        .shop-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:start;
+            margin-bottom:12px;
+            flex-wrap:wrap;
+            gap:8px;
+        }
+        
+        .shop-name{
+            font-size:1.3em;
+            font-weight:800;
+            color:var(--text);
+        }
+        
+        .shop-rating{
+            padding:6px 14px;
+            background:linear-gradient(135deg,var(--primary),var(--accent));
+            border-radius:14px;
+            font-weight:800;
+            color:white;
+            font-size:0.95em;
+            box-shadow:0 2px 8px rgba(251,191,36,0.4);
+        }
+        
+        .shop-info{
+            display:flex;
+            gap:10px;
+            margin-bottom:12px;
+            flex-wrap:wrap;
+        }
+        
+        .tag{
+            padding:6px 14px;
+            background:var(--secondary);
+            border-radius:14px;
+            font-size:0.9em;
+            color:var(--primary-dark);
+            font-weight:600;
+            border:1px solid var(--primary-light);
+        }
+        
+        .tag.distance{
+            background:linear-gradient(135deg,#FEF3C7,#FDE68A);
+            color:#92400E;
+            border-color:var(--primary);
+        }
+        
+        .recommend{
+            background:linear-gradient(135deg,#FFFBEB,#FEF3C7);
+            padding:14px;
+            border-radius:var(--radius-sm);
+            border-left:4px solid var(--accent);
+            margin-bottom:12px;
+        }
+        
+        .recommend strong{
+            color:var(--accent);
+            font-weight:800;
+        }
+        
+        .source{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:8px;
+        }
+        
+        .badge{
+            padding:6px 14px;
+            background:linear-gradient(135deg,#F97316,#FB923C);
+            color:white;
+            border-radius:14px;
+            font-size:0.85em;
+            font-weight:700;
+            box-shadow:0 2px 8px rgba(249,115,22,0.3);
+        }
+        
+        .badge.dianping{
+            background:linear-gradient(135deg,#FF6B35,#F97316);
+        }
+        
+        .shop-link{
+            color:var(--primary-dark);
+            text-decoration:none;
+            font-weight:700;
+            padding:8px 16px;
+            background:var(--secondary);
+            border-radius:12px;
+            transition:all 0.2s ease;
+            border:2px solid var(--primary-light);
+        }
+        
+        .shop-link:hover{
+            background:var(--primary);
+            color:white;
+            transform:translateY(-2px);
+        }
+        
+        .loading,.empty{
+            text-align:center;
+            padding:60px 20px;
+            color:var(--text-light);
+            font-size:1.1em;
+        }
+        
+        .footer{
+            text-align:center;
+            color:var(--text-light);
+            margin-top:24px;
+            padding:20px;
+            background:linear-gradient(135deg,var(--bg-card),var(--bg));
+            border-radius:var(--radius);
+            border:2px solid var(--border);
+        }
+        
+        @media(max-width:600px){
+            .header h1{font-size:2em}
+            .btn{padding:8px 14px;font-size:0.9em}
+            .shop-item{padding:16px}
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header"><h1>👑 外卖女王</h1><p>深圳外卖推荐助手</p></div>
+        <div class="header">
+            <h1>👑 外卖女王</h1>
+            <p>深圳外卖推荐助手 · 真实评价</p>
+        </div>
+        
         <div class="card">
             <div class="card-title">📍 精准定位</div>
-            <div class="step"><div class="step-title">1️⃣ 选地铁线路</div><div class="selector" id="lineSel"></div></div>
-            <div class="step"><div class="step-title">2️⃣ 选地铁站</div><div class="selector" id="stationSel"></div></div>
-            <div class="step"><div class="step-title">3️⃣ 搜索范围</div><div class="range-selector"><button class="range-btn" onclick="setRange(2)">2 公里</button><button class="range-btn active" onclick="setRange(3)">3 公里</button><button class="range-btn" onclick="setRange(5)">5 公里</button></div></div>
-            <div class="location-info">📍 当前位置：<strong id="currLoc">请选择地铁站</strong><div style="margin-top:6px;font-size:0.9em;color:#666">🔍 搜索范围：<strong id="currRange">3 公里</strong></div></div>
+            <div class="step">
+                <div class="step-title">1️⃣ 选地铁线路</div>
+                <div class="selector" id="lineSel"></div>
+            </div>
+            <div class="step">
+                <div class="step-title">2️⃣ 选地铁站</div>
+                <div class="selector" id="stationSel"></div>
+            </div>
+            <div class="step">
+                <div class="step-title">3️⃣ 搜索范围</div>
+                <div class="range-selector">
+                    <button class="range-btn" onclick="setRange(2)">2 公里</button>
+                    <button class="range-btn active" onclick="setRange(3)">3 公里</button>
+                    <button class="range-btn" onclick="setRange(5)">5 公里</button>
+                </div>
+            </div>
+            <div class="location-info">
+                📍 当前位置：<strong id="currLoc">请选择地铁站</strong>
+                <div style="margin-top:8px;font-size:0.95em;color:#92400E">
+                    🔍 搜索范围：<strong id="currRange">3 公里</strong>
+                </div>
+            </div>
         </div>
+        
         <div class="card">
-            <div class="shops-header"><span style="font-size:1.3em;font-weight:600;color:#1a1a2e">🍱 推荐店铺</span><button class="btn btn-line active" onclick="loadShops()">🔄 换一批</button></div>
+            <div class="shops-header">
+                <span style="font-size:1.4em;font-weight:800;color:var(--primary-dark)">🍱 推荐店铺</span>
+                <button class="btn btn-line active" onclick="loadShops()">🔄 换一批</button>
+            </div>
             <div id="shops"></div>
         </div>
-        <div class="footer"><p>📊 数据来源：小红书 | 大众点评</p><p>🕐 更新：<span id="updTime">-</span></p></div>
+        
+        <div class="footer">
+            <p>📊 数据来源：小红书 | 大众点评</p>
+            <p>🕐 更新：<span id="updTime">-</span></p>
+        </div>
     </div>
+    
     <script>
         let metroData={},shopData={},currLine='1 号线',currStation='高新园',currRange=3,shownIds=[];
         
@@ -192,7 +492,7 @@
                         '</div>'+
                         '<div class="source">'+
                             '<span class="badge'+(s.source==='大众点评'?' dianping':'')+'">'+s.source+'</span>'+
-                            '<a href="https://www.google.com/search?q='+encodeURIComponent(s.name+' 外卖')+'&btnI=1" target="_blank" style="color:#667eea;text-decoration:none;font-weight:600;padding:4px 10px;background:#f0f4ff;border-radius:10px">查看→</a>'+
+                            '<a href="https://www.google.com/search?q='+encodeURIComponent(s.name+' 外卖')+'&btnI=1" target="_blank" class="shop-link">查看→</a>'+
                         '</div>'+
                     '</div>'
                 ).join('');
