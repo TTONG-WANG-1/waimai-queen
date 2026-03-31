@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>店铺编辑 - 外卖女王</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--primary:#FBBF24;--dark:#F59E0B;--success:#10B981;--danger:#EF4444}
+        body{font-family:-apple-system,'PingFang SC',sans-serif;background:linear-gradient(180deg,#FFFBEB,#FEF9E7);min-height:100vh;padding:20px}
+        .container{max-width:1000px;margin:0 auto}
+        .header{text-align:center;margin-bottom:24px}
+        .header h1{font-size:2.5em;color:var(--dark);margin-bottom:8px}
+        .nav a{padding:10px 20px;background:var(--primary);color:white;text-decoration:none;border-radius:12px;font-weight:700;margin:0 8px;display:inline-block}
+        .card{background:white;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 4px 12px rgba(251,191,36,0.15);border:2px solid #FDE68A}
+        .form-group{margin-bottom:16px}
+        .form-group label{display:block;font-weight:700;margin-bottom:6px;color:#1F2937}
+        .form-group input,.form-group select,.form-group textarea{width:100%;padding:10px;border:2px solid #FDE68A;border-radius:10px;font-size:1em;font-family:inherit}
+        .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(251,191,36,0.1)}
+        .tags{display:flex;flex-wrap:wrap;gap:8px;padding:10px;background:#FEF3C7;border-radius:10px;min-height:50px}
+        .tag{display:flex;align-items:center;gap:6px;padding:5px 12px;background:var(--primary);color:white;border-radius:14px;font-size:0.9em}
+        .tag button{background:none;border:none;color:white;cursor:pointer;font-size:1.2em;padding:0;line-height:1}
+        .tag-input{flex:1;min-width:120px;border:none;background:transparent;padding:5px;outline:none;font-size:0.9em}
+        .btn{padding:12px 24px;border:none;border-radius:12px;cursor:pointer;font-size:1em;font-weight:700;transition:all 0.2s}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+        .btn-primary{background:linear-gradient(135deg,var(--primary),var(--dark));color:white}
+        .btn-success{background:linear-gradient(135deg,var(--success),#059669);color:white}
+        .btn-danger{background:linear-gradient(135deg,var(--danger),#DC2626);color:white}
+        .shop-item{border:2px solid #FDE68A;border-radius:12px;padding:16px;margin-bottom:12px;transition:all 0.2s;background:#FFFEFB}
+        .shop-item:hover{border-color:var(--primary);box-shadow:0 4px 12px rgba(251,191,36,0.2)}
+        .shop-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:12px}
+        .shop-name{font-size:1.2em;font-weight:800;color:#1F2937}
+        .shop-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+        .shop-meta span{padding:4px 10px;background:#FEF3C7;border-radius:8px;font-size:0.85em}
+        .shop-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+        .shop-tag{padding:3px 8px;background:var(--primary);color:white;border-radius:6px;font-size:0.8em}
+        .shop-recs{color:#6B7280;font-size:0.9em;margin-bottom:8px}
+        .shop-actions{display:flex;gap:8px}
+        .shop-actions button{padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:0.85em;font-weight:700;color:white;transition:all 0.2s}
+        .shop-actions button:hover{transform:translateY(-1px)}
+        .btn-edit{background:var(--primary)}
+        .btn-delete{background:var(--danger)}
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;justify-content:center;align-items:center}
+        .modal.show{display:flex}
+        .modal-content{background:white;border-radius:16px;padding:24px;max-width:600px;width:90%;max-height:90vh;overflow-y:auto}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #FDE68A}
+        .modal-close{background:none;border:none;font-size:1.5em;cursor:pointer;color:#6B7280}
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+        .stat{background:white;padding:16px;border-radius:12px;text-align:center;border:2px solid #FDE68A}
+        .stat-num{font-size:2em;font-weight:800;color:var(--dark)}
+        .stat-label{color:#6B7280;font-size:0.9em;margin-top:4px}
+        .image-upload{border:2px dashed #FDE68A;border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;background:#FFFBEB}
+        .image-upload:hover{border-color:var(--primary);background:#FEF3C7}
+        .image-preview{max-width:100%;max-height:200px;margin-top:10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+        .search-box{padding:8px 12px;border:2px solid #FDE68A;border-radius:8px;font-size:0.9em;width:100%;max-width:300px}
+        .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .empty{padding:40px;text-align:center;color:#9CA3AF}
+        .badge{padding:4px 8px;border-radius:6px;font-size:0.75em;font-weight:700}
+        .badge-user{background:#10B981;color:white}
+        @media(max-width:768px){.stats{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}.shop-item{padding:12px}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✏️ 店铺编辑管理</h1>
+            <p style="color:#6B7280;margin-top:8px">自主添加、编辑、删除店铺，共建美食推荐库</p>
+            <div class="nav" style="margin-top:16px">
+                <a href="index.html">← 返回首页</a>
+                <a href="update.html">📝 更新日志</a>
+                <a href="#" onclick="exportData()">📥 导出数据</a>
+                <a href="#" onclick="document.getElementById('importFile').click()">📤 导入数据</a>
+                <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat"><div class="stat-num" id="totalShops">0</div><div class="stat-label">总店铺数</div></div>
+            <div class="stat"><div class="stat-num" id="userShops">0</div><div class="stat-label">你贡献的</div></div>
+            <div class="stat"><div class="stat-num" id="todayAdded">0</div><div class="stat-label">今日新增</div></div>
+        </div>
+        
+        <div class="card">
+            <h2 style="color:var(--dark);margin-bottom:16px">➕ 添加新店铺</h2>
+            <form id="addForm">
+                <div class="form-group"><label>店铺名称 *</label><input type="text" id="name" required placeholder="如：木屋烧烤 (科发路店)"></div>
+                <div class="grid-2">
+                    <div class="form-group"><label>区域 *</label><select id="area" required><option value="">选择区域</option><option value="南山">南山区</option><option value="福田">福田区</option><option value="宝安">宝安区</option><option value="罗湖">罗湖区</option><option value="龙华">龙华区</option><option value="龙岗">龙岗区</option></select></div>
+                    <div class="form-group"><label>具体位置</label><input type="text" id="subArea" placeholder="如：科技园、海岸城"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>人均价格</label><input type="text" id="price" placeholder="如：45 元"></div>
+                    <div class="form-group"><label>评分</label><select id="rating"><option value="4.5">4.5⭐</option><option value="4.6">4.6⭐</option><option value="4.7">4.7⭐</option><option value="4.8">4.8⭐</option><option value="4.9">4.9⭐</option><option value="5.0">5.0⭐</option></select></div>
+                </div>
+                <div class="form-group"><label>推荐菜 *</label><textarea id="recs" required placeholder="用顿号或逗号分隔，如：烤羊肉串、烤茄子、蒜蓉生蚝" style="min-height:80px"></textarea></div>
+                <div class="form-group">
+                    <label>标签</label>
+                    <div class="tags" id="tags"><input type="text" class="tag-input" id="tagInput" placeholder="输入标签后按回车"></div>
+                    <p style="font-size:0.85em;color:#6B7280;margin-top:6px">💡 推荐：快乐朵鹅推荐、高分宝藏、潮汕正宗、健康餐、夜宵、学生推荐</p>
+                </div>
+                <div class="form-group"><label>来源</label><select id="source"><option value="小红书">小红书</option><option value="大众点评">大众点评</option><option value="朋友推荐">朋友推荐</option><option value="自己吃过">自己吃过</option></select></div>
+                <div class="form-group"><label>来源链接（可选）</label><input type="url" id="link" placeholder="https://www.xiaohongshu.com/..."></div>
+                <div class="form-group">
+                    <label>店铺图片（可选）</label>
+                    <div class="image-upload" onclick="document.getElementById('image').click()">📷 点击上传图片（支持 JPG、PNG）</div>
+                    <input type="file" id="image" accept="image/*" style="display:none" onchange="previewImage(this)">
+                    <img id="preview" class="image-preview" style="display:none">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%">➕ 添加店铺</button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h2 style="color:var(--dark);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+                <span>📋 店铺列表</span>
+                <input type="text" class="search-box" id="search" placeholder="🔍 搜索店铺名称..." oninput="renderList()">
+            </h2>
+            <div id="list"></div>
+        </div>
+    </div>
+    
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>✏️ 编辑店铺</h2><button class="modal-close" onclick="closeModal()">&times;</button></div>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <div class="form-group"><label>店铺名称 *</label><input type="text" id="editName" required></div>
+                <div class="grid-2">
+                    <div class="form-group"><label>区域 *</label><select id="editArea"><option value="南山">南山区</option><option value="福田">福田区</option><option value="宝安">宝安区</option><option value="罗湖">罗湖区</option><option value="龙华">龙华区</option><option value="龙岗">龙岗区</option></select></div>
+                    <div class="form-group"><label>具体位置</label><input type="text" id="editSubArea"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>人均价格</label><input type="text" id="editPrice"></div>
+                    <div class="form-group"><label>评分</label><select id="editRating"><option value="4.5">4.5⭐</option><option value="4.6">4.6⭐</option><option value="4.7">4.7⭐</option><option value="4.8">4.8⭐</option><option value="4.9">4.9⭐</option><option value="5.0">5.0⭐</option></select></div>
+                </div>
+                <div class="form-group"><label>推荐菜 *</label><textarea id="editRecs" required style="min-height:80px"></textarea></div>
+                <div class="form-group"><label>标签</label><div class="tags" id="editTags"><input type="text" class="tag-input" id="editTagInput" placeholder="输入标签后按回车"></div></div>
+                <div class="form-group"><label>来源</label><select id="editSource"><option value="小红书">小红书</option><option value="大众点评">大众点评</option><option value="朋友推荐">朋友推荐</option><option value="自己吃过">自己吃过</option></select></div>
+                <div class="form-group"><label>来源链接</label><input type="url" id="editLink"></div>
+                <button type="submit" class="btn btn-primary" style="width:100%">💾 保存修改</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        let shops=[],userTags=[],editTags=[];
+        async function init(){await loadShops();renderList();updateStats();initTagInput('tagInput','tags',userTags);initTagInput('editTagInput','editTags',editTags);}
+        async function loadShops(){try{const user=JSON.parse(localStorage.getItem('userShops')||'[]');const res=await fetch('./data/shops.json');const data=await res.json();shops=[...user,...data.shops];}catch(e){shops=[];}}
+        function saveUserShops(){const user=shops.filter(s=>s.isUser);localStorage.setItem('userShops',JSON.stringify(user));updateStats();}
+        function updateStats(){document.getElementById('totalShops').textContent=shops.length;document.getElementById('userShops').textContent=shops.filter(s=>s.isUser).length;const today=new Date().toISOString().split('T')[0];document.getElementById('todayAdded').textContent=shops.filter(s=>s.addedDate===today).length;}
+        function initTagInput(inputId,containerId,tagArray){const input=document.getElementById(inputId);input.addEventListener('keydown',e=>{if(e.key==='Enter'&&input.value.trim()){e.preventDefault();tagArray.push(input.value.trim());renderTags(containerId,tagArray);input.value='';}});}
+        function renderTags(containerId,tagArray){const container=document.getElementById(containerId);container.innerHTML=tagArray.map((t,i)=>`<div class="tag">${t}<button onclick="removeTag('${containerId}',${i})">&times;</button></div>`).join('')+`<input type="text" class="tag-input" placeholder="输入标签后按回车" onkeydown="handleTagKey(event,'${containerId}')">`;}
+        function removeTag(containerId,index){if(containerId==='tags')userTags.splice(index,1);else editTags.splice(index,1);renderTags(containerId,containerId==='tags'?userTags:editTags);}
+        function handleTagKey(e,containerId){if(e.key==='Enter'&&e.target.value.trim()){e.preventDefault();const arr=containerId==='tags'?userTags:editTags;arr.push(e.target.value.trim());renderTags(containerId,arr);e.target.value='';}}
+        function previewImage(input){if(input.files&&input.files[0]){const reader=new FileReader();reader.onload=e=>{const img=document.getElementById('preview');img.src=e.target.result;img.style.display='block';img.dataset.base64=e.target.result;};reader.readAsDataURL(input.files[0]);}}
+        document.getElementById('addForm').addEventListener('submit',e=>{e.preventDefault();const img=document.getElementById('preview');const shop={id:'user_'+Date.now(),name:document.getElementById('name').value,area:document.getElementById('area').value,subArea:document.getElementById('subArea').value,price:document.getElementById('price').value||'价格未知',rating:document.getElementById('rating').value,recs:document.getElementById('recs').value.split(/[,,]/),tags:userTags.length?userTags:['用户推荐'],source:document.getElementById('source').value,source_link:document.getElementById('link').value,image:img.style.display!=='none'?img.dataset.base64:null,isUser:true,addedDate:new Date().toISOString().split('T')[0]};shops.unshift(shop);saveUserShops();renderList();document.getElementById('addForm').reset();userTags=[];renderTags('tags',userTags);document.getElementById('preview').style.display='none';alert('✅ 店铺添加成功！');});
+        function renderList(){const search=document.getElementById('search').value.toLowerCase();const filtered=shops.filter(s=>s.name.toLowerCase().includes(search)||s.area.includes(search)||s.recs.join('').toLowerCase().includes(search));const container=document.getElementById('list');if(filtered.length===0){container.innerHTML='<div class="empty">😋 没有找到相关店铺</div>';return;}container.innerHTML=filtered.map(s=>{const userBadge=s.isUser?'<span class="badge badge-user">🙋 我推荐的</span>':'';const tags=(s.tags||[]).map(t=>`<span class="shop-tag">${t}</span>`).join('');return `<div class="shop-item"><div class="shop-header"><div class="shop-name">${s.name}${userBadge}</div><div class="shop-actions"><button class="btn-edit" onclick="editShop('${s.id}')">✏️ 编辑</button><button class="btn-delete" onclick="deleteShop('${s.id}')">🗑️ 删除</button></div></div><div class="shop-meta"><span>📍 ${s.area}${s.subArea?'·'+s.subArea:''}</span><span>⭐ ${s.rating}</span><span>💰 ${s.price}</span><span>${s.source}</span></div><div class="shop-tags">${tags}</div><div class="shop-recs"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div>${s.image?`<img src="${s.image}" style="max-width:150px;border-radius:8px;margin-top:8px">`:''}</div>`;}).join('');}
+        function editShop(id){const shop=shops.find(s=>s.id===id);if(!shop)return;document.getElementById('editId').value=shop.id;document.getElementById('editName').value=shop.name;document.getElementById('editArea').value=shop.area;document.getElementById('editSubArea').value=shop.subArea||'';document.getElementById('editPrice').value=shop.price||'';document.getElementById('editRating').value=shop.rating;document.getElementById('editRecs').value=shop.recs.join(',');document.getElementById('editSource').value=shop.source;document.getElementById('editLink').value=shop.source_link||'';editTags=[...(shop.tags||[])];renderTags('editTags',editTags);document.getElementById('editModal').classList.add('show');}
+        function deleteShop(id){if(!confirm('确定要删除这家店铺吗？'))return;shops=shops.filter(s=>s.id!==id);saveUserShops();renderList();alert('✅ 已删除');}
+        document.getElementById('editForm').addEventListener('submit',e=>{e.preventDefault();const id=document.getElementById('editId').value;const shop=shops.find(s=>s.id===id);if(!shop)return;shop.name=document.getElementById('editName').value;shop.area=document.getElementById('editArea').value;shop.subArea=document.getElementById('editSubArea').value;shop.price=document.getElementById('editPrice').value;shop.rating=document.getElementById('editRating').value;shop.recs=document.getElementById('editRecs').value.split(/[,,]/);shop.source=document.getElementById('editSource').value;shop.source_link=document.getElementById('editLink').value;shop.tags=editTags;saveUserShops();renderList();closeModal();alert('✅ 已保存修改');});
+        function closeModal(){document.getElementById('editModal').classList.remove('show');editTags=[];}
+        function exportData(){const user=shops.filter(s=>s.isUser);const blob=new Blob([JSON.stringify({shops:user,exportDate:new Date().toISOString()},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='waimai-queen-export-'+new Date().toISOString().split('T')[0]+'.json';a.click();URL.revokeObjectURL(url);alert('✅ 已导出 '+user.length+' 家店铺');}
+        function importData(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{try{const data=JSON.parse(ev.target.result);if(data.shops){data.shops.forEach(s=>{s.id='user_'+Date.now()+'_'+Math.random();s.isUser=true;s.addedDate=new Date().toISOString().split('T')[0];shops.unshift(s);});saveUserShops();renderList();alert('✅ 已导入 '+data.shops.length+' 家店铺');}}catch(err){alert('❌ 导入失败：'+err.message);}};reader.readAsText(file);e.target.value='';}
+        init();
+    </script>
+</body>
+</html>
