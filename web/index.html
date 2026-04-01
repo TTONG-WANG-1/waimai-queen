@@ -290,30 +290,28 @@
             const userBadge=s.isUser?`<span class="tag" style="background:#10B981;color:white;border:none;font-size:0.75em;padding:2px 6px">🙋 我推荐的</span>`:'';
             // 批量删除勾选框
             const checkbox=`<input type="checkbox" class="batch-select" data-id="${s.id}" style="width:16px;height:16px;cursor:pointer;margin-right:6px" title="选择删除">`;
-            // 图片预览图标（有图片时显示）
-            const hasImage=(s.images&&s.images.length>0)||(s.image)?true:false;
-            const imageIcon=hasImage?`<button onclick="showImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.2em;margin-left:6px" title="查看图片">🖼️</button>`:'';
-            // 编辑按钮（用户店铺可编辑）
-            const editBtn=s.isUser?`<button onclick="openEdit('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.1em;margin-right:6px" title="编辑">✏️</button>`:'';
-            // 右上角添加图片按钮
-            const addImageBtn=`<button onclick="addImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.3em;margin-left:6px" title="添加图片">➕</button>`;
+            // 右上角添加图片按钮（唯一按钮）
+            const addImageBtn=`<button onclick="addImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.5em;margin-left:auto" title="添加/管理图片">➕</button>`;
             const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
             const linkText=s.source==='小红书'?'❤️ 小红书详情':s.source==='大众点评'?'💬 大众点评详情':'🔍 查看详情';
-            // 图片区域：支持多张图片（images 数组或单张 image）
+            // 图片区域：始终显示 4 个图片框
             const allImages=(s.images&&s.images.length>0)?s.images:(s.image?[s.image]:[]);
-            // 图片网格或推荐菜区域
-            let imageGrid='';
-            if(hasImage){
-                // 显示最多 4 张图片
-                const displayImages=allImages.slice(0,4);
-                imageGrid=`<div style="display:grid;grid-template-columns:repeat(${Math.min(4,allImages.length)},1fr);gap:6px;margin:10px 0">`;
-                displayImages.forEach((img,idx)=>{
-                    imageGrid+=`<img src="${img}" alt="${s.name} ${idx+1}" style="width:100%;height:80px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid #FDE68A" onclick="showImage('${s.id}',${idx})">`;
-                });
-                imageGrid+='</div>';
+            let imageGrid=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0">`;
+            for(let i=0;i<4;i++){
+                const imgUrl=allImages[i]||null;
+                if(imgUrl){
+                    imageGrid+=`<div style="height:90px;border:2px solid #FDE68A;border-radius:10px;position:relative;overflow:hidden;cursor:pointer" onclick="showImage('${s.id}',${i})">
+                        <img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover">
+                    </div>`;
+                }else{
+                    imageGrid+=`<div style="height:90px;border:2px dashed #FDE68A;border-radius:10px;position:relative;background:#FFFBEB;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="addImage('${s.id}')">
+                        <div style="font-size:32px;color:#9CA3AF;font-weight:300">+</div>
+                        <div style="position:absolute;bottom:6px;font-size:10px;color:#9CA3AF">添加</div>
+                    </div>`;
+                }
             }
-            const ratingHtml=`<div class="shop-rating">${editBtn}⭐ ${s.rating}${imageIcon}${addImageBtn}</div>`;
-            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name">${checkbox}${s.name}${userBadge}</div>${ratingHtml}</div><div class="shop-info"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div>${imageGrid}<div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
+            imageGrid+='</div>';
+            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name" style="flex:1">${checkbox}${s.name}${userBadge}</div>${addImageBtn}</div><div class="shop-info"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div>${imageGrid}<div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
         }
         
         // 编辑和删除功能
