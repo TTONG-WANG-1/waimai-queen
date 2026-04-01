@@ -50,8 +50,18 @@
         .stat{background:white;padding:16px;border-radius:12px;text-align:center;border:2px solid #FDE68A}
         .stat-num{font-size:2em;font-weight:800;color:var(--dark)}
         .stat-label{color:#6B7280;font-size:0.9em;margin-top:4px}
-        .image-upload{border:2px dashed #FDE68A;border-radius:10px;padding:20px;text-align:center;cursor:pointer;background:#FFFBEB}
-        .image-upload:hover{border-color:var(--primary);background:#FEF3C7}
+        .image-upload-area{border:2px dashed #FDE68A;border-radius:10px;padding:16px;background:#FFFBEB;margin-bottom:12px}
+        .image-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+        .image-box{aspect-ratio:1;border:2px dashed #FDE68A;border-radius:10px;position:relative;background:#FFFBEB;cursor:pointer;transition:all 0.2s;overflow:hidden}
+        .image-box:hover{border-color:var(--primary);background:#FEF3C7}
+        .image-box.filled{border-style:solid;border-color:#FDE68A}
+        .image-box .plus{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:48px;color:#9CA3AF;pointer-events:none}
+        .image-box .add-text{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:12px;color:#9CA3AF;pointer-events:none}
+        .image-box img{width:100%;height:100%;object-fit:cover}
+        .image-box .delete-btn{position:absolute;bottom:6px;right:6px;width:28px;height:28px;border-radius:50%;background:rgba(50,50,50,0.9);border:2px solid white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:white;line-height:1;transition:all 0.2s}
+        .image-box .delete-btn:hover{background:rgba(239,68,68,0.9);transform:scale(1.1)}
+        .image-upload-single{border:2px dashed #FDE68A;border-radius:10px;padding:20px;text-align:center;cursor:pointer;background:#FFFBEB}
+        .image-upload-single:hover{border-color:var(--primary);background:#FEF3C7}
         .image-preview{max-width:100%;max-height:200px;margin-top:10px;border-radius:8px}
         .upload-status{margin-top:8px;font-size:0.9em}
         .upload-status.uploading{color:var(--warning)}
@@ -108,12 +118,16 @@
                 <div class="form-group"><label>来源</label><select id="source"><option value="小红书">小红书</option><option value="大众点评">大众点评</option><option value="朋友推荐">朋友推荐</option><option value="自己吃过">自己吃过</option></select></div>
                 <div class="form-group"><label>来源链接</label><input type="url" id="link" placeholder="https://..."></div>
                 <div class="form-group">
-                    <label>店铺图片</label>
-                    <div class="image-upload" onclick="document.getElementById('image').click()">📷 点击上传（自动压缩 + 图床）</div>
-                    <input type="file" id="image" accept="image/*" style="display:none" onchange="previewAndUpload(this)">
-                    <img id="preview" class="image-preview" style="display:none">
+                    <label>店铺图片（最多 5 张）</label>
+                    <div class="image-upload-area">
+                        <div class="image-grid" id="imageGrid">
+                            <!-- 5 个图片框，动态生成 -->
+                        </div>
+                    </div>
+                    <input type="file" id="image" accept="image/*" style="display:none" onchange="handleImageSelect(this)">
+                    <input type="file" id="imageMulti" accept="image/*" multiple style="display:none" onchange="handleMultiImageSelect(this)">
                     <div id="uploadStatus" class="upload-status"></div>
-                    <input type="hidden" id="imageUrl">
+                    <input type="hidden" id="imageUrls">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:100%">➕ 添加店铺</button>
             </form>
@@ -150,21 +164,134 @@
                 <div class="form-group"><label>来源</label><select id="editSource"><option value="小红书">小红书</option><option value="大众点评">大众点评</option><option value="朋友推荐">朋友推荐</option><option value="自己吃过">自己吃过</option></select></div>
                 <div class="form-group"><label>来源链接</label><input type="url" id="editLink"></div>
                 <div class="form-group">
-                    <label>店铺图片</label>
-                    <div class="image-upload" onclick="document.getElementById('editImage').click()">📷 更换图片</div>
-                    <input type="file" id="editImage" accept="image/*" style="display:none" onchange="previewAndUpload(this,'edit')">
-                    <img id="editPreview" class="image-preview" style="display:none">
+                    <label>店铺图片（最多 5 张）</label>
+                    <div class="image-upload-area">
+                        <div class="image-grid" id="editImageGrid">
+                            <!-- 5 个图片框，动态生成 -->
+                        </div>
+                    </div>
+                    <input type="file" id="editImage" accept="image/*" style="display:none" onchange="handleEditImageSelect(this)">
+                    <input type="file" id="editImageMulti" accept="image/*" multiple style="display:none" onchange="handleEditMultiImageSelect(this)">
                     <div id="editUploadStatus" class="upload-status"></div>
-                    <input type="hidden" id="editImageUrl">
+                    <input type="hidden" id="editImageUrls">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:100%">💾 保存修改</button>
             </form>
         </div>
     </div>
     <script>
-        let shops=[],userTags=[],editTags=[];
+        let shops=[],userTags=[],editTags=[],uploadedImages=[],editUploadedImages=[];
         const PRESET_TAGS=['快乐朵鹅推荐','高分宝藏','潮汕正宗','健康餐','夜宵','学生推荐','科技园美食','海岸城美食','车公庙美食','平价食堂','适合聚餐','一人食','可堂食可外卖','新店开业'];
-        async function init(){await loadShops();renderPresetTags();renderList();updateStats();initTagInput('tagInput','tags',userTags);initTagInput('editTagInput','editTags',editTags);}
+        const MAX_IMAGES=5;
+        
+        // 渲染图片上传网格
+        function renderImageGrid(containerId, images, isEdit=false){
+            const container=document.getElementById(containerId);
+            let html='';
+            for(let i=0;i<MAX_IMAGES;i++){
+                const imgUrl=images[i]||null;
+                if(imgUrl){
+                    html+=`<div class="image-box filled" onclick="removeImage(${i},'${isEdit?'edit':'new'}')">
+                        <img src="${imgUrl}" alt="Image ${i+1}">
+                        <div class="delete-btn" title="删除">×</div>
+                    </div>`;
+                }else{
+                    html+=`<div class="image-box" onclick="triggerUpload(${i},'${isEdit?'edit':'new'}')">
+                        <div class="plus">+</div>
+                        <div class="add-text">${i===0?'添加图片':''}</div>
+                    </div>`;
+                }
+            }
+            container.innerHTML=html;
+        }
+        
+        // 触发文件选择
+        function triggerUpload(index,type){
+            const input=type==='edit'?document.getElementById('editImage'):document.getElementById('image');
+            input.dataset.index=index;
+            input.click();
+        }
+        
+        // 处理单张图片选择
+        async function handleImageSelect(input){
+            const index=parseInt(input.dataset.index||0);
+            const file=input.files[0];
+            if(!file)return;
+            await uploadSingleImage(file,index,'new');
+            input.value='';
+        }
+        
+        async function handleEditImageSelect(input){
+            const index=parseInt(input.dataset.index||0);
+            const file=input.files[0];
+            if(!file)return;
+            await uploadSingleImage(file,index,'edit');
+            input.value='';
+        }
+        
+        // 处理多张图片选择
+        async function handleMultiImageSelect(input){
+            const files=Array.from(input.files);
+            let uploaded=0;
+            for(let i=0;i<files.length&&uploadedImages.length<MAX_IMAGES;i++){
+                if(!uploadedImages.includes(null))break;
+                const emptyIdx=uploadedImages.findIndex(x=>!x);
+                if(emptyIdx>=0){
+                    await uploadSingleImage(files[i],emptyIdx,'new');
+                    uploaded++;
+                }
+            }
+            input.value='';
+        }
+        
+        async function handleEditMultiImageSelect(input){
+            const files=Array.from(input.files);
+            for(let i=0;i<files.length&&editUploadedImages.length<MAX_IMAGES;i++){
+                const emptyIdx=editUploadedImages.findIndex(x=>!x);
+                if(emptyIdx>=0){
+                    await uploadSingleImage(files[i],emptyIdx,'edit');
+                }
+            }
+            input.value='';
+        }
+        
+        // 上传单张图片
+        async function uploadSingleImage(file,index,type){
+            const status=document.getElementById(type==='edit'?'editUploadStatus':'uploadStatus');
+            const images=type==='edit'?editUploadedImages:uploadedImages;
+            status.textContent='⏳ 压缩并上传中...';
+            status.className='upload-status uploading';
+            try{
+                const compressed=await compressImage(file);
+                status.textContent='📤 上传中...';
+                const blob=await fetch(compressed).then(r=>r.blob());
+                const url=await uploadToSmMs(new File([blob],'image.jpg',{type:'image/jpeg'}));
+                images[index]=url;
+                renderImageGrid(type==='edit'?'editImageGrid':'imageGrid',images,type==='edit');
+                updateHiddenInput(type);
+                status.textContent='✅ 上传成功';
+                status.className='upload-status success';
+            }catch(e){
+                status.textContent='❌ 失败:'+e.message;
+                status.className='upload-status error';
+            }
+        }
+        
+        // 删除图片
+        function removeImage(index,type){
+            const images=type==='edit'?editUploadedImages:uploadedImages;
+            images[index]=null;
+            renderImageGrid(type==='edit'?'editImageGrid':'imageGrid',images,type==='edit');
+            updateHiddenInput(type);
+        }
+        
+        // 更新隐藏输入框
+        function updateHiddenInput(type){
+            const images=type==='edit'?editUploadedImages:uploadedImages;
+            const input=document.getElementById(type==='edit'?'editImageUrls':'imageUrls');
+            input.value=images.filter(x=>x).join(',');
+        }
+        async function init(){await loadShops();renderPresetTags();renderList();updateStats();initTagInput('tagInput','tags',userTags);initTagInput('editTagInput','editTags',editTags);renderImageGrid('imageGrid',uploadedImages,false);renderImageGrid('editImageGrid',editUploadedImages,true);}
         async function loadShops(){try{const user=JSON.parse(localStorage.getItem('userShops')||'[]');const res=await fetch('./data/shops.json');const data=await res.json();shops=[...user,...data.shops];}catch(e){shops=[];}}
         function saveUserShops(){const user=shops.filter(s=>s.isUser);localStorage.setItem('userShops',JSON.stringify(user));updateStats();}
         function updateStats(){document.getElementById('totalShops').textContent=shops.length;document.getElementById('userShops').textContent=shops.filter(s=>s.isUser).length;document.getElementById('pendingShops').textContent=shops.filter(s=>s.isPending).length;}
@@ -176,13 +303,13 @@
         function handleTagKey(e,cid){if(e.key==='Enter'&&e.target.value.trim()){e.preventDefault();const arr=cid==='tags'?userTags:editTags;arr.push(e.target.value.trim());renderTags(cid,arr);e.target.value='';}}
         function compressImage(file,maxSize=200000){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=e=>{const img=new Image();img.onload=()=>{const canvas=document.createElement('canvas');let w=img.width,h=img.height;const max=800;if(w>max||h>max){if(w>h){h=h*(max/w);w=max;}else{w=w*(max/h);h=max;}}canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);let q=0.9,r=canvas.toDataURL('image/jpeg',q);while(r.length>maxSize&&q>0.5){q-=0.1;r=canvas.toDataURL('image/jpeg',q);}resolve(r);};img.onerror=reject;img.src=e.target.result;};reader.readAsDataURL(file);});}
         async function uploadToSmMs(file){const fd=new FormData();fd.append('smfile',file);try{const res=await fetch('https://sm.ms/api/v2/upload',{method:'POST',body:fd,headers:{'User-Agent':'WaimaiQueen/1.0'}});const data=await res.json();if(data.success)return data.data.url;throw new Error(data.message||'上传失败');}catch(e){console.error(e);throw e;}}
-        async function previewAndUpload(input,prefix=''){const file=input.files[0];if(!file)return;const status=document.getElementById(prefix+'uploadStatus'),preview=document.getElementById(prefix+'preview'),urlIn=document.getElementById(prefix+'imageUrl');status.textContent='⏳ 压缩中...';status.className='upload-status uploading';try{const compressed=await compressImage(file);status.textContent='📤 上传中...';const blob=await fetch(compressed).then(r=>r.blob());const url=await uploadToSmMs(new File([blob],'image.jpg',{type:'image/jpeg'}));preview.src=url;preview.style.display='block';urlIn.value=url;status.textContent='✅ 上传成功';status.className='upload-status success';}catch(e){status.textContent='❌ 失败:'+e.message;status.className='upload-status error';const reader=new FileReader();reader.onload=ev=>{preview.src=ev.target.result;preview.style.display='block';urlIn.value=ev.target.result;};reader.readAsDataURL(file);}}
-        document.getElementById('addForm').addEventListener('submit',e=>{e.preventDefault();const shop={id:'user_'+Date.now(),name:document.getElementById('name').value,area:document.getElementById('area').value,subArea:document.getElementById('subArea').value,price:document.getElementById('price').value||'价格未知',rating:document.getElementById('rating').value,recs:document.getElementById('recs').value.split(/[,,]/),tags:userTags.length?userTags:['用户推荐','待验证'],source:document.getElementById('source').value,source_link:document.getElementById('link').value,image:document.getElementById('imageUrl').value||null,isUser:true,isPending:true,addedDate:new Date().toISOString().split('T')[0]};shops.unshift(shop);saveUserShops();renderList();document.getElementById('addForm').reset();userTags=[];renderTags('tags',userTags);document.querySelectorAll('#presetTags .preset-tag').forEach(el=>el.classList.remove('active'));document.getElementById('preview').style.display='none';document.getElementById('imageUrl').value='';document.getElementById('uploadStatus').textContent='';alert('✅ 已添加！新店铺带"待验证"标签');});
-        function renderList(){const search=document.getElementById('search').value.toLowerCase();const sort=document.getElementById('sortOrder').value;let filtered=shops.filter(s=>s.name.toLowerCase().includes(search)||s.area.includes(search)||s.recs.join('').toLowerCase().includes(search));if(sort==='rating')filtered.sort((a,b)=>parseFloat(b.rating)-parseFloat(a.rating));else if(sort==='newest')filtered.sort((a,b)=>(b.addedDate||'').localeCompare(a.addedDate||''));else if(sort==='name')filtered.sort((a,b)=>a.name.localeCompare(b.name));const c=document.getElementById('list');if(!filtered.length){c.innerHTML='<div class="empty">😋 未找到</div>';return;}c.innerHTML=filtered.map(s=>{const ub=s.isUser?'<span class="badge badge-user">🙋 我推荐的</span>':'';const pb=s.isPending?'<span class="badge badge-pending">⏳ 待验证</span>':'';const tags=(s.tags||[]).map(t=>'<span class="shop-tag'+(t==='待验证'?' pending':'')+'">'+t+'</span>').join('');return '<div class="shop-item"><div class="shop-header"><div class="shop-name">'+s.name+ub+pb+'</div><div class="shop-actions">'+(s.isUser?'<button class="btn-edit" onclick="editShop(\''+s.id+'\')">✏️ 编辑</button><button class="btn-delete" onclick="deleteShop(\''+s.id+'\')">🗑️ 删除</button>':'')+'</div></div><div class="shop-meta"><span>📍 '+s.area+(s.subArea?'·'+s.subArea:'')+'</span><span>⭐ '+s.rating+'</span><span>💰 '+s.price+'</span><span>'+s.source+'</span></div><div class="shop-tags">'+tags+'</div><div class="shop-recs"><strong>🌟 推荐：</strong>'+s.recs.join('、')+'</div>'+(s.image?'<img src="'+s.image+'" style="max-width:150px;border-radius:8px;margin-top:8px">':'')+'</div>';}).join('');}
-        function editShop(id){const shop=shops.find(s=>s.id===id);if(!shop)return;document.getElementById('editId').value=shop.id;document.getElementById('editName').value=shop.name;document.getElementById('editArea').value=shop.area;document.getElementById('editSubArea').value=shop.subArea||'';document.getElementById('editPrice').value=shop.price||'';document.getElementById('editRating').value=shop.rating;document.getElementById('editRecs').value=shop.recs.join(',');document.getElementById('editSource').value=shop.source;document.getElementById('editLink').value=shop.source_link||'';if(shop.image){document.getElementById('editPreview').src=shop.image;document.getElementById('editPreview').style.display='block';document.getElementById('editImageUrl').value=shop.image;}editTags=[...(shop.tags||[])];renderTags('editTags',editTags);document.querySelectorAll('#editPresetTags .preset-tag').forEach(el=>{if(editTags.includes(el.textContent))el.classList.add('active');else el.classList.remove('active');});document.getElementById('editModal').classList.add('show');}
+
+        document.getElementById('addForm').addEventListener('submit',e=>{e.preventDefault();const shop={id:'user_'+Date.now(),name:document.getElementById('name').value,area:document.getElementById('area').value,subArea:document.getElementById('subArea').value,price:document.getElementById('price').value||'价格未知',rating:document.getElementById('rating').value,recs:document.getElementById('recs').value.split(/[,,]/),tags:userTags.length?userTags:['用户推荐','待验证'],source:document.getElementById('source').value,source_link:document.getElementById('link').value,images:uploadedImages.filter(x=>x),image:uploadedImages[0]||null,isUser:true,isPending:true,addedDate:new Date().toISOString().split('T')[0]};shops.unshift(shop);saveUserShops();renderList();document.getElementById('addForm').reset();userTags=[];uploadedImages=[];renderTags('tags',userTags);renderImageGrid('imageGrid',uploadedImages,false);document.getElementById('imageUrls').value='';document.getElementById('uploadStatus').textContent='';alert('✅ 已添加！新店铺带"待验证"标签');});
+        function renderList(){const search=document.getElementById('search').value.toLowerCase();const sort=document.getElementById('sortOrder').value;let filtered=shops.filter(s=>s.name.toLowerCase().includes(search)||s.area.includes(search)||s.recs.join('').toLowerCase().includes(search));if(sort==='rating')filtered.sort((a,b)=>parseFloat(b.rating)-parseFloat(a.rating));else if(sort==='newest')filtered.sort((a,b)=>(b.addedDate||'').localeCompare(a.addedDate||''));else if(sort==='name')filtered.sort((a,b)=>a.name.localeCompare(b.name));const c=document.getElementById('list');if(!filtered.length){c.innerHTML='<div class="empty">😋 未找到</div>';return;}c.innerHTML=filtered.map(s=>{const ub=s.isUser?'<span class="badge badge-user">🙋 我推荐的</span>':'';const pb=s.isPending?'<span class="badge badge-pending">⏳ 待验证</span>':'';const tags=(s.tags||[]).map(t=>'<span class="shop-tag'+(t==='待验证'?' pending':'')+'">'+t+'</span>').join('');const images=(s.images||[s.image]).filter(x=>x);const imagesHtml=images.length?images.map(img=>'<img src="'+img+'" style="max-width:120px;height:120px;object-fit:cover;border-radius:8px;margin:4px 4px 0 0;display:inline-block">').join(''):'';return '<div class="shop-item"><div class="shop-header"><div class="shop-name">'+s.name+ub+pb+'</div><div class="shop-actions">'+(s.isUser?'<button class="btn-edit" onclick="editShop(\''+s.id+'\')">✏️ 编辑</button><button class="btn-delete" onclick="deleteShop(\''+s.id+'\')">🗑️ 删除</button>':'')+'</div></div><div class="shop-meta"><span>📍 '+s.area+(s.subArea?'·'+s.subArea:'')+'</span><span>⭐ '+s.rating+'</span><span>💰 '+s.price+'</span><span>'+s.source+'</span></div><div class="shop-tags">'+tags+'</div><div class="shop-recs"><strong>🌟 推荐：</strong>'+s.recs.join('、')+'</div>'+imagesHtml+'</div>';}).join('');}
+        function editShop(id){const shop=shops.find(s=>s.id===id);if(!shop)return;document.getElementById('editId').value=shop.id;document.getElementById('editName').value=shop.name;document.getElementById('editArea').value=shop.area;document.getElementById('editSubArea').value=shop.subArea||'';document.getElementById('editPrice').value=shop.price||'';document.getElementById('editRating').value=shop.rating;document.getElementById('editRecs').value=shop.recs.join(',');document.getElementById('editSource').value=shop.source;document.getElementById('editLink').value=shop.source_link||'';editUploadedImages=[...(shop.images||[shop.image]).filter(x=>x)];while(editUploadedImages.length<MAX_IMAGES)editUploadedImages.push(null);renderImageGrid('editImageGrid',editUploadedImages,true);document.getElementById('editImageUrls').value=editUploadedImages.filter(x=>x).join(',');editTags=[...(shop.tags||[])];renderTags('editTags',editTags);document.querySelectorAll('#editPresetTags .preset-tag').forEach(el=>{if(editTags.includes(el.textContent))el.classList.add('active');else el.classList.remove('active');});document.getElementById('editModal').classList.add('show');}
         function deleteShop(id){if(!confirm('确定删除？'))return;shops=shops.filter(s=>s.id!==id);saveUserShops();renderList();alert('✅ 已删除');}
-        document.getElementById('editForm').addEventListener('submit',e=>{e.preventDefault();const id=document.getElementById('editId').value;const shop=shops.find(s=>s.id===id);if(!shop)return;shop.name=document.getElementById('editName').value;shop.area=document.getElementById('editArea').value;shop.subArea=document.getElementById('editSubArea').value;shop.price=document.getElementById('editPrice').value;shop.rating=document.getElementById('editRating').value;shop.recs=document.getElementById('editRecs').value.split(/[,,]/);shop.source=document.getElementById('editSource').value;shop.source_link=document.getElementById('editLink').value;shop.tags=editTags;shop.image=document.getElementById('editImageUrl').value||shop.image;saveUserShops();renderList();closeModal();alert('✅ 已保存');});
-        function closeModal(){document.getElementById('editModal').classList.remove('show');editTags=[];}
+        document.getElementById('editForm').addEventListener('submit',e=>{e.preventDefault();const id=document.getElementById('editId').value;const shop=shops.find(s=>s.id===id);if(!shop)return;shop.name=document.getElementById('editName').value;shop.area=document.getElementById('editArea').value;shop.subArea=document.getElementById('editSubArea').value;shop.price=document.getElementById('editPrice').value;shop.rating=document.getElementById('editRating').value;shop.recs=document.getElementById('editRecs').value.split(/[,,]/);shop.source=document.getElementById('editSource').value;shop.source_link=document.getElementById('editLink').value;shop.tags=editTags;shop.images=editUploadedImages.filter(x=>x);shop.image=shop.images[0]||null;saveUserShops();renderList();closeModal();alert('✅ 已保存');});
+        function closeModal(){document.getElementById('editModal').classList.remove('show');editTags=[];editUploadedImages=[];}
         function exportData(){const user=shops.filter(s=>s.isUser);const blob=new Blob([JSON.stringify({shops:user,exportDate:new Date().toISOString()},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='waimai-export-'+new Date().toISOString().split('T')[0]+'.json';a.click();URL.revokeObjectURL(url);alert('✅ 已导出 '+user.length+' 家');}
         function importData(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{try{const data=JSON.parse(ev.target.result);if(data.shops){data.shops.forEach(s=>{s.id='user_'+Date.now()+'_'+Math.random();s.isUser=true;s.addedDate=new Date().toISOString().split('T')[0];shops.unshift(s);});saveUserShops();renderList();alert('✅ 已导入 '+data.shops.length+' 家');}}catch(err){alert('❌ 失败:'+err.message);}};reader.readAsText(file);e.target.value='';}
         init();
