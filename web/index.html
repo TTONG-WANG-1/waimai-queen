@@ -291,7 +291,7 @@
             const checkbox=`<input type="checkbox" class="batch-select" data-id="${s.id}" style="width:16px;height:16px;cursor:pointer;margin-right:6px" title="选择删除">`;
             // 右上角添加图片按钮（唯一按钮）
             const addImageBtn=`<button onclick="addImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.5em;margin-left:auto" title="添加/管理图片">➕</button>`;
-            const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
+            const link=s.source_link||`https://www.baidu.com/s?wd=${encodeURIComponent(s.name+' 深圳外卖')}`;
             const linkText='🔍 了解更多';
             // 图片区域：始终显示 4 个图片框
             const allImages=(s.images&&s.images.length>0)?s.images:(s.image?[s.image]:[]);
