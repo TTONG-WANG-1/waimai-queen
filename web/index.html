@@ -292,7 +292,7 @@
             // 右上角添加图片按钮（唯一按钮）
             const addImageBtn=`<button onclick="addImage('${s.id}')" style="background:none;border:none;cursor:pointer;font-size:1.5em;margin-left:auto" title="添加/管理图片">➕</button>`;
             const link=s.source_link||`https://www.google.com/search?q=${encodeURIComponent(s.name+' 深圳外卖')}`;
-            const linkText=s.source==='小红书'?'❤️ 小红书详情':s.source==='大众点评'?'💬 大众点评详情':'🔍 查看详情';
+            const linkText='🔍 了解更多';
             // 图片区域：始终显示 4 个图片框
             const allImages=(s.images&&s.images.length>0)?s.images:(s.image?[s.image]:[]);
             let imageGrid=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0">`;
@@ -312,7 +312,7 @@
             imageGrid+='</div>';
             // 编辑推荐菜按钮
             const editRecsBtn=s.isUser?`<button onclick="editRecs('${s.id}')" style="background:none;border:none;color:var(--primary-dark);cursor:pointer;font-size:0.85em;font-weight:700;margin-left:8px">✏️ 编辑</button>`:'';
-            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name" style="flex:1">${checkbox}${s.name}${userBadge}</div>${addImageBtn}</div><div class="shop-info"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${isNew}${tg}</div>${imageGrid}<div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}${editRecsBtn}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
+            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name" style="flex:1">${checkbox}${s.name}${userBadge}</div>${addImageBtn}</div><div class="shop-info"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${isNew}${tg}</div>${imageGrid}<div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}${editRecsBtn}</div><div class="source"><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
         }
         
         // 编辑和删除功能
