@@ -215,22 +215,33 @@
             if(navigator.geolocation){
                 navigator.geolocation.getCurrentPosition(pos=>{
                     userLat=pos.coords.latitude;userLng=pos.coords.longitude;
+                    console.log('📍 定位成功:',userLat,userLng);
                     const area=getAreaFromCoords(userLat,userLng);
-                    status.textContent=`📍 ${area}`;
+                    status.textContent=`📍 ${area||'已定位'}`;
                     if(area)selectDistrict(area.split('·')[0]);
                     btn.textContent='🔄 重定';btn.disabled=false;
-                },()=>{status.textContent='❌ 定位失败';btn.textContent='📍 重试';btn.disabled=false},{enableHighAccuracy:true,timeout:8000});
-            }else{status.textContent='❌ 不支持';btn.disabled=false}
+                },(err)=>{
+                    console.error('❌ 定位失败:',err);
+                    let msg='❌ 定位失败';
+                    if(err.code===1)msg='❌ 已拒绝定位请求';
+                    else if(err.code===2)msg='❌ 位置不可用';
+                    else if(err.code===3)msg='❌ 定位超时';
+                    status.textContent=msg;
+                    btn.textContent='📍 重试';btn.disabled=false;
+                },{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+            }else{status.textContent='❌ 浏览器不支持';btn.disabled=false}
         }
         
         function getAreaFromCoords(lat,lng){
             if(!lat||!lng)return null;
-            if(lng<113.95&&lat>22.55)return'宝安';
-            if(lng>=113.95&&lng<114.05&&lat>=22.52)return'南山';
-            if(lng>=114.05&&lng<114.15&&lat>=22.52)return'福田';
-            if(lng>=114.15)return'罗湖';
-            if(lat<22.52)return'宝安';
-            return'南山';
+            // 深圳大致范围：纬度 22.45-22.75, 经度 113.75-114.65
+            if(lat<22.45||lat>22.75||lng<113.75||lng>114.65)return null;
+            // 简化判断：根据经度大致划分区域
+            if(lng<113.90)return'宝安';
+            if(lng<114.00)return'南山';
+            if(lng<114.10)return'福田';
+            if(lng<114.20)return'罗湖';
+            return'龙岗';
         }
         
         function calcDist(lat1,lng1,lat2,lng2){const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180,a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))}
