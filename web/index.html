@@ -327,60 +327,116 @@
             }
         }
         
-        // 添加图片功能（首页直接上传）
-        let currentImageShopId=null;
+        // 添加图片功能（首页直接上传 - 4 个横向图片框）
+        let currentImageShopId=null,modalShopImages=[];
         function addImage(id){
             currentImageShopId=id;
             const user=JSON.parse(localStorage.getItem('userShops')||'[]');
             const shop=user.find(s=>s.id===id)||shopData.shops.find(s=>s.id===id);
             if(!shop){alert('❌ 未找到店铺');return;}
             
-            // 创建隐藏的文件选择器
+            // 获取现有图片
+            modalShopImages=(shop.images&&shop.images.length>0)?shop.images:(shop.image?[shop.image]:[]);
+            while(modalShopImages.length<4)modalShopImages.push(null);
+            
+            // 创建图片管理弹窗
+            const modal=document.createElement('div');
+            modal.id='imageManageModal';
+            modal.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;display:flex;justify-content:center;align-items:center';
+            
+            modal.innerHTML=`
+                <div style="background:white;border-radius:16px;padding:24px;max-width:600px;width:90%">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+                        <h3 style="margin:0;font-size:1.3em">📷 管理图片 - ${shop.name}</h3>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background:none;border:none;font-size:1.5em;cursor:pointer;color:#6B7280">&times;</button>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px" id="modalImageGrid"></div>
+                    <div style="text-align:center;color:#6B7280;font-size:0.9em">💡 点击空框添加图片，点击已上传图片的 × 删除</div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            renderModalImageGrid();
+        }
+        
+        function renderModalImageGrid(){
+            const grid=document.getElementById('modalImageGrid');
+            let html='';
+            for(let i=0;i<4;i++){
+                const imgUrl=modalShopImages[i];
+                if(imgUrl){
+                    html+=`<div style="height:100px;border:2px solid #FDE68A;border-radius:10px;position:relative;overflow:hidden">
+                        <img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover">
+                        <div style="position:absolute;bottom:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(50,50,50,0.9);border:2px solid white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:white" onclick="removeModalImage(${i})">×</div>
+                    </div>`;
+                }else{
+                    html+=`<div style="height:100px;border:2px dashed #FDE68A;border-radius:10px;position:relative;background:#FFFBEB;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="triggerModalUpload(${i})">
+                        <div style="font-size:36px;color:#9CA3AF;font-weight:300">+</div>
+                        <div style="position:absolute;bottom:6px;font-size:11px;color:#9CA3AF">添加图片</div>
+                    </div>`;
+                }
+            }
+            grid.innerHTML=html;
+        }
+        
+        function triggerModalUpload(index){
             const input=document.createElement('input');
             input.type='file';
             input.accept='image/*';
             input.onchange=async(e)=>{
                 const file=e.target.files[0];
                 if(!file)return;
-                
-                console.log(`⏳ 正在处理 "${shop.name}" 的图片...`);
-                
-                try{
-                    // 压缩并转换为 base64
-                    const base64=await compressAndConvert(file);
-                    
-                    // 保存图片 URL（base64 data URL）
-                    if(shop.isUser){
-                        // 用户店铺：更新 localStorage
-                        const userShops=JSON.parse(localStorage.getItem('userShops')||'[]');
-                        const idx=userShops.findIndex(s=>s.id===id);
-                        if(idx!==-1){
-                            userShops[idx].image=base64;
-                            localStorage.setItem('userShops',JSON.stringify(userShops));
-                        }
-                    }else{
-                        // 官方店铺：创建用户覆盖版本
-                        const userShops=JSON.parse(localStorage.getItem('userShops')||'[]');
-                        const updatedShop={...shop,image:base64,isUser:true};
-                        userShops.unshift(updatedShop);
-                        localStorage.setItem('userShops',JSON.stringify(userShops));
-                        
-                        // 保存到隐藏列表（避免重复显示）
-                        const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
-                        if(!hidden.includes(id)){
-                            hidden.push(id);
-                            localStorage.setItem('hiddenShops',JSON.stringify(hidden));
-                        }
-                    }
-                    
-                    alert(`✅ 图片添加成功！\n\n"${shop.name}" 已添加图片`);
-                    loadShops(); // 重新加载店铺列表
-                }catch(err){
-                    console.error('图片处理失败:',err);
-                    alert('❌ 图片处理失败：'+err.message);
-                }
+                await uploadModalImage(file,index);
             };
             input.click();
+        }
+        
+        async function uploadModalImage(file,index){
+            const shopId=currentImageShopId;
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const shop=user.find(s=>s.id===shopId)||shopData.shops.find(s=>s.id===shopId);
+            
+            try{
+                const base64=await compressAndConvert(file);
+                modalShopImages[index]=base64;
+                renderModalImageGrid();
+                
+                // 保存到 localStorage
+                if(shop&&shop.isUser){
+                    const idx=user.findIndex(s=>s.id===shopId);
+                    if(idx!==-1){
+                        user[idx].images=modalShopImages.filter(x=>x);
+                        user[idx].image=modalShopImages.find(x=>x)||null;
+                        localStorage.setItem('userShops',JSON.stringify(user));
+                    }
+                }else{
+                    const updatedShop={...shop,images:modalShopImages.filter(x=>x),image:modalShopImages.find(x=>x)||null,isUser:true};
+                    user.unshift(updatedShop);
+                    localStorage.setItem('userShops',JSON.stringify(user));
+                    const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
+                    if(!hidden.includes(shopId)){hidden.push(shopId);localStorage.setItem('hiddenShops',JSON.stringify(hidden));}
+                }
+            }catch(err){
+                alert('❌ 上传失败：'+err.message);
+            }
+        }
+        
+        function removeModalImage(index){
+            modalShopImages[index]=null;
+            renderModalImageGrid();
+            
+            const shopId=currentImageShopId;
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const shop=user.find(s=>s.id===shopId);
+            
+            if(shop&&shop.isUser){
+                const idx=user.findIndex(s=>s.id===shopId);
+                if(idx!==-1){
+                    user[idx].images=modalShopImages.filter(x=>x);
+                    user[idx].image=modalShopImages.find(x=>x)||null;
+                    localStorage.setItem('userShops',JSON.stringify(user));
+                }
+            }
         }
         
         // 图片压缩并转换为 base64
