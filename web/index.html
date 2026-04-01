@@ -311,7 +311,9 @@
                 }
             }
             imageGrid+='</div>';
-            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name" style="flex:1">${checkbox}${s.name}${userBadge}</div>${addImageBtn}</div><div class="shop-info"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div>${imageGrid}<div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
+            // 编辑推荐菜按钮
+            const editRecsBtn=s.isUser?`<button onclick="editRecs('${s.id}')" style="background:none;border:none;color:var(--primary-dark);cursor:pointer;font-size:0.85em;font-weight:700;margin-left:8px">✏️ 编辑</button>`:'';
+            return `<div class="shop-item" style="${isNew?'border-color:#ff2442;':''}"><div class="shop-header"><div class="shop-name" style="flex:1">${checkbox}${s.name}${userBadge}</div>${addImageBtn}</div><div class="shop-info"><span class="tag" style="font-size:0.75em;padding:2px 6px">💰 ${s.price}</span><span class="tag" style="font-size:0.75em;padding:2px 6px">📍 ${s.subArea}</span>${dist}${dt}${xhs}${isNew}${tg}</div>${imageGrid}<div class="recommend"><strong>🌟 推荐：</strong>${s.recs.join('、')}${editRecsBtn}</div><div class="source"><span class="badge${s.source==='大众点评'?' dianping':''}">${s.source}</span><a href="${link}" target="_blank" class="shop-link">${linkText}→</a></div></div>`;
         }
         
         // 编辑和删除功能
@@ -346,10 +348,14 @@
                 <div style="background:white;border-radius:16px;padding:24px;max-width:600px;width:90%">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
                         <h3 style="margin:0;font-size:1.3em">📷 管理图片 - ${shop.name}</h3>
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background:none;border:none;font-size:1.5em;cursor:pointer;color:#6B7280">&times;</button>
+                        <button onclick="closeImageModal()" style="background:none;border:none;font-size:1.5em;cursor:pointer;color:#6B7280">&times;</button>
                     </div>
                     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px" id="modalImageGrid"></div>
-                    <div style="text-align:center;color:#6B7280;font-size:0.9em">💡 点击空框添加图片，点击已上传图片的 × 删除</div>
+                    <div style="text-align:center;color:#6B7280;font-size:0.9em;margin-bottom:16px">💡 点击空框添加图片，点击已上传图片的 × 删除</div>
+                    <div style="display:flex;gap:12px;justify-content:flex-end">
+                        <button onclick="closeImageModal()" style="padding:10px 20px;background:#f3f4f6;border:none;border-radius:10px;cursor:pointer;font-weight:700;color:#6B7280">取消</button>
+                        <button onclick="saveImageModal()" style="padding:10px 20px;background:linear-gradient(135deg,#FBBF24,#F59E0B);color:white;border:none;border-radius:10px;cursor:pointer;font-weight:700">💾 保存</button>
+                    </div>
                 </div>
             `;
             document.body.appendChild(modal);
@@ -422,19 +428,91 @@
         function removeModalImage(index){
             modalShopImages[index]=null;
             renderModalImageGrid();
-            
+        }
+        
+        function closeImageModal(){
+            const modal=document.getElementById('imageManageModal');
+            if(modal)modal.remove();
+        }
+        
+        function saveImageModal(){
             const shopId=currentImageShopId;
             const user=JSON.parse(localStorage.getItem('userShops')||'[]');
             const shop=user.find(s=>s.id===shopId);
             
+            const filteredImages=modalShopImages.filter(x=>x);
+            const firstImage=modalShopImages.find(x=>x)||null;
+            
             if(shop&&shop.isUser){
                 const idx=user.findIndex(s=>s.id===shopId);
                 if(idx!==-1){
-                    user[idx].images=modalShopImages.filter(x=>x);
-                    user[idx].image=modalShopImages.find(x=>x)||null;
+                    user[idx].images=filteredImages;
+                    user[idx].image=firstImage;
                     localStorage.setItem('userShops',JSON.stringify(user));
                 }
+            }else{
+                const updatedShop={...shop,images:filteredImages,image:firstImage,isUser:true};
+                user.unshift(updatedShop);
+                localStorage.setItem('userShops',JSON.stringify(user));
+                const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
+                if(!hidden.includes(shopId)){hidden.push(shopId);localStorage.setItem('hiddenShops',JSON.stringify(hidden));}
             }
+            
+            closeImageModal();
+            loadShops();
+        }
+        
+        // 编辑推荐菜功能
+        function editRecs(id){
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const shop=user.find(s=>s.id===id)||shopData.shops.find(s=>s.id===id);
+            if(!shop){alert('❌ 未找到店铺');return;}
+            
+            const modal=document.createElement('div');
+            modal.id='editRecsModal';
+            modal.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;display:flex;justify-content:center;align-items:center';
+            
+            modal.innerHTML=`
+                <div style="background:white;border-radius:16px;padding:24px;max-width:500px;width:90%">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+                        <h3 style="margin:0;font-size:1.2em">✏️ 编辑推荐菜 - ${shop.name}</h3>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background:none;border:none;font-size:1.5em;cursor:pointer;color:#6B7280">&times;</button>
+                    </div>
+                    <textarea id="editRecsInput" style="width:100%;min-height:120px;padding:12px;border:2px solid #FDE68A;border-radius:10px;font-size:1em;font-family:inherit;resize:vertical" placeholder="用顿号或逗号分隔，如：宫保鸡丁、鱼香肉丝、麻婆豆腐">${shop.recs.join('、')}</textarea>
+                    <p style="font-size:0.85em;color:#6B7280;margin:8px 0 16px">💡 用顿号（、）或逗号（,）分隔多个菜品</p>
+                    <div style="display:flex;gap:12px;justify-content:flex-end">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="padding:10px 20px;background:#f3f4f6;border:none;border-radius:10px;cursor:pointer;font-weight:700;color:#6B7280">取消</button>
+                        <button onclick="saveRecs('${id}')" style="padding:10px 20px;background:linear-gradient(135deg,#FBBF24,#F59E0B);color:white;border:none;border-radius:10px;cursor:pointer;font-weight:700">💾 保存</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function saveRecs(id){
+            const input=document.getElementById('editRecsInput');
+            const newValue=input.value.trim();
+            if(!newValue){alert('⚠️ 推荐菜不能为空');return;}
+            
+            const user=JSON.parse(localStorage.getItem('userShops')||'[]');
+            const idx=user.findIndex(s=>s.id===id);
+            if(idx!==-1){
+                user[idx].recs=newValue.split(/[,,]/).map(s=>s.trim()).filter(s=>s);
+                localStorage.setItem('userShops',JSON.stringify(user));
+            }else{
+                const shop=shopData.shops.find(s=>s.id===id);
+                if(shop){
+                    const updatedShop={...shop,recs:newValue.split(/[,,]/).map(s=>s.trim()).filter(s=>s),isUser:true};
+                    user.unshift(updatedShop);
+                    localStorage.setItem('userShops',JSON.stringify(user));
+                    const hidden=JSON.parse(localStorage.getItem('hiddenShops')||'[]');
+                    if(!hidden.includes(id)){hidden.push(id);localStorage.setItem('hiddenShops',JSON.stringify(hidden));}
+                }
+            }
+            
+            document.getElementById('editRecsModal').remove();
+            loadShops();
+            alert('✅ 推荐菜已保存');
         }
         
         // 图片压缩并转换为 base64
