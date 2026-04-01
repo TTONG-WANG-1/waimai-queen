@@ -51,14 +51,14 @@
         .stat-num{font-size:2em;font-weight:800;color:var(--dark)}
         .stat-label{color:#6B7280;font-size:0.9em;margin-top:4px}
         .image-upload-area{border:2px dashed #FDE68A;border-radius:10px;padding:16px;background:#FFFBEB;margin-bottom:12px}
-        .image-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-        .image-box{aspect-ratio:1;border:2px dashed #FDE68A;border-radius:10px;position:relative;background:#FFFBEB;cursor:pointer;transition:all 0.2s;overflow:hidden}
+        .image-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+        .image-box{height:100px;border:2px dashed #FDE68A;border-radius:10px;position:relative;background:#FFFBEB;cursor:pointer;transition:all 0.2s;overflow:hidden}
         .image-box:hover{border-color:var(--primary);background:#FEF3C7}
         .image-box.filled{border-style:solid;border-color:#FDE68A}
-        .image-box .plus{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:48px;color:#9CA3AF;pointer-events:none}
-        .image-box .add-text{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:12px;color:#9CA3AF;pointer-events:none}
+        .image-box .plus{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;color:#9CA3AF;pointer-events:none;font-weight:300}
+        .image-box .add-text{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font-size:11px;color:#9CA3AF;pointer-events:none}
         .image-box img{width:100%;height:100%;object-fit:cover}
-        .image-box .delete-btn{position:absolute;bottom:6px;right:6px;width:28px;height:28px;border-radius:50%;background:rgba(50,50,50,0.9);border:2px solid white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:white;line-height:1;transition:all 0.2s}
+        .image-box .delete-btn{position:absolute;bottom:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(50,50,50,0.9);border:2px solid white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:white;line-height:1;transition:all 0.2s}
         .image-box .delete-btn:hover{background:rgba(239,68,68,0.9);transform:scale(1.1)}
         .image-upload-single{border:2px dashed #FDE68A;border-radius:10px;padding:20px;text-align:center;cursor:pointer;background:#FFFBEB}
         .image-upload-single:hover{border-color:var(--primary);background:#FEF3C7}
@@ -118,10 +118,10 @@
                 <div class="form-group"><label>来源</label><select id="source"><option value="小红书">小红书</option><option value="大众点评">大众点评</option><option value="朋友推荐">朋友推荐</option><option value="自己吃过">自己吃过</option></select></div>
                 <div class="form-group"><label>来源链接</label><input type="url" id="link" placeholder="https://..."></div>
                 <div class="form-group">
-                    <label>店铺图片（最多 5 张）</label>
+                    <label>店铺图片（最多 4 张）</label>
                     <div class="image-upload-area">
                         <div class="image-grid" id="imageGrid">
-                            <!-- 5 个图片框，动态生成 -->
+                            <!-- 4 个图片框，动态生成 -->
                         </div>
                     </div>
                     <input type="file" id="image" accept="image/*" style="display:none" onchange="handleImageSelect(this)">
@@ -164,10 +164,10 @@
                 <div class="form-group"><label>来源</label><select id="editSource"><option value="小红书">小红书</option><option value="大众点评">大众点评</option><option value="朋友推荐">朋友推荐</option><option value="自己吃过">自己吃过</option></select></div>
                 <div class="form-group"><label>来源链接</label><input type="url" id="editLink"></div>
                 <div class="form-group">
-                    <label>店铺图片（最多 5 张）</label>
+                    <label>店铺图片（最多 4 张）</label>
                     <div class="image-upload-area">
                         <div class="image-grid" id="editImageGrid">
-                            <!-- 5 个图片框，动态生成 -->
+                            <!-- 4 个图片框，动态生成 -->
                         </div>
                     </div>
                     <input type="file" id="editImage" accept="image/*" style="display:none" onchange="handleEditImageSelect(this)">
@@ -182,7 +182,7 @@
     <script>
         let shops=[],userTags=[],editTags=[],uploadedImages=[],editUploadedImages=[];
         const PRESET_TAGS=['快乐朵鹅推荐','高分宝藏','潮汕正宗','健康餐','夜宵','学生推荐','科技园美食','海岸城美食','车公庙美食','平价食堂','适合聚餐','一人食','可堂食可外卖','新店开业'];
-        const MAX_IMAGES=5;
+        const MAX_IMAGES=4;
         
         // 渲染图片上传网格
         function renderImageGrid(containerId, images, isEdit=false){
@@ -198,7 +198,7 @@
                 }else{
                     html+=`<div class="image-box" onclick="triggerUpload(${i},'${isEdit?'edit':'new'}')">
                         <div class="plus">+</div>
-                        <div class="add-text">${i===0?'添加图片':''}</div>
+                        <div class="add-text">添加图片</div>
                     </div>`;
                 }
             }
